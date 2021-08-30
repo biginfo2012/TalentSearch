@@ -7,6 +7,11 @@
 		var $data = array();
 		public function __construct() {
 			parent::__construct();
+            // Load form validation library
+            $this->load->library('form_validation');
+
+            // Load file helper
+            $this->load->helper('file');
 		}
 
 		public function render($content, $data = array()){

@@ -168,12 +168,12 @@ a.btn_search_mobile {
 .search_bar_list {
   float: right;
   position: relative;
-  top: 1px;
-  width: 450px;
+  top: 20px;
+  width: 350px;
 }
 @media (max-width: 991px) {
   .search_bar_list {
-    width: 300px;
+    width: 200px;
   }
 }
 @media (max-width: 767px) {

@@ -76,6 +76,25 @@ jQuery(document).ready(function() {
         }
     });
 
+    $('.media_link').click(function () {
+        window.location.href = $(this).find('a.media-link').attr('href')
+    })
+    // Hide dropdown menu on click outside
+    $(document).on("click", function(event){
+        if(!$(event.target).closest(".dropdown-searchcontent").length && !$(event.target).closest(".dropdown-searchbtn").length){
+            $('.dropdown-searchbtn').each(function () {
+                if($(this).hasClass("active")) {
+                    $(this).removeClass("active");
+                }
+            })
+            $('.dropdown-searchcontent').each(function () {
+                if($(this).hasClass("show")) {
+                    $(this).removeClass("show");
+                }
+            })
+        }
+    });
+
     $('.dropdown-searchbtn').click(function(ev) {
         var contentName = this.getAttribute("content-name");
         if($(this).hasClass("active")) {
@@ -83,12 +102,29 @@ jQuery(document).ready(function() {
         } else {
             $(this).addClass("active");
         }
+        $('.dropdown-searchcontent').each(function(){
+            if($(this).hasClass(contentName)){
+                if($('.'+contentName).hasClass("show")) {
+                    $('.'+contentName).removeClass("show");
+                    if($(this).hasClass("active")) {
+                        $(this).removeClass("active");
+                    }
+                } else {
+                    $('.'+contentName).addClass("show");
+                    if(!$(this).hasClass("active")) {
+                        $(this).addClass("active");
+                    }
+                }
+            }
+            else{
+                $(this).removeClass('show');
+                if($(this).prev().hasClass("active")) {
+                    $(this).prev().removeClass("active");
+                }
+            }
+        })
 
-        if($('.'+contentName).hasClass("show")) {
-            $('.'+contentName).removeClass("show");
-        } else {
-            $('.'+contentName).addClass("show");
-        }
+
         $('.'+contentName).hasClass()
     });
 });
@@ -100,6 +136,7 @@ function onClickSearch(){
     $("form label").each(function() {
         if($(this).hasClass("active")) {
             $("input[name='" + this.getAttribute("name") + "']").val('1');
+            console.log(this.getAttribute("name"));
         } else {
             $("input[name='" + this.getAttribute("name") + "']").val('');
         }
@@ -109,6 +146,19 @@ function onClickSearch(){
 
     $('#kt_search_form').submit();
 }
+
+//# sourceMappingURL=data-ajax.js.map
+function onClickClear(){
+    $("form label").each(function() {
+        if($(this).hasClass("active")) {
+           $(this).removeClass('active');
+        }
+    });
+    $("form input").each(function() {
+        $(this).val('');
+    });
+}
+
 
 function showSearch(){
     var isVisible = $('.card-footer').is( ":visible" );

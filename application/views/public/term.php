@@ -289,7 +289,7 @@
 					<h2>お問い合わせ<br><span>Contact</span></h2>
 					</div>
 					<p class="link-qa"><a href="/qa">よくある質問</a></p>
-					<p class=""><a href="mailto:support@icon-suite.com">support@icon-suite.com</a></p>
+					<p class=""><a href="mailto:info@hermandot.co.jp">info@hermandot.co.jp</a></p>
 				</div>
 			</div>
 		</div>

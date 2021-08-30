@@ -44,6 +44,14 @@ var KTDatatableRemoteAjaxDemo = function() {
                }
            },
         });
+        $('#kt_select2_5').select2({
+            placeholder: '',
+            "language": {
+                "noResults": function(){
+                    return "結果が見つかりません";
+                }
+            },
+        });
         $('#kt_select2_10').select2({
             placeholder: '',
             minimumResultsForSearch: Infinity

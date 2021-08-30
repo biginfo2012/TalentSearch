@@ -63,12 +63,53 @@ var indexPage = function() {
 
 jQuery(document).ready(function() {
     indexPage.init();
+    $("[name=copy]").on("click", function(){
+        $("#copy_modal").modal('show');
+    });
     $('#keyword').keypress(function(ev) {
         if (ev.keyCode === 13) {
             $('#form_keyword').val(!ev.target.value ? '' : ev.target.value);
             $('#kt_search_form').submit();
         }
     });
+    $('#btn_submit').click(function () {
+        document.send.submit();
+    })
+    $('.bookmark').click(function () {
+        let id = $(this).data('influencer-id');
+        if($(this).hasClass('on')){
+            $(this).removeClass('on')
+            $.ajax({
+                url: HOST_URL + "talents/delFavourite/" + id,
+                type: 'post',
+                contentType: false,
+                processData: false,
+            }).done(function (response) {
+                var data = JSON.parse(response);
+                if(data.success){
+                    toastr.success(data.msg);
+                }else{
+                    toastr.error(data.msg);
+                }
+            });
+        }
+        else{
+            $(this).addClass('on')
+            $.ajax({
+                url: HOST_URL + "talents/addFavourite/" + id,
+                type: 'post',
+                contentType: false,
+                processData: false,
+            }).done(function (response) {
+                var data = JSON.parse(response);
+                if(data.success){
+                    toastr.success(data.msg);
+                }else{
+                    toastr.error(data.msg);
+                }
+            });
+        }
+    })
 });
 
 /******/ })()

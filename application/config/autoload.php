@@ -136,5 +136,6 @@ $autoload['language'] = array();
 $autoload['model'] = array(
 	'User_model' => 'user',
 	'Talent_model' => 'talent',
-	'Context_model' => 'context'
+	'Context_model' => 'context',
+    'Favourite_model' => 'favourite'
 );

@@ -275,6 +275,34 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-4">
+                                        <label>Weibofw数:</label>
+                                        <input type="number" name="weibo_fw_count"  value = "<?= isset($talent)?$talent['weibo_fw_count']:'' ?>" class="form-control">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>WeChatfw数:</label>
+                                        <input type="number" name="wechat_fw_count"  value = "<?= isset($talent)?$talent['wechat_fw_count']:'' ?>" class="form-control">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>REDfw数:</label>
+                                        <input type="text" name="red_fw_count"  value = "<?= isset($talent)?$talent['red_fw_count']:'' ?>" class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-4">
+                                        <label>抖音fw数:</label>
+                                        <input type="number" name="keyin_fw_count"  value = "<?= isset($talent)?$talent['keyin_fw_count']:'' ?>" class="form-control">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>関係値:</label>
+                                        <input type="number" name="relationship"  value = "<?= isset($talent)?$talent['relationship']:'' ?>" class="form-control">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>スリーサイズ:</label>
+                                        <input type="number" name="threesize"  value = "<?= isset($talent)?$talent['threesize']:'' ?>" class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-4">
                                         <label>その他のSNS:</label>
                                         <input type="text" name="sns_url"  value = "<?= isset($talent)?$talent['sns_url']:'' ?>" class="form-control">
                                     </div>
