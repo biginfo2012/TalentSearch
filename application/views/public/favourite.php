@@ -121,15 +121,7 @@
                                 <span class="tag"><?=empty($item["level"])? '': "ランク: ".$this->talent->level[$item["level"] - 1]?></span>
                                 <a href="#">
                                     <p>フォロワー数: <?=number_format($item["it_fw"], 0, '.', ',')?></p>
-                                    <h3><?=empty($item["name"]) ? '名前ない' : $item["name"]?></h3>
-                                </a>
-                                <p>所属事務所: <?=$item["belonging"]?>
-                                </p>
-                                <hr>
-                                <h5 class="author">担当者名: <?=$item["charge_name"]?></h5>
-                            </div>
-
-                        </div>
+                                    <h3><?=empty($item["per_page"]) ? '名前ない' : $item["name"]?></h3>#21069;ない' : $item["name"]?></h3>#21069;ない' : $item["name"]?></h3>#21069;ない' : $item["name"]?></h3>#21069;ない' : $item["name"]?></h3>#21069;ない' : $item["name"]?></h3>#21069;ない' : $item["name"]?></h3>#21069;ない' : $item["name"]?></h3>#21069;ない' : $item["name"]?></h3>></h3> </div>
                     </div>
                 <?php }
                 if($pagination['total'] <= 0) { ?>
