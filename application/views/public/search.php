@@ -74,8 +74,8 @@
                     </div>
 
                     <div class="dropdown-search">
-                        <a class="btn btn-outline-secondary dropdown-searchbtn <?=!empty($query["insite"]) ? 'set' :'' ?>" content-name="content-insite"><span>インサイト</span></a>
-                        <div class="dropdown-searchcontent content-insite" style="position: fixed; left: 0; top: 105px; bottom: 0; overflow-y: scroll;">
+                        <a class="btn btn-outline-secondary dropdown-searchbtn <?=!empty($query["insite"]) ? 'set' :'' ?>" content-name="content-insite">インサイト</a>
+                        <div class="dropdown-searchcontent content-insite" style="position: fixed; left: 0; top: 60px; bottom: 0; overflow-y: scroll;">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -486,8 +486,8 @@
                     </div>
 
                     <div class="dropdown-search">
-                        <a class="btn btn-outline-secondary dropdown-searchbtn" content-name="content-detail"><span>詳細条件</span></a>
-                        <div class="dropdown-searchcontent content-detail" style="position: fixed; left: 0; top: 105px; bottom: 0; overflow-y: scroll;">
+                        <a class="btn btn-outline-secondary dropdown-searchbtn" content-name="content-detail">詳細条件</a>
+                        <div class="dropdown-searchcontent content-detail" style="position: fixed; left: 0; top: 60px; bottom: 0; overflow-y: scroll;">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -995,6 +995,7 @@
                     <div class="search_bar_list">
                         <input type="text" class="form-control" id="keyword" name="keyword" value="<?= $query["keyword"]?>" placeholder="検索...">
                     </div>
+
                     <a class="btn_search_mobile btn_filters" data-toggle="collapse" href="#collapseSearch"><i class="icon_search"></i></a>
                 </form>
 		    </div>
@@ -1010,43 +1011,13 @@
 		<!-- <div class="card-footer collapse justify-content-center">
             
         </div> -->
-        <section class="no-pad" style="margin-top: 207px">
-            <div class="container-fluid no-max no-pad">
-                <div class="row" style="width: 80%; margin-left: 10% !important; margin-right: 10% !important;">
-
-                    <!-- Masonry -->
-                    <div class="masonry two-col no-margin">
-                        <div class="grid-sizer"></div>
-                        <?php foreach ($talents as $item) { ?>
-                        <div class="grid-item">
-                            <a href="<?=base_url()?>talents/popview/<?=$item["id"]?>" data-lity><img src="<?= empty($item['it_img']) ? upload_url(). 'default.jpg' : upload_url() . $item['it_img'] ?>" alt="">
-                                <div class="project-info">
-                                    <h5><?=empty($item["level"])? '': "ランク: ".$this->talent->level[$item["level"] - 1]?></h5>
-                                    <h2><?=empty($item["name"]) ? '名前ない' : $item["name"]?></h2>
-                                    <p><?=$item["occupation"]?></p>
-                                </div>
-                            </a>
-                        </div>
-                        <?php }
-                        if($pagination['total'] <= 0) { ?>
-                            <div class="card card-custom">
-                                <div class="card-body">
-                                    <a class="text-white text-hover-white opacity-75 hover-opacity-100" style="color:black !important;">検索結果がありません。</a>
-                                </div>
-                            </div>
-                        <?php }?>
-                        <!-- end of item -->
-                    </div>
-                </div>
-            </div>
-        </section>
 		
-		<div class="content d-flex flex-column flex-column-fluid isotope-wrapper" id="kt_content" style="padding-top: 107px">
+		<div class="content d-flex flex-column flex-column-fluid isotope-wrapper" id="kt_content" style="padding-top: 70px">
 			<!--begin::Entry-->
-			<div class="d-flex flex-column-fluid isotope-itemt" style="background-color: #eaeff3;">
+			<div class="d-flex flex-column-fluid isotope-itemt">
 				<!--begin::Container-->
 				<div class="container">
-                    <div class="row pb-0">
+                    <div class="row">
                         <div class="subheader py-2 subheader-transparen isotope-itemt col-12" id="kt_subheader" style="color: black;">
                             <div class="container d-flex align-items-end justify-content-between flex-wrap flex-sm-nowrap" style="padding-left: 0px;">
                                 <!--begin::Info-->
@@ -1158,6 +1129,7 @@
                                 <div class="d-flex flex-wrap mr-3">
                                     <div class="form-group">
                                         <select class="form-control" id="perpage" onchange="javascript:onClickSearch();">
+                                            <option value="10" <?=($pagination["perpage"] == 10)?"selected":"";?>>10</option>
                                             <option value="20" <?=($pagination["perpage"] == 20)?"selected":"";?>>20</option>
                                             <option value="50" <?=($pagination["perpage"] == 50)?"selected":"";?>>50</option>
                                             <option value="100" <?=($pagination["perpage"] == 100)?"selected":"";?>>100</option>
@@ -1171,9 +1143,204 @@
                     </div>
                     <!--end::Pagination-->
 					<!--begin::Card-->
+					<?php foreach ($talents as $item) { ?>
+						<div class="card card-custom gutter-b">
+							<div class="card-body">
+								<!--begin::Top-->
+								<div class="d-flex">
+									<!--begin::Pic-->
+									<div class="flex-shrink-0 mr-7">
+                                        <a href="<?=base_url()?>talents/view/<?=$item["id"]?>">
+                                            <div class="symbol symbol-50 symbol-lg-120" style="width: 120px;">
+                                                <div class="talentimg-search" style="background-image: url('<?= empty($item['it_img']) ? upload_url(). 'default.jpg' : upload_url() . $item['it_img'] ?>'); height: 120px;"></div>
+                                            </div>
+                                        </a>
+									</div>
+									<!--end::Pic-->
+									<!--begin: Info-->
+									<div class="flex-grow-1">
+										<!--begin::Title-->
+										<div class="d-flex align-items-center justify-content-between flex-wrap mt-2">
+											<!--begin::User-->
+                                            <div class="mr-3">
+                                                <!--begin::Contacts-->
+                                                <div class="d-flex flex-wrap my-2">
+                                                    <span  class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                                        <h3><?=empty($item["name"]) ? '名前ない' : $item["name"]?></h3>
+                                                        <p style="color: <?=$item["gender"]== 1 ? '#3699ff' : ($item["gender"]== 2 ? '#f9316c' : 'black')?>;"><?=$item["gender"]== 1 ? '男性' : ($item["gender"]== 2 ? '女性' : 'その他')?> <?=calcAge($item['birthday'])?>歳</p>
+                                                        <p>フォロワー数: <?=number_format($item["it_fw"], 0, '.', ',')?></p>
+                                                        <p>活動拠点: <?=$item["activity_base"]?></p>
+                                                    </span>
+                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                                        <h3>&nbsp;</h3>
+                                                        <p>ID: <?=$item["user_id"]?></p>
+                                                        <p style="color: #3699ff;">男性比率: <?= $item["it_male_ratio"]?>%</p>
+                                                        <p>関係値: <?=$item["relationship"]?></p>
+                                                    </span>
+                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                                        <h3>&nbsp;</h3>
+                                                        <p>担当者名: <?=$item["charge_name"]?></p>
+                                                        <p style="color: #f9316c;">女性比率: <?= $item["it_female_ratio"]?>%</p>
+                                                        <p>所属事務所: <?=$item["belonging"]?></p>
+                                                    </span>
+                                                </div>
+                                                <!--end::Contacts-->
+                                            </div>
+											<!--begin::User-->
+											<!--begin::Actions-->
+											<?php if($user) { ?>
+												<div class="my-lg-0 my-1">
+                                                    <span class="text-muted font-weight-bold">
+                                                        <h3 style="font-weight: bold; text-align: right; color: <?= ($item["level"] === '1') ? '#ca1d2a' : (($item["level"] === '2') ? '#1BC5BD' : (($item["level"] === '3') ? '#00b0ec' : '#FFA800'))?>"><?=empty($item["level"])? '': "ランク: ".$this->talent->level[$item["level"] - 1]?></h3>
+                                                    </span>
+													<a class="btn btn-sm btn-light-primary font-weight-bolder text-uppercase mr-2">フォローする</a>
+													<a class="btn btn-sm btn-success font-weight-bolder text-uppercase">ブックマーク</a>
+												</div>
+											<?php } ?>
+											<!--end::Actions-->
+										</div>
+										<!--end::Title-->
+									</div>
+									<!--end::Info-->
+								</div>
+								<!--end::Top-->
+                                <!--begin::Content-->
+                                <div class="d-flex align-items-center flex-wrap justify-content-between">
+                                    <!--begin::Description-->
+                                    <div class="flex-grow-1 font-weight-bold text-dark-50 py-2 py-lg-2 mr-5">
+                                        <p>依頼金額: <?=$item["amount"]?></p>
+                                        <p>職業: <?=$item["occupation"]?></p>
+                                        <p>契約書: <?=$item["contract"]?></p>
+                                        <?php if(!empty($item["note"])) echo "<p>".$item["note"]."</p>"; ?>
+                                    </div>
+                                    <!--end::Description-->
+                                </div>
+                                <!--end::Content-->
+								<!--begin::Separator-->
+								<div class="separator separator-solid"></div>
+								<!--end::Separator-->
+								<!--begin::Bottom-->
+								<div class="d-flex align-items-center flex-wrap">
+                                    <!--begin: Item-->
+                                    <!--div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+										<span class="mr-4">
+                                            <a class="media-link" href="javascript:void(0);">
+											    <i class="flaticon-users-1 icon-2x text-muted font-weight-bold"></i>
+                                            </a>
+										</span>
+                                        <div class="d-flex flex-column text-dark-75">
+                                            <span class="font-weight-bolder font-size-sm">Follows</span>
+                                            <span class="font-weight-bolder font-size-h5"><?=$item["it_fw"]? number_format($item["it_fw"],0,".",","):'0'?></span>
+                                        </div>
+                                    </div-->
+                                    <!--end: Item-->
+                                    <!--begin: Item-->
+                                    <div class="d-flex align-items-center flex-lg-fill mr-5 my-1 media_link">
+										<span class="mr-4">
+                                            <a class="media-link" href="<?=empty($item['it_url'])?'javascript:void(0);':$item['it_url']?>">
+											    <i class="flaticon-instagram-logo icon-2x font-weight-bold" style="color: #f9316c"></i>
+                                            </a>
+										</span>
+                                        <div class="d-flex flex-column flex-lg-fill"><span class="font-weight-bolder font-size-sm">Instagram</span>
+                                            <span class="font-weight-bolder font-size-h5"><?=$item["it_fw"]? number_format($item["it_fw"],0,".",","):'0'?></span>
+                                        </div>
+                                    </div>
+                                    <!--end: Item-->
+                                    <!--begin: Item-->
+                                    <div class="d-flex align-items-center flex-lg-fill mr-5 my-1 media_link">
+										<span class="mr-4">
+                                            <a class="media-link" href="<?=empty($item['tw_url'])?'javascript:void(0);':$item['tw_url']?>">
+											    <i class="flaticon-twitter-logo-button icon-2x font-weight-bold" style="color: #00b0ec"></i>
+                                            </a>
+										</span>
+                                        <div class="d-flex flex-column">
+                                            <span class="font-weight-bolder font-size-sm">Twitter</span>
+                                            <span class="font-weight-bolder font-size-h5"><?=$item["tw_fw"]? number_format($item["tw_fw"],0,".",","):'0'?></span>
+                                        </div>
+                                    </div>
+                                    <!--end: Item-->
+									<!--begin: Item-->
+									<div class="d-flex align-items-center flex-lg-fill mr-5 my-1 media_link">
+										<span class="mr-4">
+                                            <a class="media-link" href="<?=empty($item['yt_url'])?'javascript:void(0);':$item['yt_url']?>">
+											    <i class="flaticon-youtube icon-2x font-weight-bold" style="color: #ca1d2a"></i>
+                                            </a>
+										</span>
+										<div class="d-flex flex-column text-dark-75">
+											<span class="font-weight-bolder font-size-sm">Youtube</span>
+											<span class="font-weight-bolder font-size-h5"><?=$item["yt_fw"]? number_format($item["yt_fw"],0,".",","):'0'?></span>
+										</div>
+									</div>
+									<!--end: Item-->
+									<!--begin: Item-->
+									<div class="d-flex align-items-center flex-lg-fill mr-5 my-1 media_link">
+										<span class="mr-4">
+                                            <a class="media-link" href="<?=empty($item['tt_url'])?'javascript:void(0);':$item['tt_url']?>">
+											    <i class="flaticon-facebook-logo-button icon-2x font-weight-bold" style="color: #1a121f"></i>
+                                            </a>
+										</span>
+										<div class="d-flex flex-column text-dark-75">
+											<span class="font-weight-bolder font-size-sm">TicTok</span>
+											<span class="font-weight-bolder font-size-h5"><?=$item["tt_fw"]? number_format($item["tt_fw"],0,".",","):'0'?></span>
+										</div>
+									</div>
+									<!--end: Item-->
 
+								</div>
+								<!--end::Bottom-->
+							</div>
+						</div>
+					<?php }
+					if($pagination['total'] <= 0) { ?>
+                        <div class="card card-custom">
+							<div class="card-body">
+                                <a class="text-white text-hover-white opacity-75 hover-opacity-100" style="color:black !important;">検索結果がありません。</a>
+                            </div>
+                        </div>
+                    <?php }?>
 
 					<!--end::Card-->
+					<!--begin::Pagination-->
+					<div class="card card-custom">
+						<div class="card-body">
+							<!--begin::Pagination-->
+                            <?php if($pagination['total'] > 0) { ?>
+							<div class="d-flex justify-content-between align-items-center flex-wrap">
+								<div class="d-flex flex-wrap mr-3">
+									<a href="javascript:goPage(1)" class="btn btn-icon btn-sm btn-light-success mr-2 my-1">
+										<i class="ki ki-bold-double-arrow-back icon-xs"></i>
+									</a>
+									<?php if(($pagination["page"]-1) == 0) {?>
+									<a class="btn btn-icon btn-sm btn-light-default mr-2 my-1">
+										<i class="ki ki-bold-arrow-back icon-xs"></i>
+									</a>
+									<?php }else { ?>
+									<a href="javascript:goPage('<?= $pagination["page"]-1?>')" class="btn btn-icon btn-sm btn-light-success mr-2 my-1">
+										<i class="ki ki-bold-arrow-back icon-xs"></i>
+									</a>
+									<?php } ?>
+									<?php for($i = $pagination["start_page"]; $i < $pagination["end_page"] ; $i ++) { if($i <= $pagination["total_page"]) {?>
+										<a href="javascript:goPage('<?=$i ?>')" class="btn btn-icon btn-sm border-0 btn-hover-success mr-2 my-1 <?=$i == $pagination["page"]? 'active': ''?>"><?= $i?></a>
+									<?php } } ?>
+									<?php if(($pagination["page"]+1) > $pagination["total_page"]) {?>
+									<a class="btn btn-icon btn-sm btn-light-default mr-2 my-1">
+										<i class="ki ki-bold-arrow-next icon-xs"></i>
+									</a>
+									<?php }else { ?>
+									<a href="javascript:goPage('<?= $pagination["page"]+1?>')" class="btn btn-icon btn-sm btn-light-success mr-2 my-1">
+										<i class="ki ki-bold-arrow-next icon-xs"></i>
+									</a>
+									<?php } ?>
+									<a href="javascript:goPage('<?= $pagination["total_page"]?>')" class="btn btn-icon btn-sm btn-light-success mr-2 my-1">
+										<i class="ki ki-bold-double-arrow-next icon-xs"></i>
+									</a>
+								</div>
+							</div>
+                            <?php } ?>
+							<!--end:: Pagination-->
+						</div>
+					</div>
+					<!--end::Pagination-->
 				</div>
 				<!--end::Container-->
 			</div>
@@ -1189,34 +1356,11 @@
 	
 	<div class="layer"></div><!-- Opacity Mask Menu Mobile -->
     <!-- Search Modal -->
-    <div id="search-modal">
-        <img src="img/exit.svg" class="exit" alt="">
-        <form class="search-form" action="post">
-            <label>What are you looking for?</label>
-            <input type="text" placeholder="Your search term here...">
-            <span>Press <b class="primary">enter</b> to confirm search term</span>
-        </form>
-    </div>
 	
     <script src="<?=asset_url()?>scripts/search.js"></script>
     <style type="text/css">
-        iframe>nav#dark{
+        header{
             display: none !important;
-        }
-        nav#dark{
-            display: none !important;
-        }
-        .lity-iframe .lity-container, .lity-youtube .lity-container, .lity-vimeo .lity-container, .lity-googlemaps .lity-container{
-            max-width: 100%;
-        }
-        .masonry .grid-item a:hover{
-            z-index: 0 !important;
-        }
-        .masonry.two-col.no-margin .grid-sizer, .masonry.two-col.no-margin .grid-item{
-            width: 25% !important;
-        }
-        header#sp3{
-            margin-top: 107px;
         }
         .ql-blank{
             height: 0 !important;

@@ -336,6 +336,18 @@
             return $data;
         }
 
+        public function campaign($filter = null, $limit = null){
+            $this->db->join("campaign", "campaign.id = talents.campaign_id");
+            if($filter)
+                $this->where($filter);
+            if(isset($limit)){
+                $this->db->limit($limit["end"], $limit["start"]);
+            }
+            $data = parent::getDataByParam($filter);
+//print_r($this->db->last_query());die();
+            return $data;
+        }
+
 		public function count($filter = null){
 			$this->db->join("context", "context.id = talents.id");
 			if($filter)
@@ -345,6 +357,12 @@
         public function fa_count($filter = null){
             $this->db->join("context", "context.id = talents.id");
             $this->db->join("favourite", "favourite.talent_id = talents.id");
+            if($filter)
+                $this->where($filter);
+            return parent::counts($filter);
+        }
+        public function camp_count($filter = null){
+            $this->db->join("campaign", "campaign.id = talents.campaign_id");
             if($filter)
                 $this->where($filter);
             return parent::counts($filter);

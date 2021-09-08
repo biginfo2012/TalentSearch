@@ -53,7 +53,7 @@ class Talents extends PublicController
         $context["content"] = $temp;
 
         if ($data["id"]) {
-            $data["created_at"] = date("Y-m-d");
+            //$data["created_at"] = date("Y-m-d");
             $this->talent->updateData($data);
             $id = $data["id"];
             $context["id"] = $id;
@@ -92,7 +92,7 @@ class Talents extends PublicController
         if (isset($filter["per_page"]) && !empty($filter["per_page"])) {
             $pagination["perpage"] = $filter["per_page"];
         } else {
-            $pagination["perpage"] = 20;
+            $pagination["perpage"] = 10;
         }
 
         $limit["start"] = ($pagination["page"] - 1) * $pagination["perpage"];
@@ -494,6 +494,144 @@ class Talents extends PublicController
         //$this->load->view("public/view", $data);
     }
 
+    public function addcampaign(){
+        $p_data = $this->input->post();
+        $campaign["campaign_name"] = $p_data['title'];
+        $campaign["type"] = $p_data['account_type'];
+        $this->campaign->setData($campaign);
+        return $this->favourite();
+    }
+    public function viewcampaign($id){
+        $data["user"] = $this->user_data();
+        $data["campaign"] = $this->campaign->getDataById($id);
+
+        if (!isset($filter["pagination"])) {
+            $pagination["page"] = 1;
+        } else {
+            $pagination = $filter["pagination"];
+        }
+
+        if (isset($filter["per_page"]) && !empty($filter["per_page"])) {
+            $pagination["perpage"] = $filter["per_page"];
+        } else {
+            $pagination["perpage"] = 10;
+        }
+        $data["pagination"] = $pagination;
+        $this->render("public/viewcampaign", $data);
+    }
+    public function userlist(){
+        $filter = $this->input->post();
+        $campaign_id = $filter['campaign_id'];
+        $data["tcampaign"] = $this->tcampaign->getDataByParam(array("campaign_id" => $campaign_id));
+//        print_r($data["tcampaign"]);
+//        die();
+        $filter["query"] = array();
+        if (!isset($filter["pagination"])) {
+            $pagination["page"] = 1;
+        } else {
+            $pagination = $filter["pagination"];
+        }
+
+        if (isset($filter["per_page"]) && !empty($filter["per_page"])) {
+            $pagination["perpage"] = $filter["per_page"];
+        } else {
+            $pagination["perpage"] = 10;
+        }
+
+        $limit["start"] = ($pagination["page"] - 1) * $pagination["perpage"];
+        $limit["end"] = $pagination["perpage"];
+        $data["talents"] = $this->talent->search($filter["query"], $limit);
+        if (!isset($filter["query"])) {
+            $pagination["total"] = $this->talent->count();
+        } else {
+            $pagination["total"] = $this->talent->count($filter["query"]);
+        }
+        if ($pagination["total"] % $pagination["perpage"] == 0) {
+            $pagination["total_page"] = (int)($pagination["total"] / $pagination["perpage"]);
+        } else {
+            $pagination["total_page"] = (int)($pagination["total"] / $pagination["perpage"] + 1);
+        }
+        $pagination["pages"] = ceil($pagination["total"] / $pagination["perpage"]);
+        if (($pagination["page"] % 5) == 0) {
+            $pagination["start_page"] = ((int)$pagination["page"] / 5 - 1) * 5 + 1;
+        } else {
+            $pagination["start_page"] = ((int)($pagination["page"] / 5)) * 5 + 1;
+            // $pagination["start_page"] = ($pagination["page"]/5 + 1) * 5;
+        }
+
+        $pagination["end_page"] = $pagination["start_page"] + 5;
+        $data["pagination"] = $pagination;
+        return $this->load->view('public/userlist', $data);
+        //$this->renderAlone("public/userlist", $data);
+    }
+    public function campaignpreview($id){
+        $data["user"] = $this->user_data();
+        $data["campaign"] = $this->campaign->getDataById($id);
+        $data["tcampaign"] = $this->tcampaign->getDataByParam(array("campaign_id" => $data["campaign"]["id"]));
+        $tcampaign_arr = array();
+        //$campaign_info = array();
+        $data['cnt_talent'] = count($data["tcampaign"]);
+        $data['sum_fw'] = 0;
+
+        if(isset($data["tcampaign"])){
+            foreach ($data["tcampaign"] as $ttem){
+                $tmp = $this->talent->getDataById($ttem["talent_id"]);
+                $data['sum_fw'] += $tmp["it_fw"];
+                array_push($tcampaign_arr, $tmp);
+            }
+        }
+        $data["talents"] = $tcampaign_arr;
+//        print_r($data["talents"]);
+//        die();
+
+        $this->render("public/campaignpreview", $data);
+    }
+    public function modifycampaign(){
+        $data["user"] = $this->user_data();
+        $p_data = $this->input->post();
+        $campaign['id'] = $p_data['campaign_id'];
+        $campaign['campaign_name'] = $p_data['campaign_name'];
+        $campaign['campaign_company'] = $p_data['campaign_company'];
+        $campaign['campaign_belong'] = $p_data['campaign_belong'];
+        $campaign['campaign_comment'] = $p_data['campaign_comment'];
+        $this->campaign->updateData($campaign);
+
+        return $this->viewcampaign($p_data['campaign_id']);
+    }
+
+    public function addtalent(){
+        $p_data = $this->input->post();
+        $tcampaign['talent_id'] = $p_data['talent_id'];
+        $tcampaign['campaign_id'] = $p_data['campaign_id'];
+        $this->tcampaign->setData($tcampaign);
+        $this->json(array("success" => true, "msg" => "成 功!"));
+    }
+    public function addalltalent(){
+        $p_data = $this->input->post();
+        $tcampaign['campaign_id'] = $p_data['campaign_id'];
+        $this->tcampaign->deleteByParam(array("campaign_id" => $p_data['campaign_id']));
+        $talents = $this->talent->search();
+        foreach ($talents as $item){
+            $tcampaign = array();
+            $tcampaign['campaign_id'] = $p_data['campaign_id'];
+            $tcampaign['talent_id'] = $item['id'];
+            $this->tcampaign->setData($tcampaign);
+        }
+        $this->json(array("success" => true, "msg" => "成 功!"));
+    }
+    public function delalltalent(){
+        $p_data = $this->input->post();
+        $tcampaign['campaign_id'] = $p_data['campaign_id'];
+        $this->tcampaign->deleteByParam(array("campaign_id" => $p_data['campaign_id']));
+        $this->json(array("success" => true, "msg" => "成 功!"));
+    }
+    public function deltalent(){
+        $p_data = $this->input->post();
+        $data = $this->tcampaign->getOneByParam(["talent_id" => $p_data['talent_id'], "campaign_id" => $p_data['campaign_id']]);
+        $this->tcampaign->unsetDataById($data['id']);
+        $this->json(array("success" => true, "msg" => "成 功!"));
+    }
+
     public function addFavourite($id)
     {
         $favourite["talent_id"] = $id;
@@ -506,6 +644,37 @@ class Talents extends PublicController
     {
         $data = $this->favourite->getOneByParam(array("talent_id" => $id));
         $this->favourite->unsetDataById($data['id']);
+        $this->json(array("success" => true, "msg" => "成 功!"));
+        //$this->load->view("public/view", $data);
+    }
+    public function deletecampaign()
+    {
+        $p_data = $this->input->post();
+        $id = $p_data['id'];
+        $data = $this->campaign->getOneByParam(array("id" => $id));
+        $this->tcampaign->deleteByParam(array("campaign_id" => $id));
+        $this->campaign->unsetDataById($data['id']);
+        $this->json(array("success" => true, "msg" => "成 功!"));
+        //$this->load->view("public/view", $data);
+    }
+    public function copycampaign()
+    {
+        $p_data = $this->input->post();
+        $id = $p_data['id'];
+        $data = $this->campaign->getOneByParam(array("id" => $id));
+        $campaign["campaign_name"] = $data['campaign_name'];
+        $campaign["type"] = $data['type'];
+        $campaign["campaign_company"] = $data['campaign_company'];
+        $campaign["campaign_belong"] = $data['campaign_belong'];
+        $campaign["campaign_comment"] = $data['campaign_comment'];
+        $t_data = $this->tcampaign->getDataByParam(array("campaign_id" => $id));
+
+        $campaign_id = $this->campaign->setData($campaign);
+        foreach ($t_data as $item){
+            $tcampaign["talent_id"] = $item["talent_id"];
+            $tcampaign["campaign_id"] = $campaign_id;
+            $this->tcampaign->setData($tcampaign);
+        }
         $this->json(array("success" => true, "msg" => "成 功!"));
         //$this->load->view("public/view", $data);
     }
@@ -532,62 +701,92 @@ class Talents extends PublicController
 
             // Parse data from CSV file
             $csvData = $this->csvreader->parse_csv($_FILES['csv']['tmp_name']);
-            print_r($csvData);
-            die();
+//            print_r($csvData);
+//            die();
 
             // Insert/update CSV data into database
             if (!empty($csvData)) {
                 foreach ($csvData as $row) {
-                    $rowCount++;
+//                    print_r($row);
+//                    die();
+//                    $rowCount++;
 
-                    // Prepare data for DB insertion
-                    $memData = array(
-                        'name' => $row['Name'],
-                        'email' => $row['Email'],
-                        'phone' => $row['Phone'],
-                        'status' => $row['Status'],
-                    );
+                    $talents["user_id"] = $row["ID"];
+                    $talents["profile_name"] = $row["プロフィール表示名"];
+                    $talents["it_fw"] = $row["フォロワー数"];
+                    $talents["it_url"] = $row["InstagramプロフィールURL"];
+                    $talents["amount"] = $row["依頼金額"];
+                    $talents["note"] = $row["注意"];
+                    $talents["it_male_ratio"] = $row["IGfw男性比率"];
+                    $talents["it_female_ratio"] = $row["IGfw女性比率"];
+                    $talents["age"] = $row["年齢"];
+                    $talents["activity_base"] = $row["活動拠点"];
+                    $talents["occupation"] = $row["ご職業"];
+                    $talents["genre"] = $row["投稿ジャンル（複数選択可）"];
+                    $talents["contract"] = $row["契約書"];
+                    $talents["acq_record"] = $row["獲得実績"];
+                    $talents["pr_point"] = $row["PRポイント"];
+                    if($row["性別"] === "女性"){
+                        $talents["gender"] = 2;
+                    }
+                    else{
+                        $talents["gender"] = 1;
+                    }
+                    $talents["eg_rate"] = $row["平均EG率(%)"];
+                    $talents["app_post"] = $row["投稿での顔出し"];
+                    $talents["charge_name"] = $row["担当者名"];
+                    $talents["belonging"] = $row["所属"];
+                    $talents["post_result"] = $row["投稿実績"];
+                    $talents["tw_fw"] = $row["twitterフォロワー"];
+                    $talents["tw_url"] = $row["Twitterアカウント URL"];
+                    $talents["fb_fw"] = $row["FBfw"];
+                    $talents["fb_url"] = $row["Facebookアカウント URL"];
+                    $talents["yt_fw"] = $row["youtube登録者数"];
+                    $talents["yt_url"] = $row["YouTubeチャンネル URL"];
+                    $talents["yt_female_ratio"] = $row["女性比率"];
+                    $talents["yt_male_ratio"] = $row["男性比率"];
+                    $talents["age_13"] = $row["13歳〜17歳"];
+                    $talents["age_18"] = $row["18歳〜24歳"];
+                    $talents["age_25"] = $row["25歳〜34歳"];
+                    $talents["age_35"] = $row["35歳〜44歳"];
+                    $talents["age_45"] = $row["45歳〜54歳"];
+                    $talents["age_55"] = $row["55歳〜64歳"];
+                    $talents["age_65"] = $row["65歳以上"];
+                    $talents["tt_fw"] = $row["TikTokfw数"];
+                    $talents["tt_url"] = $row["TikTokアカウント URL"];
+                    $talents["blog_fw"] = $row["Blogfw数"];
+                    $talents["blog_url"] = $row["ブログ URL"];
+                    $talents["wear_fw"] = $row["wearfw数"];
+                    $talents["wear_url"] = $row["wearURL"];
+                    $talents["sns_url"] = $row["その他のSNS URL"];
+                    $talents["tel_number"] = $row["電話番号"];
+                    $talents["zip_code"] = $row["郵便番号"];
+                    $talents["province"] = $row["都道府県"];
+                    $talents["district_num"] = $row["市区町村・番地"];
+                    $talents["building_name"] = $row["マンション・ビル名"];
+                    $talents["post"] = $row["宛名"];
+                    $talents["bank_name"] = $row["銀行名"];
+                    $talents["branch_name"] = $row["支店名"];
+                    $talents["account_type"] = $row["口座種別"];
+                    $talents["account_number"] = $row["口座番号"];
+                    $talents["account_kana"] = $row["口座名義(カタカナまたは英数字) "];
+                    $talents["name"] = $row["お名前"];
+                    $talents["birthday"] = $row["生年月日"];
+                    $talents["email"] = $row["メールアドレス"];
+                    $talents["line_id"] = $row["LINE ID"];
+                    $talents["timestampp"] = $row["タイムスタンプ"];
+                    $this->talent->setData($talents);
 
-                    // Check whether email already exists in the database
-                    $con = array(
-                        'where' => array(
-                            'email' => $row['Email']
-                        ),
-                        'returnType' => 'count'
-                    );
-//                            $prevCount = $this->member->getRows($con);
-//
-//                            if($prevCount > 0){
-//                                // Update member data
-//                                $condition = array('email' => $row['Email']);
-//                                $update = $this->member->update($memData, $condition);
-//
-//                                if($update){
-//                                    $updateCount++;
-//                                }
-//                            }else{
-//                                // Insert member data
-//                                $insert = $this->member->insert($memData);
-//
-//                                if($insert){
-//                                    $insertCount++;
-//                                }
-//                            }
                 }
-
-                // Status message with imported data count
-                $notAddCount = ($rowCount - ($insertCount + $updateCount));
-                $successMsg = 'Members imported successfully. Total Rows (' . $rowCount . ') | Inserted (' . $insertCount . ') | Updated (' . $updateCount . ') | Not Inserted (' . $notAddCount . ')';
-                $this->session->set_userdata('success_msg', $successMsg);
             }
         } else {
-            $this->session->set_userdata('error_msg', 'Error on file upload, please try again.');
+            //$this->session->set_userdata('error_msg', 'Error on file upload, please try again.');
         }
 //            }else{
 //                $this->session->set_userdata('error_msg', 'Invalid file, please select only CSV file.');
 //            }
         //}
-
+        $this->json(array("success" => true, "msg" => "成 功!"));
     }
 
     public function favourite()
@@ -609,24 +808,36 @@ class Talents extends PublicController
         $limit["start"] = ($pagination["page"] - 1) * $pagination["perpage"];
         $limit["end"] = $pagination["perpage"];
         $filter["query"] = array();
-        if (isset($filter["talent"])) {
-            $filter["query"]["talent"] = $filter["talent"];
-            $data["talent"] = $filter["talent"];
+        if (isset($filter["search_keyword"])) {
+            $filter["query"]["keyword"] = $filter["search_keyword"];
+            $data["keyword"] = $filter["search_keyword"];
         }
-        if (isset($filter["sort"])) {
-            $filter["query"]["sort"] = $filter["sort"];
-            $data["sort"] = $filter["sort"];
+
+        $data["campaign"] = $this->campaign->campaign($filter["query"], $limit);
+        $data["tcampaign"] = array();
+        $data["campaign_info"] = array();
+        foreach ($data["campaign"] as $item){
+            $tcampaign = $this->tcampaign->getDataByParam(array("campaign_id" => $item["id"]));
+            $tcampaign_arr = array();
+            $campaign_info = array();
+            $campaign_info['cnt_talent'] = count($tcampaign);
+            $campaign_info['sum_fw'] = 0;
+
+            if(isset($tcampaign)){
+                foreach ($tcampaign as $ttem){
+                    $tmp = $this->talent->getDataById($ttem["talent_id"]);
+                    $campaign_info['sum_fw'] += $tmp["it_fw"];
+                    array_push($tcampaign_arr, $tmp);
+                }
+            }
+            $data["tcampaign"][$item["id"]] = $tcampaign_arr;
+            $data["campaign_info"][$item["id"]] = $campaign_info;
         }
-        if (isset($filter["desc"])) {
-            $filter["query"]["desc"] = $filter["desc"];
-            $data["desc"] = $filter["desc"];
-        }
-//print_r($filter["query"]);
-        $data["talents"] = $this->talent->favourite($filter["query"], $limit);
+
         if (!isset($filter["query"])) {
-            $pagination["total"] = $this->talent->fa_count();
+            $pagination["total"] = $this->campaign->camp_count();
         } else {
-            $pagination["total"] = $this->talent->fa_count($filter["query"]);
+            $pagination["total"] = $this->campaign->camp_count($filter["query"]);
         }
         if ($pagination["total"] % $pagination["perpage"] == 0) {
             $pagination["total_page"] = (int)($pagination["total"] / $pagination["perpage"]);
@@ -641,36 +852,8 @@ class Talents extends PublicController
             // $pagination["start_page"] = ($pagination["page"]/5 + 1) * 5;
         }
         $pagination["end_page"] = $pagination["start_page"] + 5;
-//print_r($filter["query"]);
-        $data["query"] = $filter["query"];
-
-        if (empty($data["query"]["level"]))
-            $data["query"]["level"] = array();
-        foreach ($data["query"]["level"] as $key => $val) {
-            if (!empty($val)) {
-                $data["query"]["level"]["label"] = empty($data["query"]["level"]["label"]) ? $this->talent->level[$key - 1] : $data["query"]["level"]["label"] . ", " . $this->talent->level[$key - 1];
-            }
-        }
-        if (empty($data["age_label"]))
-            $data["age_label"] = "";
-        if (!empty($data["age_from"])) {
-            $data['age_label'] .= $data["age_from"] . "歳 ~ ";
-        }
-        if (!empty($data["age_to"])) {
-            if (empty($data["age_label"])) {
-                $data['age_label'] .= "~ " . $data["age_to"] . "歳";
-            } else {
-                $data['age_label'] .= $data["age_to"] . "歳";
-            }
-        }
-
-        if (empty($data["query"]["gender"]))
-            $data["query"]["gender"] = array();
-        foreach ($data["query"]["gender"] as $key => $val) {
-            if (!empty($val)) {
-                $data["query"]["gender"]["label"] = empty($data["query"]["gender"]["label"]) ? $this->talent->gender[$key - 1] : $data["query"]["gender"]["label"] . ", " . $this->talent->gender[$key - 1];
-            }
-        }
+//        print_r($data["campaign_info"]);
+//        die();
         $data["pagination"] = $pagination;
         $config["base_url"] = base_url() . "public/search";
         $config["total_row"] = $pagination["total"];
@@ -707,5 +890,78 @@ class Talents extends PublicController
             $this->form_validation->set_message('file_check', 'Please select a CSV file to upload.');
             return false;
         }
+    }
+
+    public function copy(){
+        $data = $this->input->post();
+        $talents["user_id"] = $row["ID"];
+        $talents["profile_name"] = $row["プロフィール表示名"];
+        $talents["it_fw"] = $row["フォロワー数"];
+        $talents["it_url"] = $row["InstagramプロフィールURL"];
+        $talents["amount"] = $row["依頼金額"];
+        $talents["note"] = $row["注意"];
+        $talents["it_male_ratio"] = $row["IGfw男性比率"];
+        $talents["it_female_ratio"] = $row["IGfw女性比率"];
+        $talents["age"] = $row["年齢"];
+        $talents["activity_base"] = $row["活動拠点"];
+        $talents["occupation"] = $row["ご職業"];
+        $talents["genre"] = $row["投稿ジャンル（複数選択可）"];
+        $talents["contract"] = $row["契約書"];
+        $talents["acq_record"] = $row["獲得実績"];
+        $talents["pr_point"] = $row["PRポイント"];
+        if($row["性別"] === "女性"){
+            $talents["gender"] = 2;
+        }
+        else{
+            $talents["gender"] = 1;
+        }
+        $talents["eg_rate"] = $row["平均EG率(%)"];
+        $talents["app_post"] = $row["投稿での顔出し"];
+        $talents["charge_name"] = $row["担当者名"];
+        $talents["belonging"] = $row["所属"];
+        $talents["post_result"] = $row["投稿実績"];
+        $talents["tw_fw"] = $row["twitterフォロワー"];
+        $talents["tw_url"] = $row["Twitterアカウント URL"];
+        $talents["fb_fw"] = $row["FBfw"];
+        $talents["fb_url"] = $row["Facebookアカウント URL"];
+        $talents["yt_fw"] = $row["youtube登録者数"];
+        $talents["yt_url"] = $row["YouTubeチャンネル URL"];
+        $talents["yt_female_ratio"] = $row["女性比率"];
+        $talents["yt_male_ratio"] = $row["男性比率"];
+        $talents["age_13"] = $row["13歳〜17歳"];
+        $talents["age_18"] = $row["18歳〜24歳"];
+        $talents["age_25"] = $row["25歳〜34歳"];
+        $talents["age_35"] = $row["35歳〜44歳"];
+        $talents["age_45"] = $row["45歳〜54歳"];
+        $talents["age_55"] = $row["55歳〜64歳"];
+        $talents["age_65"] = $row["65歳以上"];
+        $talents["tt_fw"] = $row["TikTokfw数"];
+        $talents["tt_url"] = $row["TikTokアカウント URL"];
+        $talents["blog_fw"] = $row["Blogfw数"];
+        $talents["blog_url"] = $row["ブログ URL"];
+        $talents["wear_fw"] = $row["wearfw数"];
+        $talents["wear_url"] = $row["wearURL"];
+        $talents["sns_url"] = $row["その他のSNS URL"];
+        $talents["tel_number"] = $row["電話番号"];
+        $talents["zip_code"] = $row["郵便番号"];
+        $talents["province"] = $row["都道府県"];
+        $talents["district_num"] = $row["市区町村・番地"];
+        $talents["building_name"] = $row["マンション・ビル名"];
+        $talents["post"] = $row["宛名"];
+        $talents["bank_name"] = $row["銀行名"];
+        $talents["branch_name"] = $row["支店名"];
+        $talents["account_type"] = $row["口座種別"];
+        $talents["account_number"] = $row["口座番号"];
+        $talents["account_kana"] = $row["口座名義(カタカナまたは英数字) "];
+        $talents["name"] = $row["お名前"];
+        $talents["birthday"] = $row["生年月日"];
+        $talents["email"] = $row["メールアドレス"];
+        $talents["line_id"] = $row["LINE ID"];
+        $talents["timestampp"] = $row["タイムスタンプ"];
+
+        print_r($data);
+        die();
+        $campaign = $this->campaign->getDataById($data["campaign_id"]);
+
     }
 }

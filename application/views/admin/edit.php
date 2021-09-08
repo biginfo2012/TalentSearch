@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <label>宛名:</label>
-                                        <input type="text" name="address"  value = "" class="form-control" >
+                                        <input type="text" name="post"  value = "<?= isset($talent)?$talent['post']:'' ?>" class="form-control" >
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <label>口座名義:</label>
-                                        <input type="text" name="nick_name"  value = "" class="form-control" >
+                                        <input type="text" name="account_kana"  value = "<?= isset($talent)?$talent['account_kana']:'' ?>" class="form-control" >
                                     </div>
                                 </div>
                             </div>
@@ -154,12 +154,11 @@
                             <!-- select tag -->
                             <div class="col-lg-4">
                                 <label>ご職業:</label>
-                                <select class="form-control select2" id="kt_select2_3" name="talent" multiple="multiple">
+                                <select class="form-control select2" id="kt_select2_3" name="occupation" multiple="multiple">
                                     <?php foreach( $this->talent->skills as $index =>$item) {?>
                                     <option value="<?= $item?>" <?= isset($talent["talent"]) && in_array($key, $talent["talent"])?'selected':''?>><?=$item?></option>
                                     <?php } ?>
                                 </select>
-                                <!-- <input type="text" name="talent"  value = "<?= isset($talent)?$talent['talent']:'' ?>" class="form-control"> -->
                             </div>
                             <div class="col-lg-4">
                                 <label>投稿ジャンル:</label>
@@ -244,7 +243,7 @@
                             <!-- select option -->
                             <div class="col-lg-4">
                                 <label>年齢層:</label>
-                                <input type="text" name="age_range"  value = "" class="form-control" >
+                                <input type="text" name=""  value = "" class="form-control" >
                             </div>
                         </div>
                         <div class="form-group row">

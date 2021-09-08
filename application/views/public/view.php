@@ -750,7 +750,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="login_form">
+                    <form id="copy_form">
+                        <input type="hidden" name="talent_id" value="<?= $talent["id"]?>">
                         <div class="form-group row">
                             <div class="col-lg-4">
                                 <input type="checkbox" name="name" class="checkboxes">
@@ -851,7 +852,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-4">
-                                <input type="checkbox" name="talent" class="checkboxes">
+                                <input type="checkbox" name="belonging" class="checkboxes">
                                 <label>ご職業:</label>
                             </div>
                             <div class="col-lg-4">
@@ -1014,7 +1015,7 @@
                             </div>
 
                         </div>
-                        <a name="login" class="btn_1 full-width">コピー</a>
+                        <a id="copy_btn" class="btn_1 full-width">コピー</a>
                     </form>
                 </div>
             </div>

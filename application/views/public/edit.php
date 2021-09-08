@@ -62,7 +62,7 @@
                                             </div>
                                             <div class="col-lg-6">
                                                 <label>宛名:</label>
-                                                <input type="text" name="address"  value = "<?= isset($talent)?$talent['address']:'' ?>" class="form-control" >
+                                                <input type="text" name="post"  value = "<?= isset($talent)?$talent['address']:'' ?>" class="form-control" >
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -152,12 +152,11 @@
                                     <!-- select tag -->
                                     <div class="col-lg-4">
                                         <label>ご職業:</label>
-                                        <select class="form-control select2" id="kt_select2_3" name="talent" multiple="multiple">
+                                        <select class="form-control select2" id="kt_select2_3" name="belonging" multiple="multiple">
                                             <?php foreach( $this->talent->skills as $index =>$item) {?>
                                             <option value="<?= $item?>" <?= isset($talent["talent"]) && in_array($key, $talent["talent"])?'selected':''?>><?=$item?></option>
                                             <?php } ?>
                                         </select>
-                                        <!-- <input type="text" name="talent"  value = "<?= isset($talent)?$talent['talent']:'' ?>" class="form-control"> -->
                                     </div>
                                     <div class="col-lg-4">
                                         <label>投稿ジャンル:</label>

@@ -66,6 +66,25 @@ jQuery(document).ready(function() {
     $("[name=copy]").on("click", function(){
         $("#copy_modal").modal('show');
     });
+    $('#copy_btn').click(function () {
+        var copyData = new FormData($("#copy_form")[0]);
+        $.ajax({
+            url: HOST_URL + "talents/copy",
+            type: 'post',
+            data: copyData,
+            contentType: false,
+            processData: false,
+        }).done(function (response) {
+            var data = JSON.parse(response);
+            if(data.success){
+                toastr.success(data.msg);
+                $("#signup_modal").modal("hide");
+            }else{
+                toastr.error(data.msg);
+            }
+        });
+
+    })
     $('#keyword').keypress(function(ev) {
         if (ev.keyCode === 13) {
             $('#form_keyword').val(!ev.target.value ? '' : ev.target.value);

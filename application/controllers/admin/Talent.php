@@ -25,7 +25,7 @@ class Talent extends AdminController {
 		$context["content"] = $temp;
 
 		if($data["id"]){
-			$data["created_at"] = date("Y-m-d");
+			//$data["created_at"] = date("Y-m-d");
 			$this->talent->updateData($data);
 			$id = $data["id"];
 			$context["id"] = $id;

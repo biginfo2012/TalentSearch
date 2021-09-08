@@ -3,7 +3,7 @@
     <main>
         <div id="carousel-home">
             <div class="owl-carousel owl-theme">
-                <div class="owl-slide cover" style="background-image: url(<?=asset_url()?>img/slides/slide_home_1.jpg);background-size: cover;background-position: top; height: 100vh;">
+                <div class="owl-slide cover" style="background-image: url(<?=asset_url()?>img/slides/slide_home_1.jpg);">
                     <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.6)">
                         <div class="container">
                             <div class="row justify-content-center justify-content-md-start">
@@ -18,13 +18,52 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
+                <!--/owl-slide-->
+                <!--div class="owl-slide cover" style="background-image: url(<?=asset_url()?>img/slides/slide_home_2.jpg);">
+                    <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+                        <div class="container">
+                            <div class="row justify-content-center justify-content-md-start">
+                                <div class="col-lg-7 static">
+                                    <div class="slide-text white">
+                                        <h2 class="owl-slide-animated owl-slide-title">確認済みの専門家のみ</h2>
+                                        <p class="owl-slide-animated owl-slide-subtitle">
+                                            +12.000人以上の信頼できる専門家がリストされています
+                                        </p>
+                                        <div class="owl-slide-animated owl-slide-cta"><a class="btn_1" role="button">続きを読む</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="owl-slide cover" style="background-image: url(<?=asset_url()?>img/slides/slide_home_3.jpg);">
+                    <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.6)">
+                        <div class="container">
+                            <div class="row justify-content-center justify-content-md-end">
+                                <div class="col-lg-6 static">
+                                    <div class="slide-text text-right white">
+                                        <h2 class="owl-slide-animated owl-slide-title">あなたはプロですか？</h2>
+                                        <p class="owl-slide-animated owl-slide-subtitle">
+                                            Prozimに無料で参加して、より多くの可視性を手に入れましょう
+                                        </p>
+                                        <div class="owl-slide-animated owl-slide-cta">
+                                            <a class="btn_1" role="button">続きを読む</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div-->
             </div>
             <div id="icon_drag_mobile"></div>
         </div>
         <!--/carousel-->
-        <section class="dark1">
+
+        <div class="bg_gray">
             <div class="container margin_60_40">
                 <div class="main_title center">
                     <!--span><em></em></span-->
@@ -33,24 +72,24 @@
                     <p>お好きなワードで検索してください。</p>
                 </div>
                 <!-- <div class=""> -->
-                <form method="post" id="search" action="<?=base_url()?>talents/search" method="post">
-                    <div class="container-fluid col-md-11 center">
-                        <div class="row no-gutters custom-search-input">
-                            <div class="form-group" style="width:100%;">
-                                <input class="form-control" type="text" name="keyword" placeholder="インフルエンサー検索">
+                    <form method="post" id="search" action="<?=base_url()?>talents/search" method="post">
+                        <div class="container-fluid col-md-11 center">
+                            <div class="row no-gutters custom-search-input">
+                                <div class="form-group" style="width:100%;">
+                                    <input class="form-control" type="text" name="keyword" placeholder="インフルエンサー検索">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
                 <!-- </div> -->
                 <!-- /row -->
                 <p class="text-center add_top_30"><a name="search" class="btn_1 medium">検索 (<?=$result_count?> 件)</a></p>
                 <br/>
             </div>
-        </section>
-
+            <!-- /container -->
+        </div>
         <!-- /bg_gray -->
-        <div class="container margin_60_40" style="background: #eaeff3;">
+        <div class="container margin_60_40">
             <div class="row">
                 <div class="col-12">
                     <div class="main_title version_2">
@@ -69,8 +108,8 @@
                     <div class="list_home">
                         <ul>
                             <li>
-                                <a href="<?=base_url()?>talents/view/<?=$item["id"]?>" class="blog-item">
-                                    <figure style="left: 10px;">
+                                <a href="<?=base_url()?>talents/view/<?=$item["id"]?>">
+                                    <figure>
                                         <img src="<?= empty($item['it_img']) ? upload_url(). 'default.jpg' : upload_url() . $item['it_img'] ?>" alt="" class="lazy">
                                     </figure>
                                     <br/>
@@ -103,7 +142,7 @@
         </div>
         <!-- /container -->
 
-        <section class="dark1">
+        <div class="bg_gray">
             <div class="container margin_60_40">
                 <div class="main_title center add_bottom_10">
                     <span><em></em></span>
@@ -136,7 +175,7 @@
                 </div>
             </div>
             <!-- /container -->
-        </section>
+        </div>
         <!-- /bg_gray -->
 
         <div class="call_section version_2 lazy" data-bg="url(<?=asset_url()?>img/bg_call_section.jpg)">

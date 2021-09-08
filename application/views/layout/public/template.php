@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -15,31 +17,6 @@
     <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="<?=asset_url()?>img/apple-touch-icon-72x72-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="<?=asset_url()?>img/apple-touch-icon-114x114-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="<?=asset_url()?>img/apple-touch-icon-144x144-precomposed.png">
-    <link rel="stylesheet" href="<?=asset_url()?>template/vendor/reset.css">
-    <link rel="stylesheet" href="<?=asset_url()?>template/vendor/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="<?=asset_url()?>template/vendor/ion-icons/ionicons.min.css">
-    <link rel="stylesheet" href="<?=asset_url()?>template/vendor/owl-slider/owl.carousel.css">
-    <link rel="stylesheet" href="<?=asset_url()?>template/vendor/slideshow/slideshow.css">
-    <link rel="stylesheet" href="<?=asset_url()?>template/vendor/lightbox/lity.min.css">
-    <!-- Theme CSS -->
-    <link id="theme" rel="stylesheet" href="<?=asset_url()?>template/css/theme.css">
-    <script src="<?=asset_url()?>template/vendor/modernizr.js"></script>
-
-    <script src="<?=asset_url()?>template/vendor/jquery-2.2.1.min.js"></script>
-    <script src="<?=asset_url()?>template/vendor/matchHeight-min.js"></script>
-    <script src="<?=asset_url()?>template/vendor/contact/validator.js"></script>
-    <script src="<?=asset_url()?>template/vendor/contact/contact.js"></script>
-    <script src="<?=asset_url()?>template/vendor/pace.min.js"></script>
-    <script src="<?=asset_url()?>template/vendor/headroom/headroom.min.js"></script>
-    <script src="<?=asset_url()?>template/vendor/owl-slider/owl.carousel.min.js"></script>
-    <script src="<?=asset_url()?>template/vendor/slideshow/anime.min.js"></script>
-    <script src="<?=asset_url()?>template/vendor/slideshow/imagesloaded.pkgd.min.js"></script>
-    <script src="<?=asset_url()?>template/vendor/slideshow/main.js"></script>
-    <script src="<?=asset_url()?>template/vendor/parallax/materialize.min.js"></script>
-    <script src="<?=asset_url()?>template/vendor/lightbox/lity.min.js"></script>
-    <script src="<?=asset_url()?>template/vendor/tabs/jquery.tabslet.min.js"></script>
-    <script src="<?=asset_url()?>template/vendor/masonry.pkgd.min.js"></script>
-    <script src="<?=asset_url()?>template/js/main.min.js"></script>
 </head>
 
 
@@ -112,6 +89,5 @@
 <script src="<?=asset_url()?>js/sticky_sidebar.min.js"></script>
 <script src="<?=asset_url()?>js/specific_listing.min.js"></script>
 <script src="<?=asset_url()?>js/isotope.min.js"></script>
-<script src="<?=asset_url()?>js/main.js"></script>
 
 

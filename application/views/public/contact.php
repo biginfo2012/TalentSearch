@@ -1,7 +1,7 @@
 <body>
 
 <!-- Main Container -->
-<div class="web-in" style="margin-top: 70px;">
+<div class="web-in" style="margin-top: 300px;">
 
     <!-- Header -->
     <header id="sp2" class="center dark1" style="z-index: 0;">
@@ -90,6 +90,9 @@
     <!-- Contact -->
 </div>
 <style type="text/css">
+    header>div.row{
+        max-width: 100%;
+    }
     nav#dark {
         background: #0d1422 !important;
     }

@@ -145,7 +145,7 @@ var KTDatatableRemoteAjaxDemo = function() {
                     var paramObj = new FormData($("form")[0]);
                     var files = $('#avatar')[0].files;
                     paramObj.append("belonging",JSON.stringify($("select[name=belonging]").val()));
-                    paramObj.append("talent",JSON.stringify($("select[name=talent]").val()));
+                    //paramObj.append("talent",JSON.stringify($("select[name=talent]").val()));
                     if(files.length > 0 ){
                         paramObj.append('file',files[0]);
                     }
