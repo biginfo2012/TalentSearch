@@ -177,8 +177,8 @@
                 <input type="hidden" id="campaign_id" value="<?=isset($campaign['id']) ? $campaign['id'] : ''?>">
                 <ul class="tabs tabs-contents">
                     <li><a class="js-change-tab instagram is-active" data-account-type="instagram_account">Instagram</a></li>
-<!--                    <li><a class="js-change-tab youtube " data-account-type="youtube_account">YouTube</a></li>-->
-<!--                    <li><a class="js-change-tab twitter " data-account-type="twitter_account">Twitter</a></li>-->
+                    <li><a class="js-change-tab youtube " data-account-type="youtube_account">YouTube</a></li>
+                    <li><a class="js-change-tab twitter " data-account-type="twitter_account">Twitter</a></li>
                 </ul>
                 <table class="table table-instagram_account ac-active">
                     <thead>
@@ -367,37 +367,56 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="influencer-img">
-                            <img src="https://yt3.ggpht.com/ytc/AKedOLTat8_vr7h2i29n67lvNLMp1F-9Ch2ejFRlRzt0zQ=s800-c-k-c0x00ffffff-no-rj-mo" alt="" onerror="this.src='/assets/images/common/no_image.png';">
-                            <p>
-                                BLACKPINK
-                            </p>
-                        </td>
-                        <td class="sns-acount">
-                            <ul>
-                                <li>
-                                    <a href="/influencer/info/CK6VI6Ri5A" target="_blank"><img src="/assets/images/common/icon.jpg" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.instagram.com/blackpinkofficial/" target="_blank"><img src="/assets/images/common/logo_instagram.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.youtube.com/channel/UCOmHUn--16B90oW2L6FRR3A" target="_blank"><img src="/assets/images/common/logo_youtube.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <img class="icon-disable" src="/assets/images/common/logo_twitter.png" alt="">
-                                </li>
-                            </ul>
-                        </td>
-                        <td class="eng">
-                            <span class="txt-des">チャンネル登録者数</span>
-                            <span class="txt-number">64,500,000</span>
-                            <span class="txt-des">平均再生数</span>
-                            <span class="txt-number">5,379,288</span>
-                        </td>
-                        <td class="comment"><span></span></td>
-                    </tr>
+                    <?php foreach ($talents as $index => $item) { ?>
+                        <tr>
+                            <td class="influencer-img">
+                                <img src="<?= empty($item['it_img']) ? upload_url(). 'default.jpg' : upload_url() . $item['it_img'] ?>" alt="">
+                                <p>
+                                    <?=empty($item["name"]) ? '名前ない' : $item["name"]?>
+                                </p>
+                            </td>
+                            <td class="sns-acount">
+                                <ul>
+                                    <li>
+                                        <?php if(empty($item['it_url'])) { ?>
+                                            <img class="icon-disable" src="<?=asset_url()?>logos/instagram.png" alt="">
+                                        <?php } else { ?>
+                                            <a href="<?=$item["it_url"]?>" target="_blank"><img src="<?=asset_url()?>logos/instagram.png" alt=""></a>
+                                        <?php } ?>
+                                    </li>
+                                    <li>
+                                        <?php if(empty($item['tw_url'])) { ?>
+                                            <img class="icon-disable" src="<?=asset_url()?>logos/twitter.png" alt="">
+                                        <?php } else { ?>
+                                            <a href="<?=$item["tw_url"]?>" target="_blank"><img src="<?=asset_url()?>logos/twitter.png" alt=""></a>
+                                        <?php } ?>
+                                    </li>
+                                    <li>
+                                        <?php if(empty($item['yt_url'])) { ?>
+                                            <img class="icon-disable" src="<?=asset_url()?>logos/youtube.png" alt="">
+                                        <?php } else { ?>
+                                            <a href="<?=$item["yt_url"]?>" target="_blank"><img src="<?=asset_url()?>logos/youtube.png" alt=""></a>
+                                        <?php } ?>
+                                    </li>
+                                    <li>
+                                        <?php if(empty($item['tt_url'])) { ?>
+                                            <img class="icon-disable" src="<?=asset_url()?>logos/tiktok.png" alt="">
+                                        <?php } else { ?>
+                                            <a href="<?=$item["tt_url"]?>" target="_blank"><img src="<?=asset_url()?>logos/tiktok.png" alt=""></a>
+                                        <?php } ?>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td class="eng">
+                                <span class="txt-des">チャンネル登録者数</span>
+                                <span class="txt-number"><?=number_format($item["yt_fw"], 0, '.', ',')?></span>
+                                <span class="txt-des">平均再生数</span>
+                                <span class="txt-number">0</span>
+                            </td>
+                            <td class="comment"><span><?=$tcampaign[$index]["comment"]?></span></td>
+                        </tr>
+                    <?php } ?>
+
                     </tbody>
                 </table>
                 <table class="table table-twitter_account ">
@@ -410,40 +429,59 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="influencer-img">
-                            <img src="https://d6qget1rgog8s.cloudfront.net/img/profiles/3253141467.jpg" alt="" onerror="this.src='/assets/images/common/no_image.png';">
-                            <p>
-                                BLΛƆKPIИK
-                            </p>
-                        </td>
-                        <td class="sns-acount">
-                            <ul>
-                                <li>
-                                    <a href="/influencer/info/CK6VI6Ri5A" target="_blank"><img src="/assets/images/common/icon.jpg" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.instagram.com/blackpinkofficial/" target="_blank"><img src="/assets/images/common/logo_instagram.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.youtube.com/channel/UCOmHUn--16B90oW2L6FRR3A" target="_blank"><img src="/assets/images/common/logo_youtube.png" alt=""></a>
-                                </li>
-                                <li>
-                                    <img class="icon-disable" src="/assets/images/common/logo_twitter.png" alt="">
-                                </li>
-                            </ul>
-                        </td>
-                        <td class="eng">
-                            <span class="txt-des">フォロワー数</span>
-                            <span class="txt-number">-</span>
-                            <span class="txt-des">エンゲージメント</span>
-                            <span class="txt-number">-</span>
-                            <span class="txt-des">エンゲージメント率</span>
-                            <span class="txt-number">-</span>
-                        </td>
-                        <td class="comment"><span></span></td>
-                        <td></td>
-                    </tr>
+                    <?php foreach ($talents as $index => $item) { ?>
+                        <tr>
+                            <td class="influencer-img">
+                                <img src="<?= empty($item['it_img']) ? upload_url(). 'default.jpg' : upload_url() . $item['it_img'] ?>" alt="">
+                                <p>
+                                    <?=empty($item["name"]) ? '名前ない' : $item["name"]?>
+                                </p>
+                            </td>
+                            <td class="sns-acount">
+                                <ul>
+                                    <li>
+                                        <?php if(empty($item['it_url'])) { ?>
+                                            <img class="icon-disable" src="<?=asset_url()?>logos/instagram.png" alt="">
+                                        <?php } else { ?>
+                                            <a href="<?=$item["it_url"]?>" target="_blank"><img src="<?=asset_url()?>logos/instagram.png" alt=""></a>
+                                        <?php } ?>
+                                    </li>
+                                    <li>
+                                        <?php if(empty($item['tw_url'])) { ?>
+                                            <img class="icon-disable" src="<?=asset_url()?>logos/twitter.png" alt="">
+                                        <?php } else { ?>
+                                            <a href="<?=$item["tw_url"]?>" target="_blank"><img src="<?=asset_url()?>logos/twitter.png" alt=""></a>
+                                        <?php } ?>
+                                    </li>
+                                    <li>
+                                        <?php if(empty($item['yt_url'])) { ?>
+                                            <img class="icon-disable" src="<?=asset_url()?>logos/youtube.png" alt="">
+                                        <?php } else { ?>
+                                            <a href="<?=$item["yt_url"]?>" target="_blank"><img src="<?=asset_url()?>logos/youtube.png" alt=""></a>
+                                        <?php } ?>
+                                    </li>
+                                    <li>
+                                        <?php if(empty($item['tt_url'])) { ?>
+                                            <img class="icon-disable" src="<?=asset_url()?>logos/tiktok.png" alt="">
+                                        <?php } else { ?>
+                                            <a href="<?=$item["tt_url"]?>" target="_blank"><img src="<?=asset_url()?>logos/tiktok.png" alt=""></a>
+                                        <?php } ?>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td class="eng">
+                                <span class="txt-des">フォロワー数</span>
+                                <span class="txt-number"><?=number_format($item["tw_fw"], 0, '.', ',')?></span>
+                                <span class="txt-des">エンゲージメント</span>
+                                <span class="txt-number">-</span>
+                                <span class="txt-des">エンゲージメント率</span>
+                                <span class="txt-number"><?=$item["eg_rate"]?></span>
+                            </td>
+                            <td class="comment"><span><?=$tcampaign[$index]["comment"]?></span></td>
+                            <td></td>
+                        </tr>
+                    <?php } ?>
+
                     </tbody>
                 </table>
             </div>

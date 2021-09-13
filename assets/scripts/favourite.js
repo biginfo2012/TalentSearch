@@ -5,6 +5,13 @@
     var indexPage = function() {
 
         var initUI = function(){
+            $( '.clipboard-btn' ).click( function()
+            {
+                var clipboardText = "";
+                clipboardText = $(this).prev().val();
+                copyToClipboard( clipboardText );
+                alert( "Copied to Clipboard" );
+            });
             $('.js-sort-order-enable').click(function (e) {
                 e.preventDefault();
 
@@ -131,6 +138,23 @@
             },
         };
     }();
+
+    function copyToClipboard(text) {
+
+        var textArea = document.createElement( "textarea" );
+        textArea.value = text;
+        document.body.appendChild( textArea );
+        textArea.select();
+
+        try {
+            var successful = document.execCommand( 'copy' );
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Copying text command was ' + msg);
+        } catch (err) {
+            console.log('Oops, unable to copy',err);
+        }
+        document.body.removeChild( textArea );
+    }
 
     jQuery(document).ready(function() {
         indexPage.init();

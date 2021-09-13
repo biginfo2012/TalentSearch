@@ -67,7 +67,7 @@
                                     <?php if(!empty($item['public_view_date'])){ ?>
                                         <div class="input-group">
                                             <input type="text" class="public-access-url-text-box" id="public_url_<?=$item['id']?>" name="public_url" value="http://tokyoeropedia.mixh.jp<?=base_url()."talents/publicview/".$item['id']?>" readonly="">
-                                            <div class="clipboard-btn" data-clipboard-target="#public_url_<?=$item['id']?>" rel="tooltip" title="クリップボードにURLをコピーします"><span class="icon-copy" aria-hidden="true"></span></div>
+                                            <div class="clipboard-btn" data-clipboard-target="#public_url_<?=$item['id']?>" rel="tooltip" title="クリップボードにURLをコピーします"><span class="fa fa-fw fa-copy" aria-hidden="true" style="margin-top: 3px;"></span></div>
                                             <a class="add-on-link-btn" href="http://tokyoeropedia.mixh.jp<?=base_url()."talents/publicview/".$item['id']?>" target="_blank">外部参照用URL&nbsp;(&nbsp;<?=$item['public_view_date']?>&nbsp;期限&nbsp;)</a>
                                         </div>
                                     <?php } else { ?>
@@ -79,7 +79,7 @@
                                     <?php if(!empty($item['public_edit_date'])) { ?>
                                         <div class="input-group">
                                             <input type="text" class="public-access-url-text-box" id="public_edit_url_<?=$item['id']?>" name="public_edit_url" value="http://tokyoeropedia.mixh.jp<?=base_url()."talents/publicedit/".$item['id']?>" readonly="">
-                                            <div class="clipboard-btn" data-clipboard-target="#public_edit_url_<?=$item['id']?>" rel="tooltip" title="クリップボードにURLをコピーします"><span class="icon-copy" aria-hidden="true"></span></div>
+                                            <div class="clipboard-btn" data-clipboard-target="#public_edit_url_<?=$item['id']?>" rel="tooltip" title="クリップボードにURLをコピーします"><span class="fa fa-fw fa-copy" aria-hidden="true" style="margin-top: 3px;"></span></div>
                                             <a class="add-on-link-btn-disabled">外部編集用URL&nbsp;(&nbsp;<?=$item['public_edit_date']?>&nbsp;期限&nbsp;)</a>
                                         </div>
                                     <?php } else { ?>
