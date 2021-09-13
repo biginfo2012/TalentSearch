@@ -26,13 +26,25 @@
             <div class="level networks">
                 <ul class="level-item">
                     <li>
-                        <a class="account-list-left-link" href="https://www.instagram.com/blackpinkofficial/" target="_blank"><span class="instagram"></span></a>
+                        <?php if(empty($item['it_url'])) { ?>
+                            <span class="instagram disable"></span>
+                        <?php } else { ?>
+                            <a class="account-list-left-link" href="<?=$item["it_url"]?>" target="_blank"><span class="instagram"></span></a>
+                        <?php } ?>
                     </li>
                     <li>
-                        <span class="twitter disable"></span>
+                        <?php if(empty($item['tw_url'])) { ?>
+                            <span class="twitter disable"></span>
+                        <?php } else { ?>
+                            <a class="account-list-left-link" href="<?=$item["tw_url"]?>" target="_blank"><span class="twitter"></span></a>
+                        <?php } ?>
                     </li>
                     <li>
-                        <a class="account-list-left-link" href="https://www.youtube.com/channel/UCOmHUn--16B90oW2L6FRR3A" target="_blank"><span class="youtube"></span></a>
+                        <?php if(empty($item['yt_url'])) { ?>
+                            <span class="youtube disable"></span>
+                        <?php } else { ?>
+                            <a class="account-list-left-link" href="<?=$item["yt_url"]?>" target="_blank"><span class="youtube"></span></a>
+                        <?php } ?>
                     </li>
                 </ul>
             </div>

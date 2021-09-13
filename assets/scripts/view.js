@@ -75,14 +75,47 @@ jQuery(document).ready(function() {
             contentType: false,
             processData: false,
         }).done(function (response) {
-            var data = JSON.parse(response);
-            if(data.success){
-                toastr.success(data.msg);
-                $("#signup_modal").modal("hide");
-            }else{
-                toastr.error(data.msg);
-            }
+            var a = $("<a />", {
+                href: 'data:application/csv;charset=UTF-8,' + encodeURIComponent(response),
+                "download":"filename.csv"
+            });
+            $("body").append(a);
+            a[0].click();
+            // var uri = 'data:application/csv;charset=UTF-8,' + encodeURIComponent(response);
+            // window.open(uri, 'test.csv');
+            // var data = JSON.parse(response);
+            // if(data.success){
+            //     toastr.success(data.msg);
+            //     $("#signup_modal").modal("hide");
+            // }else{
+            //     toastr.error(data.msg);
+            // }
         });
+
+    })
+    $('#comment_post').click(function () {
+        let talent_id = $('#talent_id').val();
+        let comment = $('#comment').val();
+        if(comment === ""){
+            toastr.error("コメントを入力してください。");
+        }
+        else{
+            $.ajax({
+                url: HOST_URL + "talents/commentpost",
+                type: 'post',
+                data: {'talent_id' : talent_id, 'comment' : comment},
+                dataType: "json",
+                encode: true,
+            }).done(function (response) {
+                var data = response;
+                if(data.success){
+                    toastr.success(data.msg);
+                }else{
+                    toastr.error(data.msg);
+                }
+            });
+        }
+
 
     })
     $('#keyword').keypress(function(ev) {

@@ -468,6 +468,76 @@ class Talents extends PublicController
         $data["user"] = $this->user_data();
         $data["talent"] = $this->talent->getDataById($id);
         $favourite = $this->favourite->getOneByParam(array("talent_id" => $id));
+        $data["comments"] = $this->comment->getDataByParam(array("talent_id" => $id));
+        $data['insites'] = $this->insite->getDataByParam(array('talent_id' => $id));
+        $data['instagram'] = $this->insite->getDataByParam(['talent_id' => $id, 'type' => 'Instagram']);
+        $data['twitter'] = $this->insite->getDataByParam(['talent_id' => $id, 'type' => 'Twitter']);
+        $data['youtube'] = $this->insite->getDataByParam(['talent_id' => $id, 'type' => 'Youtube']);
+        $data['tiktok'] = $this->insite->getDataByParam(['talent_id' => $id, 'type' => 'TikTok']);
+        $data['it_price'] = 0;
+        $data['it_reach'] = 0;
+        $data['it_cvr'] = 0;
+        $data['it_cv'] = 0;
+        foreach ($data['instagram'] as $item){
+            $data['it_price'] += (int)$item['price'];
+            $data['it_reach'] += $item['reach_rate'];
+            $data['it_cvr'] += $item['cvr'];
+            $data['it_cv'] += $item['cv'];
+        }
+        if(count($data['instagram']) !== 0){
+            $data['it_price'] /= 3;
+            $data['it_reach'] /= 3;
+            $data['it_cvr'] += 3;
+            $data['it_cv'] += 3;
+        }
+        $data['tw_price'] = 0;
+        $data['tw_reach'] = 0;
+        $data['tw_cvr'] = 0;
+        $data['tw_cv'] = 0;
+        foreach ($data['twitter'] as $item){
+            $data['tw_price'] += (int)$item['price'];
+            $data['tw_reach'] += $item['reach_rate'];
+            $data['tw_cvr'] += $item['cvr'];
+            $data['tw_cv'] += $item['cv'];
+        }
+        if(count($data['twitter']) !== 0){
+            $data['tw_price'] /= 3;
+            $data['tw_reach'] /= 3;
+            $data['tw_cvr'] += 3;
+            $data['tw_cv'] += 3;
+        }
+        $data['yt_price'] = 0;
+        $data['yt_reach'] = 0;
+        $data['yt_cvr'] = 0;
+        $data['yt_cv'] = 0;
+        foreach ($data['youtube'] as $item){
+            $data['yt_price'] += (int)$item['price'];
+            $data['yt_reach'] += $item['reach_rate'];
+            $data['yt_cvr'] += $item['cvr'];
+            $data['yt_cv'] += $item['cv'];
+        }
+        if(count($data['youtube']) !== 0){
+            $data['yt_price'] /= 3;
+            $data['yt_reach'] /= 3;
+            $data['yt_cvr'] += 3;
+            $data['yt_cv'] += 3;
+        }
+        $data['tt_price'] = 0;
+        $data['tt_reach'] = 0;
+        $data['tt_cvr'] = 0;
+        $data['tt_cv'] = 0;
+        foreach ($data['tiktok'] as $item){
+            $data['tt_price'] += (int)$item['price'];
+            $data['tt_reach'] += $item['reach_rate'];
+            $data['tt_cvr'] += $item['cvr'];
+            $data['tt_cv'] += $item['cv'];
+        }
+        if(count($data['tiktok']) !== 0){
+            $data['tt_price'] /= 3;
+            $data['tt_reach'] /= 3;
+            $data['tt_cvr'] += 3;
+            $data['tt_cv'] += 3;
+        }
         if (isset($favourite)) {
             $data["favourite"] = 1;
         } else {
@@ -502,6 +572,24 @@ class Talents extends PublicController
         return $this->favourite();
     }
     public function viewcampaign($id){
+        $data["user"] = $this->user_data();
+        $data["campaign"] = $this->campaign->getDataById($id);
+
+        if (!isset($filter["pagination"])) {
+            $pagination["page"] = 1;
+        } else {
+            $pagination = $filter["pagination"];
+        }
+
+        if (isset($filter["per_page"]) && !empty($filter["per_page"])) {
+            $pagination["perpage"] = $filter["per_page"];
+        } else {
+            $pagination["perpage"] = 10;
+        }
+        $data["pagination"] = $pagination;
+        $this->render("public/viewcampaign", $data);
+    }
+    public function publicedit($id){
         $data["user"] = $this->user_data();
         $data["campaign"] = $this->campaign->getDataById($id);
 
@@ -572,17 +660,357 @@ class Talents extends PublicController
         //$campaign_info = array();
         $data['cnt_talent'] = count($data["tcampaign"]);
         $data['sum_fw'] = 0;
+        $data['sum_yt'] = 0;
+        $data['sum_tw'] = 0;
+        $data['avg_male_ratio'] = 0;
+
+        if(isset($data["tcampaign"])){
+            usort($data["tcampaign"], function($a, $b) {return $a['order'] > $b['order'];});
+            foreach ($data["tcampaign"] as $ttem){
+                $tmp = $this->talent->getDataById($ttem["talent_id"]);
+                $data['sum_fw'] += $tmp["it_fw"];
+                $data['sum_yt'] += $tmp["yt_fw"];
+                $data['sum_tw'] += $tmp["tw_fw"];
+                $data['avg_male_ratio'] += (int)($tmp["it_male_ratio"]);
+                array_push($tcampaign_arr, $tmp);
+            }
+        }
+        $data['avg_male_ratio'] = (int)($data['avg_male_ratio']/$data['cnt_talent']);
+        $data['avg_female_ratio'] = 100 - $data['avg_male_ratio'];
+        $data["talents"] = $tcampaign_arr;
+
+        $this->render("public/campaignpreview", $data);
+    }
+    public function campaignorder($id){
+        $data["user"] = $this->user_data();
+        $data["campaign"] = $this->campaign->getDataById($id);
+        $this->render("public/campaignorder", $data);
+    }
+    public function campaignprice($id){
+        $data["user"] = $this->user_data();
+        $data["campaign"] = $this->campaign->getDataById($id);
+        $data["tcampaign"] = $this->tcampaign->getDataByParam(array("campaign_id" => $data["campaign"]["id"]));
+        $tcampaign_arr = array();
+        $net_arr = array();
+        $gross_arr = array();
+        //$campaign_info = array();
+        $data['cnt_talent'] = count($data["tcampaign"]);
+        $data['sum_fw'] = 0;
+        $data['sum_net_price'] = 0;
+        $data['sum_gross_price'] = 0;
+
+        if(isset($data["tcampaign"])){
+            usort($data["tcampaign"], function($a, $b) {return $a['order'] > $b['order'];});
+            foreach ($data["tcampaign"] as $ttem){
+                $tmp = $this->talent->getDataById($ttem["talent_id"]);
+                $data['sum_fw'] += $tmp["it_fw"];
+                $data['sum_net_price'] += $ttem["net_price"];
+                $data['sum_gross_price'] += $ttem["gross_price"];
+                array_push($tcampaign_arr, $tmp);
+            }
+        }
+
+        $data["talents"] = $tcampaign_arr;
+
+        $this->render("public/campaignprice", $data);
+    }
+    public function changeprice(){
+        $p_data = $this->input->post();
+        $campaign_id = $p_data['campaign_id'];
+        $price_type = $p_data['price_type'];
+        $value = $p_data['value'];
+        if($price_type === 'net'){
+            $data['id'] = $campaign_id;
+            $data['net_price'] = $value;
+            $this->campaign->updateData($data);
+        }
+        else{
+            $data['id'] = $campaign_id;
+            $data['gross_price'] = $value;
+            $this->campaign->updateData($data);
+        }
+        $this->json(array("success" => true, "msg" => "成 功!"));
+    }
+    public function updateprice(){
+        $p_data = $this->input->post();
+        $campaign_id = $p_data['campaign_id'];
+        $price_type = $p_data['price_type'];
+        $talent_id = $p_data['talent_id'];
+        $tcampaign = $this->tcampaign->getDatabyParam(['campaign_id' => $campaign_id, 'talent_id' => $talent_id]);
+        $id = $tcampaign[0]['id'];
+        $value = $p_data['value'];
+        if($price_type === 'net'){
+            $data['id'] = $id;
+            $data['net_price'] = $value;
+            $this->tcampaign->updateData($data);
+        }
+        else{
+            $data['id'] = $id;
+            $data['gross_price'] = $value;
+            $this->tcampaign->updateData($data);
+        }
+        $data["tcampaign"] = $this->tcampaign->getDataByParam(array("campaign_id" => $campaign_id));
+        $data['sum_net_price'] = 0;
+        $data['sum_gross_price'] = 0;
+
+        if(isset($data["tcampaign"])){
+            foreach ($data["tcampaign"] as $ttem){
+                $data['sum_net_price'] += $ttem["net_price"];
+                $data['sum_gross_price'] += $ttem["gross_price"];
+            }
+        }
+        $this->json(array("success" => true, "msg" => "成 功!", "net_price" => $data['sum_net_price'], "gross_price" => $data['sum_gross_price']));
+    }
+    public function campaignsort(){
+        $p_data = $this->input->post();
+        $id = $p_data['id'];
+        $type = $p_data['type'];
+        $sort_type = $p_data['sort_type'];
+        $data["campaign"] = $this->campaign->getDataById($id);
+        $filter["query"] = array();
+
+
+        $data["tcampaign"] = $this->tcampaign->getDataByParam(array("campaign_id" => $data["campaign"]["id"]));
+        $tcampaign_arr = array();
+        //$campaign_info = array();
+
+        if(isset($data["tcampaign"])){
+            foreach ($data["tcampaign"] as $ttem){
+                $tmp = $this->talent->getDataById($ttem["talent_id"]);
+                array_push($tcampaign_arr, $tmp);
+            }
+        }
+        if($type === 'instagram'){
+            if ($sort_type === 'fw_cnt') {
+                usort($tcampaign_arr, function($a, $b) {return $a['it_fw'] < $b['it_fw'];});
+            }
+            if ($sort_type === 'eg_rate') {
+                usort($tcampaign_arr, function($a, $b) {return $a['eg_rate'] < $b['eg_rate'];});
+            }
+        }
+
+        $data["talents"] = $tcampaign_arr;
+        if($type === 'instagram'){
+            return $this->load->view('public/campaign_user/instagram', $data);
+        }
+
+    }
+    public function talentlist(){
+        $p_data = $this->input->post();
+        $id = $p_data['campaign_id'];
+        $data["campaign"] = $this->campaign->getDataById($id);
+        $data["tcampaign"] = $this->tcampaign->getDataByParam(array("campaign_id" => $data["campaign"]["id"]));
+        $tcampaign_arr = array();
+        $comment_arr = array();
+        //$campaign_info = array();
+        $data['sum_fw'] = 0;
+        $data['cnt_talent'] = count($data["tcampaign"]);
+        if(isset($data["tcampaign"])){
+            usort($data["tcampaign"], function($a, $b) {return $a['order'] > $b['order'];});
+            foreach ($data["tcampaign"] as $ttem){
+                $tmp = $this->talent->getDataById($ttem["talent_id"]);
+                $data['sum_fw'] += $tmp["it_fw"];
+                array_push($tcampaign_arr, $tmp);
+                array_push($comment_arr, $ttem['comment']);
+            }
+        }
+        $data['sum_fw'] = number_format($data['sum_fw']);
+        $data["comment"] = $comment_arr;
+        $data["talents"] = $tcampaign_arr;
+        $data["campaign_id"] = $id;
+        return $this->load->view('public/talentlist', $data);
+
+    }
+    public function talentorderlist(){
+        $p_data = $this->input->post();
+        $id = $p_data['campaign_id'];
+        $data["campaign"] = $this->campaign->getDataById($id);
+        $data["tcampaign"] = $this->tcampaign->getDataByParam(array("campaign_id" => $data["campaign"]["id"]));
+        $tcampaign_arr = array();
+
+        if(isset($data["tcampaign"])){
+            usort($data["tcampaign"], function($a, $b) {return $a['order'] > $b['order'];});
+            foreach ($data["tcampaign"] as $ttem){
+                $tmp = $this->talent->getDataById($ttem["talent_id"]);
+                array_push($tcampaign_arr, $tmp);
+            }
+        }
+        $data["talents"] = $tcampaign_arr;
+        return $this->load->view('public/talentorderlist', $data);
+
+    }
+    public function addtalentsns(){
+        $p_data = $this->input->post();
+        $tcampaign['campaign_id'] = $p_data['campaign_id'];
+        $sns_type = $p_data['sns_type'];
+        $sns_id = $p_data['sns_id'];
+        $talents = $this->talent->getAll();
+        $talent_id = null;
+        foreach ($talents as $item){
+            if($sns_type === 'instagram'){
+                if(strpos($item->it_url, $sns_id)){
+                    $talent_id = $item->id;
+                }
+            }
+            if($sns_type === 'youtube'){
+                if(strpos($item->yt_url, $sns_id)){
+                    $talent_id = $item->id;
+                }
+            }
+            if($sns_type === 'twitter'){
+                if(strpos($item->tw_url, $sns_id)){
+                    $talent_id = $item->id;
+                }
+            }
+        }
+        if($talent_id === null){
+            $this->json(array("success" => false, "msg" => "入力されたのアカウントのユーザーIDはシステムに未登録です!"));
+        }
+        else{
+            $al_data = $this->tcampaign->getDataByParam(["campaign_id" => $p_data['campaign_id'], "talent_id" => $talent_id]);
+            if(count($al_data) > 0){
+                $this->json(array("success" => false, "msg" => "対象のアカウントは既にリストに追加済です!"));
+            }
+            else{
+                $data = $this->tcampaign->getDataByParam(array("campaign_id" => $p_data['campaign_id']));
+                if(isset($data)){
+                    usort($data, function($a, $b) {return $a['order'] < $b['order'];});
+                    $order = $data[0]['order'] + 1;
+                }
+                else{
+                    $order = 1;
+                }
+                $tcampaign['talent_id'] = $talent_id;
+                $tcampaign['order'] = $order;
+                $this->tcampaign->setData($tcampaign);
+                $this->json(array("success" => true, "msg" => "成 功!"));
+            }
+
+        }
+    }
+    public function changeorder(){
+        $p_data = $this->input->post();
+        $campaign_id = $p_data['campaign_id'];
+        $talent_id = $p_data['talent_id'];
+        $type = $p_data['type'];
+        $data = $this->tcampaign->getDataByParam(array("campaign_id" => $campaign_id));
+        $tdata = $this->tcampaign->getDataByParam(["campaign_id" => $campaign_id, "talent_id" => $talent_id]);
+        $id = $tdata[0]['id'];
+        if(isset($data)){
+
+            if($type === 'top'){
+                usort($data, function($a, $b) {return $a['order'] > $b['order'];});
+                $order = $data[0]['order'] - 1;
+//                print_r($order);
+//                die();
+                $tcampaign['id'] = $id;
+                $tcampaign['order'] = $order;
+                $this->tcampaign->updateData($tcampaign);
+            }
+            if($type === 'bottom'){
+                usort($data, function($a, $b) {return $a['order'] < $b['order'];});
+                $order = $data[0]['order'] + 1;
+                $tcampaign['id'] = $id;
+                $tcampaign['order'] = $order;
+                $this->tcampaign->updateData($tcampaign);
+            }
+            if($type === 'up'){
+                usort($data, function($a, $b) {return $a['order'] > $b['order'];});
+                $i = 0;
+                foreach ($data as $index => $item){
+                    if($item['id'] === $id){
+                        $i = $index;
+                    }
+                }
+                if($i !== 0){
+                    $tcampaign['id'] = $id;
+                    $tcampaign['order'] = $data[$i - 1]['order'];
+                    $this->tcampaign->updateData($tcampaign);
+
+                    $tcampaign1['id'] = $data[$i - 1]['id'];
+                    $tcampaign1['order'] = $data[$i]['order'];
+                    $this->tcampaign->updateData($tcampaign1);
+                }
+
+
+            }
+            if($type === 'down'){
+                usort($data, function($a, $b) {return $a['order'] < $b['order'];});
+                $i = 0;
+                foreach ($data as $index => $item){
+                    if($item['id'] === $id){
+                        $i = $index;
+                    }
+                }
+                if($i !== 0){
+                    $tcampaign['id'] = $id;
+                    $tcampaign['order'] = $data[$i - 1]['order'];
+                    $this->tcampaign->updateData($tcampaign);
+
+                    $tcampaign1['id'] = $data[$i - 1]['id'];
+                    $tcampaign1['order'] = $data[$i]['order'];
+                    $this->tcampaign->updateData($tcampaign1);
+                }
+            }
+        }
+
+        $this->json(array("success" => true, "msg" => "成 功!"));
+
+
+    }
+    public function addtalentcomment(){
+        $p_data = $this->input->post();
+        $campaign_id = $p_data['campaign_id'];
+        $talent_id = $p_data['talent_id'];
+        $comment = $p_data['comment'];
+        $tcampaign = $this->tcampaign->getDatabyParam(['campaign_id' => $campaign_id, 'talent_id' => $talent_id]);
+        $id = $tcampaign[0]['id'];
+        $data['id'] = $id;
+        $data['comment'] = $comment;
+        $this->tcampaign->updateData($data);
+        $this->json(array("success" => true, "msg" => "成 功!"));
+    }
+    public function publicviewcampaign(){
+        $p_data = $this->input->post();
+        $campaign_id = $p_data['id'];
+        $campaign['id'] = $campaign_id;
+        $campaign['public_view_date'] = date("Y-m-d", strtotime("+1 months"));
+        $this->campaign->updateData($campaign);
+        $this->json(array("success" => true, "msg" => "成 功!"));
+    }
+    public function publiceditcampaign(){
+        $p_data = $this->input->post();
+        $campaign_id = $p_data['id'];
+        $campaign['id'] = $campaign_id;
+        $campaign['public_edit_date'] = date("Y-m-d", strtotime("+1 months"));
+        $this->campaign->updateData($campaign);
+        $this->json(array("success" => true, "msg" => "成 功!"));
+    }
+    public function publicview($id){
+        $data["user"] = $this->user_data();
+        $data["campaign"] = $this->campaign->getDataById($id);
+        $data["tcampaign"] = $this->tcampaign->getDataByParam(array("campaign_id" => $data["campaign"]["id"]));
+        $tcampaign_arr = array();
+        //$campaign_info = array();
+        $data['cnt_talent'] = count($data["tcampaign"]);
+        $data['sum_fw'] = 0;
+        $data['sum_yt'] = 0;
+        $data['sum_tw'] = 0;
+        $data['avg_male_ratio'] = 0;
 
         if(isset($data["tcampaign"])){
             foreach ($data["tcampaign"] as $ttem){
                 $tmp = $this->talent->getDataById($ttem["talent_id"]);
                 $data['sum_fw'] += $tmp["it_fw"];
+                $data['sum_yt'] += $tmp["yt_fw"];
+                $data['sum_tw'] += $tmp["tw_fw"];
+                $data['avg_male_ratio'] += (int)($tmp["it_male_ratio"]);
                 array_push($tcampaign_arr, $tmp);
             }
         }
+        $data['avg_male_ratio'] = (int)($data['avg_male_ratio']/$data['cnt_talent']);
+        $data['avg_female_ratio'] = 100 - $data['avg_male_ratio'];
         $data["talents"] = $tcampaign_arr;
-//        print_r($data["talents"]);
-//        die();
 
         $this->render("public/campaignpreview", $data);
     }
@@ -603,6 +1031,15 @@ class Talents extends PublicController
         $p_data = $this->input->post();
         $tcampaign['talent_id'] = $p_data['talent_id'];
         $tcampaign['campaign_id'] = $p_data['campaign_id'];
+        $data = $this->tcampaign->getDataByParam(array("campaign_id" => $p_data['campaign_id']));
+        if(isset($data)){
+            usort($data, function($a, $b) {return $a['order'] < $b['order'];});
+            $order = $data[0]['order'] + 1;
+        }
+        else{
+            $order = 1;
+        }
+        $tcampaign['order'] = $order;
         $this->tcampaign->setData($tcampaign);
         $this->json(array("success" => true, "msg" => "成 功!"));
     }
@@ -611,10 +1048,11 @@ class Talents extends PublicController
         $tcampaign['campaign_id'] = $p_data['campaign_id'];
         $this->tcampaign->deleteByParam(array("campaign_id" => $p_data['campaign_id']));
         $talents = $this->talent->search();
-        foreach ($talents as $item){
+        foreach ($talents as $index => $item){
             $tcampaign = array();
             $tcampaign['campaign_id'] = $p_data['campaign_id'];
             $tcampaign['talent_id'] = $item['id'];
+            $tcampaign['order'] = $index + 1;
             $this->tcampaign->setData($tcampaign);
         }
         $this->json(array("success" => true, "msg" => "成 功!"));
@@ -672,11 +1110,21 @@ class Talents extends PublicController
         $campaign_id = $this->campaign->setData($campaign);
         foreach ($t_data as $item){
             $tcampaign["talent_id"] = $item["talent_id"];
+            $tcampaign["order"] = $item["order"];
             $tcampaign["campaign_id"] = $campaign_id;
             $this->tcampaign->setData($tcampaign);
         }
         $this->json(array("success" => true, "msg" => "成 功!"));
         //$this->load->view("public/view", $data);
+    }
+
+    public function commentpost(){
+        $p_data = $this->input->post();
+        $comment["talent_id"] = $p_data["talent_id"];
+        $comment["comment"] = $p_data["comment"];
+        $comment["created_at"] = date("Y-m-d H:i:s");
+        $this->comment->setData($comment);
+        $this->json(array("success" => true, "msg" => "成 功!"));
     }
 
     public function csvImport()
@@ -824,6 +1272,7 @@ class Talents extends PublicController
             $campaign_info['sum_fw'] = 0;
 
             if(isset($tcampaign)){
+                usort($tcampaign, function($a, $b) {return $a['order'] > $b['order'];});
                 foreach ($tcampaign as $ttem){
                     $tmp = $this->talent->getDataById($ttem["talent_id"]);
                     $campaign_info['sum_fw'] += $tmp["it_fw"];
@@ -861,6 +1310,7 @@ class Talents extends PublicController
 
         $data["user"] = $this->user_data();
         $data["sticky"] = true;
+
         $this->render("public/favourite", $data);
     }
 
@@ -894,74 +1344,208 @@ class Talents extends PublicController
 
     public function copy(){
         $data = $this->input->post();
-        $talents["user_id"] = $row["ID"];
-        $talents["profile_name"] = $row["プロフィール表示名"];
-        $talents["it_fw"] = $row["フォロワー数"];
-        $talents["it_url"] = $row["InstagramプロフィールURL"];
-        $talents["amount"] = $row["依頼金額"];
-        $talents["note"] = $row["注意"];
-        $talents["it_male_ratio"] = $row["IGfw男性比率"];
-        $talents["it_female_ratio"] = $row["IGfw女性比率"];
-        $talents["age"] = $row["年齢"];
-        $talents["activity_base"] = $row["活動拠点"];
-        $talents["occupation"] = $row["ご職業"];
-        $talents["genre"] = $row["投稿ジャンル（複数選択可）"];
-        $talents["contract"] = $row["契約書"];
-        $talents["acq_record"] = $row["獲得実績"];
-        $talents["pr_point"] = $row["PRポイント"];
-        if($row["性別"] === "女性"){
-            $talents["gender"] = 2;
-        }
-        else{
-            $talents["gender"] = 1;
-        }
-        $talents["eg_rate"] = $row["平均EG率(%)"];
-        $talents["app_post"] = $row["投稿での顔出し"];
-        $talents["charge_name"] = $row["担当者名"];
-        $talents["belonging"] = $row["所属"];
-        $talents["post_result"] = $row["投稿実績"];
-        $talents["tw_fw"] = $row["twitterフォロワー"];
-        $talents["tw_url"] = $row["Twitterアカウント URL"];
-        $talents["fb_fw"] = $row["FBfw"];
-        $talents["fb_url"] = $row["Facebookアカウント URL"];
-        $talents["yt_fw"] = $row["youtube登録者数"];
-        $talents["yt_url"] = $row["YouTubeチャンネル URL"];
-        $talents["yt_female_ratio"] = $row["女性比率"];
-        $talents["yt_male_ratio"] = $row["男性比率"];
-        $talents["age_13"] = $row["13歳〜17歳"];
-        $talents["age_18"] = $row["18歳〜24歳"];
-        $talents["age_25"] = $row["25歳〜34歳"];
-        $talents["age_35"] = $row["35歳〜44歳"];
-        $talents["age_45"] = $row["45歳〜54歳"];
-        $talents["age_55"] = $row["55歳〜64歳"];
-        $talents["age_65"] = $row["65歳以上"];
-        $talents["tt_fw"] = $row["TikTokfw数"];
-        $talents["tt_url"] = $row["TikTokアカウント URL"];
-        $talents["blog_fw"] = $row["Blogfw数"];
-        $talents["blog_url"] = $row["ブログ URL"];
-        $talents["wear_fw"] = $row["wearfw数"];
-        $talents["wear_url"] = $row["wearURL"];
-        $talents["sns_url"] = $row["その他のSNS URL"];
-        $talents["tel_number"] = $row["電話番号"];
-        $talents["zip_code"] = $row["郵便番号"];
-        $talents["province"] = $row["都道府県"];
-        $talents["district_num"] = $row["市区町村・番地"];
-        $talents["building_name"] = $row["マンション・ビル名"];
-        $talents["post"] = $row["宛名"];
-        $talents["bank_name"] = $row["銀行名"];
-        $talents["branch_name"] = $row["支店名"];
-        $talents["account_type"] = $row["口座種別"];
-        $talents["account_number"] = $row["口座番号"];
-        $talents["account_kana"] = $row["口座名義(カタカナまたは英数字) "];
-        $talents["name"] = $row["お名前"];
-        $talents["birthday"] = $row["生年月日"];
-        $talents["email"] = $row["メールアドレス"];
-        $talents["line_id"] = $row["LINE ID"];
-        $talents["timestampp"] = $row["タイムスタンプ"];
+        $talent_id = $data["talent_id"];
+        $tData = $this->talent->getDataById($talent_id);
+        $file_name = 'student_details_on_'.date('Ymd').'.csv';
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=$file_name");
+        header("Content-Type: application/csv;");
 
-        print_r($data);
-        die();
-        $campaign = $this->campaign->getDataById($data["campaign_id"]);
+        // get data
+
+        // file creation
+        $file = fopen('php://output', 'w');
+
+        $header = array("お名前","メールアドレス", "性別", "宛名", "電話番号", "口座名義", "郵便番号", "生年月日", "口座種別", "都道府県", "市区町村・番地", "マンション・ビル名", "フォロワー数",
+                        "InstagramプロフィールURL", "依頼金額", "担当者名", "口座番号", "IGfw男性比率", "IGfw女性比率", "LINE ID", "ご職業", "投稿ジャンル", "活動拠点", "PRポイント", "プロフィール表示名",
+                        "平均EG率(%)", "投稿での顔出し", "所属", "投稿実績", "twitterフォロワー", "Twitterアカウント URL", "FBfw", "Facebookアカウント URL", "youtube登録者数", "YouTubeチャンネル URL",
+                        "女性比率", "男性比率", "獲得実績", "TikTokfw数", "TikTokアカウント URL", "ブログ URL", "Blogfw数", "wearfw数", "wearURL", "Weibofw数", "WeChatfw数", "REDfw数",
+                        "抖音fw数", "関係値", "スリーサイズ", "その他のSNS", "銀行名", "支店名", "注意");
+        fputcsv($file, $header);
+        $vData = array();
+        if(isset($data["name"]) && $data["name"] === 'on'){
+            $vData["お名前"] = $tData['name'];
+        }
+        if(isset($data["email"]) && $data["email"] === 'on'){
+            $vData["メールアドレス"] = $tData['email'];
+        }
+        if(isset($data["gender"]) && $data["gender"] === 'on'){
+            if($tData['gender'] === 1){
+                $vData["性別"] = "男性";
+            }
+            else{
+                $vData["性別"] = "女性";
+            }
+        }
+        if(isset($data["post"]) && $data["post"] === 'on'){
+            $vData["宛名"] = $tData['post'];
+        }
+        if(isset($data["tel_number"]) && $data["tel_number"] === 'on'){
+            $vData["電話番号"] = $tData['tel_number'];
+        }
+        if(isset($data["account_kana"]) && $data["account_kana"] === 'on'){
+            $vData["口座名義"] = $tData['account_kana'];
+        }
+        if(isset($data["zip_code"]) && $data["zip_code"] === 'on'){
+            $vData["郵便番号"] = $tData['zip_code'];
+        }
+        if(isset($data["birthday"]) && $data["birthday"] === 'on'){
+            $vData["生年月日"] = $tData['birthday'];
+        }
+        if(isset($data["account_type"]) && $data["account_type"] === 'on'){
+            $vData["口座種別"] = $tData['account_type'];
+        }
+        if(isset($data["province"]) && $data["province"] === 'on'){
+            $vData["都道府県"] = $tData['province'];
+        }
+        if(isset($data["district_num"]) && $data["district_num"] === 'on'){
+            $vData["市区町村・番地"] = $tData['district_num'];
+        }
+        if(isset($data["building_name"]) && $data["building_name"] === 'on'){
+            $vData["マンション・ビル名"] = $tData['building_name'];
+        }
+        if(isset($data["it_fw"]) && $data["it_fw"] === 'on'){
+            $vData["フォロワー数"] = $tData['it_fw'];
+        }
+        if(isset($data["it_url"]) && $data["it_url"] === 'on'){
+            $vData["InstagramプロフィールURL"] = $tData['it_url'];
+        }
+        if(isset($data["amount"]) && $data["amount"] === 'on'){
+            $vData["依頼金額"] = $tData['amount'];
+        }
+        if(isset($data["charge_name"]) && $data["charge_name"] === 'on'){
+            $vData["担当者名"] = $tData['charge_name'];
+        }
+        if(isset($data["account_number"]) && $data["account_number"] === 'on'){
+            $vData["口座番号"] = $tData['account_number'];
+        }
+        if(isset($data["it_male_ratio"]) && $data["it_male_ratio"] === 'on'){
+            $vData["IGfw男性比率"] = $tData['it_male_ratio'];
+        }
+        if(isset($data["it_female_ratio"]) && $data["it_female_ratio"] === 'on'){
+            $vData["IGfw女性比率"] = $tData['it_female_ratio'];
+        }
+        if(isset($data["age"]) && $data["age"] === 'on'){
+            $vData["年齢"] = $tData['age'];
+        }
+        if(isset($data["line_id"]) && $data["line_id"] === 'on'){
+            $vData["LINE ID"] = $tData['line_id'];
+        }
+        if(isset($data["occupation"]) && $data["occupation"] === 'on'){
+            $vData["ご職業"] = $tData['occupation'];
+        }
+        if(isset($data["genre"]) && $data["genre"] === 'on'){
+            $vData["投稿ジャンル"] = $tData['genre'];
+        }
+        if(isset($data["activity_base"]) && $data["activity_base"] === 'on'){
+            $vData["活動拠点"] = $tData['activity_base'];
+        }
+        if(isset($data["pr_point"]) && $data["pr_point"] === 'on'){
+            $vData["PRポイント"] = $tData['pr_point'];
+        }
+        if(isset($data["profile_name"]) && $data["profile_name"] === 'on'){
+            $vData["プロフィール表示名"] = $tData['profile_name'];
+        }
+        if(isset($data["eg_rate"]) && $data["eg_rate"] === 'on'){
+            $vData["平均EG率(%)"] = $tData['eg_rate'];
+        }
+        if(isset($data["app_post"]) && $data["app_post"] === 'on'){
+            $vData["投稿での顔出し"] = $tData['app_post'];
+        }
+        if(isset($data["belonging"]) && $data["belonging"] === 'on'){
+            $vData["所属"] = $tData['belonging'];
+        }
+        if(isset($data["post_result"]) && $data["post_result"] === 'on'){
+            $vData["投稿実績"] = $tData['post_result'];
+        }
+        if(isset($data["tw_fw"]) && $data["tw_fw"] === 'on'){
+            $vData["twitterフォロワー"] = $tData['tw_fw'];
+        }
+        if(isset($data["tw_url"]) && $data["tw_url"] === 'on'){
+            $vData["Twitterアカウント URL"] = $tData['tw_url'];
+        }
+        if(isset($data["fb_fw"]) && $data["fb_fw"] === 'on'){
+            $vData["FBfw"] = $tData['fb_fw'];
+        }
+        if(isset($data["fb_url"]) && $data["fb_url"] === 'on'){
+            $vData["Facebookアカウント URL"] = $tData['fb_url'];
+        }
+        if(isset($data["yt_fw"]) && $data["yt_fw"] === 'on'){
+            $vData["youtube登録者数"] = $tData['yt_fw'];
+        }
+        if(isset($data["yt_url"]) && $data["yt_url"] === 'on'){
+            $vData["YouTubeチャンネル URL"] = $tData['yt_url'];
+        }
+        if(isset($data["yt_female_ratio"]) && $data["yt_female_ratio"] === 'on'){
+            $vData["女性比率"] = $tData['yt_female_ratio'];
+        }
+        if(isset($data["yt_male_ratio"]) && $data["yt_male_ratio"] === 'on'){
+            $vData["男性比率"] = $tData['yt_male_ratio'];
+        }
+        if(isset($data["acq_record"]) && $data["acq_record"] === 'on'){
+            $vData["獲得実績"] = $tData['acq_record'];
+        }
+        if(isset($data["tt_fw"]) && $data["tt_fw"] === 'on'){
+            $vData["TikTokfw数"] = $tData['tt_fw'];
+        }
+        if(isset($data["tt_url"]) && $data["tt_url"] === 'on'){
+            $vData["TikTokアカウント URL"] = $tData['tt_url'];
+        }
+        if(isset($data["blog_url"]) && $data["blog_url"] === 'on'){
+            $vData["ブログ URL"] = $tData['blog_url'];
+        }
+        if(isset($data["blog_fw"]) && $data["blog_fw"] === 'on'){
+            $vData["Blogfw数"] = $tData['blog_fw'];
+        }
+        if(isset($data["wear_fw"]) && $data["wear_fw"] === 'on'){
+            $vData["wearfw数"] = $tData['wear_fw'];
+        }
+        if(isset($data["wear_url"]) && $data["wear_url"] === 'on'){
+            $vData["wearURL"] = $tData['wear_url'];
+        }
+        if(isset($data["weibo_fw"]) && $data["weibo_fw"] === 'on'){
+            $vData["Weibofw数"] = $tData['weibo_fw'];
+        }
+        if(isset($data["wechat_fw"]) && $data["wechat_fw"] === 'on'){
+            $vData["WeChatfw数"] = $tData['wechat_fw'];
+        }
+        if(isset($data["red_fw"]) && $data["red_fw"] === 'on'){
+            $vData["REDfw数"] = $tData['red_fw'];
+        }
+        if(isset($data["keyin_fw"]) && $data["keyin_fw"] === 'on'){
+            $vData["抖音fw数"] = $tData['keyin_fw'];
+        }
+        if(isset($data["relationship"]) && $data["relationship"] === 'on'){
+            $vData["関係値"] = $tData['relationship'];
+        }
+        if(isset($data["threesize"]) && $data["threesize"] === 'on'){
+            $vData["スリーサイズ"] = $tData['threesize'];
+        }
+        if(isset($data["sns_url"]) && $data["sns_url"] === 'on'){
+            $vData["その他のSNS"] = $tData['sns_url'];
+        }
+        if(isset($data["bank_name"]) && $data["bank_name"] === 'on'){
+            $vData["銀行名"] = $tData['bank_name'];
+        }
+        if(isset($data["branch_name"]) && $data["branch_name"] === 'on'){
+            $vData["支店名"] = $tData['branch_name'];
+        }
+        if(isset($data["note"]) && $data["note"] === 'on'){
+            $vData["注意"] = $tData['note'];
+        }
+
+
+        fputcsv($file, $vData);
+//        print_r($vData);
+//        die();
+//        foreach ($student_data->result_array() as $key => $value)
+//        {
+//            fputcsv($file, $value);
+//        }
+        fclose($file);
+        exit;
+
+
 
     }
 }

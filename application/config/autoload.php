@@ -139,5 +139,7 @@ $autoload['model'] = array(
 	'Context_model' => 'context',
     'Favourite_model' => 'favourite',
     'Campaign_model' => 'campaign',
-    'Tcampaign_model' => 'tcampaign'
+    'Tcampaign_model' => 'tcampaign',
+    'Comment_model' => 'comment',
+    'Insite_model' => 'insite'
 );

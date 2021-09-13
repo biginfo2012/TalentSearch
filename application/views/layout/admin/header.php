@@ -17,6 +17,7 @@
                             <?php if($user["type"] == 2) { ?>
                                 <a class="dropdown-item" href="<?=base_url()?>admin/user"><i class="dropdown-icon zmdi zmdi-account"></i><span>ユーザー管理</span></a>
                                 <a class="dropdown-item" href="<?=base_url()?>admin/talent"><i class="dropdown-icon zmdi zmdi-account"></i><span>才能</span></a>
+                                <a class="dropdown-item" href="<?=base_url()?>admin/insite"><i class="dropdown-icon zmdi zmdi-account"></i><span>インサイト</span></a>
                             <?php } else{ ?>
                                 <a class="dropdown-item" href="<?=base_url()?>talents/edit"><i class="dropdown-icon zmdi zmdi-power"></i><span>編集スキル</span></a>
                             <?php } ?>

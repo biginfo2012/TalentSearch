@@ -183,7 +183,7 @@
     .form_main .box_gray {
         background-color: #EEEEEE;
         color: #666666;
-        font-size: 1.6rem;
+        font-size: 1.2rem;
         -moz-border-radius: 8px;
         border-radius: 8px;
         text-align: center;

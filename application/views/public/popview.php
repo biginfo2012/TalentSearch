@@ -168,7 +168,7 @@
                                                     <div class="review_card">
                                                         <div class="row">
                                                             <div class="col-md-2 user_info">
-                                                                <a href="<?=$talent["tt_url"]?>"><figure><img src="<?=asset_url()?>logos/tictok.png"alt=""></figure></a>
+                                                                <a href="<?=$talent["tt_url"]?>"><figure><img src="<?=asset_url()?>logos/tiktok.png"alt=""></figure></a>
                                                                 <h5>TikTok</h5>
                                                             </div>
                                                             <div class="col-md-10 review_content d-flex flex-wrap my-2">
@@ -270,7 +270,7 @@
                                                     <div class="review_card">
                                                         <div class="row">
                                                             <div class="col-md-2 user_info">
-                                                                <a href=""><figure><img src="<?=asset_url()?>logos/tictok.png"alt=""></figure></a>
+                                                                <a href=""><figure><img src="<?=asset_url()?>logos/tiktok.png"alt=""></figure></a>
                                                                 <h5>抖音</h5>
                                                             </div>
                                                             <div class="col-md-10 review_content d-flex flex-wrap my-2">

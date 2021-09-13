@@ -109,16 +109,16 @@
                                                                         <p>リール依頼金額: </p>
                                                                     </span>
                                                                     <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                                        <p>IGTV依頼金額: </p>
+                                                                        <p>IGTV依頼金額: <?= $it_price ?></p>
                                                                         <p style="color: #3699ff;">男性比率: <?= $talent["it_male_ratio"]?>%</p>
                                                                         <p style="color: #f9316c;">女性比率: <?= $talent["it_female_ratio"]?>%</p>
                                                                         <p>年代層: </p>
                                                                     </span>
                                                                     <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
                                                                         <p>エンゲージメント率: <?= $talent["eg_rate"]?></p>
-                                                                        <p>リーチ率: </p>
-                                                                        <p>CVR: </p>
-                                                                        <p>CTR: </p>
+                                                                        <p>リーチ率: <?= $it_reach ?></p>
+                                                                        <p>CVR: <?= $it_cvr ?></p>
+                                                                        <p>CTR: <?= $it_cv ?></p>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -134,7 +134,7 @@
                                                                 <div class="col-md-10 review_content d-flex flex-wrap my-2">
                                                                     <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
                                                                         <p>フォロワー数: <?=number_format($talent["tw_fw"], 0, '.', ',')?></p>
-                                                                        <p>依頼金額: </p>
+                                                                        <p>依頼金額: <?= $tw_price ?></p>
                                                                         <p style="color: #3699ff;">男性比率: </p>
                                                                     </span>
                                                                     <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
@@ -143,9 +143,9 @@
                                                                         <p>エンゲージメント率: </p>
                                                                     </span>
                                                                     <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                                        <p>リーチ率: </p>
-                                                                        <p>CVR: </p>
-                                                                        <p>CTR: </p>
+                                                                        <p>リーチ率: <?= $tw_reach ?></p>
+                                                                        <p>CVR: <?= $tw_cvr ?></p>
+                                                                        <p>CTR: <?= $tw_cv ?></p>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -159,7 +159,7 @@
                                                                 <div class="col-md-10 review_content d-flex flex-wrap my-2">
                                                                     <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
                                                                         <p>登録者数: <?=number_format($talent["yt_fw"], 0, '.', ',')?></p>
-                                                                        <p>依頼金額: </p>
+                                                                        <p>依頼金額: <?= $yt_price ?></p>
                                                                         <p style="color: #3699ff;">男性比率: <?= $talent["yt_male_ratio"]?>%</p>
                                                                     </span>
                                                                     <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
@@ -169,8 +169,8 @@
                                                                     </span>
                                                                     <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
                                                                         <p>案件再生回数: </p>
-                                                                        <p>CVR: </p>
-                                                                        <p>CTR: </p>
+                                                                        <p>CVR: <?= $yt_price ?></p>
+                                                                        <p>CTR: <?= $yt_price ?></p>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -179,13 +179,13 @@
                                                         <div class="review_card">
                                                             <div class="row">
                                                                 <div class="col-md-2 user_info">
-                                                                    <a href="<?=$talent["tt_url"]?>"><figure><img src="<?=asset_url()?>logos/tictok.png"alt=""></figure></a>
+                                                                    <a href="<?=$talent["tt_url"]?>"><figure><img src="<?=asset_url()?>logos/tiktok.png"alt=""></figure></a>
                                                                     <h5>TikTok</h5>
                                                                 </div>
                                                                 <div class="col-md-10 review_content d-flex flex-wrap my-2">
                                                                     <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
                                                                         <p>フォロワー数: <?=number_format($talent["tt_fw"], 0, '.', ',')?></p>
-                                                                        <p>依頼金額: </p>
+                                                                        <p>依頼金額: <?= $tt_price ?></p>
                                                                         <p style="color: #3699ff;">男性比率: <?= $talent["tt_male_rate"]?>%</p>
                                                                     </span>
                                                                     <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
@@ -195,8 +195,8 @@
                                                                     </span>
                                                                     <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
                                                                         <p>案件再生回数: </p>
-                                                                        <p>CVR: </p>
-                                                                        <p>CTR: </p>
+                                                                        <p>CVR: <?= $tt_price ?></p>
+                                                                        <p>CTR: <?= $tt_price ?></p>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -281,7 +281,7 @@
                                                         <div class="review_card">
                                                             <div class="row">
                                                                 <div class="col-md-2 user_info">
-                                                                    <a href=""><figure><img src="<?=asset_url()?>logos/tictok.png"alt=""></figure></a>
+                                                                    <a href=""><figure><img src="<?=asset_url()?>logos/tiktok.png"alt=""></figure></a>
                                                                     <h5>抖音</h5>
                                                                 </div>
                                                                 <div class="col-md-10 review_content d-flex flex-wrap my-2">
@@ -308,160 +308,162 @@
                                                 </div>
                                                 <div class="tab-pane fade" id="custom-content-below-post" role="tabpanel" aria-labelledby="custom-content-below-post-tab">
                                                     <div id="">
-                                                        <div class="review_card">
-                                                            <div class="row">
-                                                                <div class="col-md-2 user_info">
-                                                                    <a href="<?=$talent["it_url"]?>"><figure><img src="<?=asset_url()?>logos/instagram.png" alt=""></figure></a>
+                                                        <?php foreach ($insites as $item) {
+                                                            if($item['type'] === 'Instagram') { ?>
+                                                                <div class="review_card">
+                                                                    <div class="row">
+                                                                        <div class="col-md-1 user_info">
+                                                                            <a><figure><img src="<?=asset_url()?>logos/instagram.png" alt=""></figure></a>
 
-                                                                    <h5>Instagram</h5>
+                                                                            <h5>Instagram</h5>
+                                                                        </div>
+                                                                        <div class="col-md-11 review_content d-flex flex-wrap my-2">
+                                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                                                        <p>クライアント名: <?= $item["client_name"]?></p>
+                                                                        <p>案件名: <?= $item["subject_name"]?></p>
+                                                                        <p>ジャンル: <?= $item["genre"]?></p>
+                                                                        <p>投稿タイプ: <?= $item["post_type"]?></p>
+                                                                        <p>投稿URL/キャプチャ: <?= $item["post_url"]?></p>
+                                                                        <p>依頼金額: <?= $item["price"]?></p>
+                                                                        <p>投稿日: <?= $item["post_day"]?></p>
+                                                                    </span>
+                                                                            <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                                                        <p>投稿時フォロワー数: <?= $item["post_fw"]?></p>
+                                                                        <p>リーチ数: <?= $item["reach_cnt"]?></p>
+                                                                        <p>インプレッション: <?= $item["impression"]?></p>
+                                                                        <p>リーチ率: <?= $item["reach_rate"]?></p>
+                                                                        <p>いいね数: <?= $item["fa_fw"]?></p>
+                                                                        <p>コメント数: <?= $item["comment_cnt"]?></p>
+                                                                        <p>シェア数: <?= $item["share_cnt"]?></p>
+                                                                    </span>
+                                                                            <span class="text-muted font-weight-bold mr-lg-8 mr-0 mb-lg-0 mb-2 ">
+                                                                        <p>お気に入り保存数: <?= $item["fav_cnt"]?></p>
+                                                                        <p>エンゲージメント率: <?= $item["eg_rate"]?></p>
+                                                                        <p>リンククリック: <?= $item["link_click"]?></p>
+                                                                        <p>クリック率: <?= $item["click_rate"]?></p>
+                                                                        <p>CV数: <?= $item["cv"]?></p>
+                                                                        <p>CVR: <?= $item["cvr"]?></p>
+                                                                        <p>インサイトURL: <?= $item["url"]?></p>
+                                                                    </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /row -->
                                                                 </div>
-                                                                <div class="col-md-10 review_content d-flex flex-wrap my-2">
+                                                            <?php } ?>
+                                                            <?php if($item['type'] === 'Twitter') { ?>
+                                                                <div class="review_card">
+                                                                    <div class="row">
+                                                                        <div class="col-md-1 user_info">
+                                                                            <a><figure><img src="<?=asset_url()?>logos/twitter.png" alt=""></figure></a>
+                                                                            <h5>Twitter</h5>
+                                                                        </div>
+                                                                        <div class="col-md-11 review_content d-flex flex-wrap my-2">
                                                                     <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                                        <p>クライアント名: </p>
-                                                                        <p>案件名: </p>
-                                                                        <p>ジャンル: </p>
-                                                                        <p>投稿タイプ: </p>
-                                                                        <p>投稿URL/キャプチャ: </p>
-                                                                        <p>依頼金額: </p>
-                                                                        <p>投稿日: </p>
+                                                                        <p>クライアント名: <?= $item["client_name"]?></p>
+                                                                        <p>案件名: <?= $item["subject_name"]?></p>
+                                                                        <p>ジャンル: <?= $item["genre"]?></p>
+                                                                        <p>投稿URL/キャプチャ: <?= $item["post_url"]?></p>
+                                                                        <p>依頼金額: <?= $item["price"]?></p>
+                                                                        <p>投稿日: <?= $item["post_day"]?></p>
+                                                                        <p>フォロワー数: <?= $item["post_fw"]?></p>
+                                                                        <p>リーチ数: <?= $item["post_url"]?></p>
                                                                     </span>
                                                                     <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                                        <p>投稿時フォロワー数: </p>
-                                                                        <p>リーチ数: </p>
-                                                                        <p>インプレッション: </p>
-                                                                        <p>リーチ率: </p>
-                                                                        <p>いいね数: </p>
-                                                                        <p>コメント数: </p>
-                                                                        <p>シェア数: </p>
+
+                                                                        <p>インプレッション数: <?= $item["impression"]?></p>
+                                                                        <p>エンゲージメント総数: <?= $item["eg_total"]?></p>
+                                                                        <p>メディアへのエンゲージメント: <?= $item["eg_media"]?></p>
+                                                                        <p>いいね数: <?= $item["fa_fw"]?></p>
+                                                                        <p>リツイート: <?= $item["retweet"]?></p>
+                                                                        <p>返信: <?= $item["reply"]?></p>
+                                                                        <p>フォロー: <?= $item["follow"]?></p>
+                                                                        <p>詳細のクリック数: <?= $item["detail_click"]?></p>
                                                                     </span>
-                                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                                        <p>お気に入り保存数: </p>
-                                                                        <p>エンゲージメント率: </p>
-                                                                        <p>リンククリック: </p>
-                                                                        <p>クリック率: </p>
-                                                                        <p>CV数: </p>
-                                                                        <p>CVR: </p>
-                                                                        <p>インサイトURL: </p>
+                                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-0 mb-lg-0 mb-2">
+
+                                                                        <p>リンクのクリック数: <?= $item["link_click"]?></p>
+                                                                        <p>ハッシュタグのクリック数: <?= $item["hash_click"]?></p>
+                                                                        <p>プロフィールのクリック数: <?= $item["profile_click"]?></p>
+                                                                        <p>リーチ率: <?= $item["reach_rate"]?></p>
+                                                                        <p>エンゲージメント率: <?= $item["eg_rate"]?></p>
+                                                                        <p>CV数: <?= $item["cv"]?></p>
+                                                                        <p>CVR: <?= $item["cvr"]?></p>
+                                                                        <p>ツイートアクティビティURL: <?= $item["url"]?></p>
                                                                     </span>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <!-- /row -->
-                                                        </div>
-                                                        <!-- /review_card -->
-                                                        <div class="review_card">
-                                                            <div class="row">
-                                                                <div class="col-md-2 user_info">
-                                                                    <a href="<?=$talent["tw_url"]?>"><figure><img src="<?=asset_url()?>logos/twitter.png" alt=""></figure></a>
-                                                                    <h5>Twitter</h5>
+                                                            <?php } ?>
+                                                            <?php if($item['type'] === 'Youtube') { ?>
+                                                                <div class="review_card">
+                                                                    <div class="row">
+                                                                        <div class="col-md-1 user_info">
+                                                                            <a><figure><img src="<?=asset_url()?>logos/youtube.png" alt=""></figure></a>
+                                                                            <h5>Yutube</h5>
+                                                                        </div>
+                                                                        <div class="col-md-11 review_content d-flex flex-wrap my-2">
+                                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                                                        <p>クライアント名: <?= $item["client_name"]?></p>
+                                                                        <p>案件名: <?= $item["subject_name"]?></p>
+                                                                        <p>ジャンル: <?= $item["genre"]?></p>
+                                                                        <p>動画URL: <?= $item["post_url"]?></p>
+                                                                        <p>依頼金額: <?= $item["price"]?></p>
+                                                                    </span>
+                                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                                                        <p>投稿日: <?= $item["post_day"]?></p>
+                                                                        <p>投稿時登録者数: <?= $item["post_fw"]?></p>
+                                                                        <p>再生回数: <?= $item["link_click"]?></p>
+                                                                        <p>コメント数: <?= $item["comment_cnt"]?></p>
+                                                                        <p>高評価数: <?= $item["high_rating_cnt"]?></p>
+                                                                    </span>
+                                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-0 mb-lg-0 mb-2">
+                                                                        <p>低評価数: <?= $item["low_rating_cnt"]?></p>
+                                                                        <p>CV数: <?= $item["cv"]?></p>
+                                                                        <p>CVR: <?= $item["cvr"]?></p>
+                                                                        <p>アナリティクスデータURL: <?= $item["url"]?></p>
+                                                                    </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /row -->
                                                                 </div>
-                                                                <div class="col-md-10 review_content d-flex flex-wrap my-2">
+                                                            <?php } ?>
+                                                            <?php if($item['type'] === 'TikTok') { ?>
+                                                                <div class="review_card">
+                                                                    <div class="row">
+                                                                        <div class="col-md-1 user_info">
+                                                                            <a href="<?=$talent["tt_url"]?>"><figure><img src="<?=asset_url()?>logos/tiktok.png"alt=""></figure></a>
+                                                                            <h5>TikTok</h5>
+                                                                        </div>
+                                                                        <div class="col-md-11 review_content d-flex flex-wrap my-2">
                                                                     <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                                        <p>クライアント名: </p>
-                                                                        <p>案件名: </p>
-                                                                        <p>ジャンル: </p>
-                                                                        <p>投稿タイプ: </p>
-                                                                        <p>投稿URL/キャプチャ: </p>
-                                                                        <p>依頼金額: </p>
-                                                                        <p>投稿日: </p>
+                                                                        <p>クライアント名: <?= $item["client_name"]?></p>
+                                                                        <p>案件名: <?= $item["subject_name"]?></p>
+                                                                        <p>ジャンル: <?= $item["genre"]?></p>
+                                                                        <p>投稿URL: <?= $item["post_url"]?></p>
+                                                                        <p>依頼金額: <?= $item["price"]?></p>
                                                                     </span>
-                                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                                        <p>投稿時フォロワー数: </p>
-                                                                        <p>リーチ数: </p>
-                                                                        <p>インプレッション: </p>
-                                                                        <p>リーチ率: </p>
-                                                                        <p>いいね数: </p>
-                                                                        <p>コメント数: </p>
-                                                                        <p>シェア数: </p>
+                                                                            <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                                                        <p>投稿日: <?= $item["post_day"]?></p>
+                                                                        <p>フォロワー数: <?= $item["post_fw"]?></p>
+                                                                        <p>再生数: <?= $item["link_click"]?></p>
+                                                                        <p>いいね数: <?= $item["fa_fw"]?></p>
+                                                                        <p>コメント数: <?= $item["comment_cnt"]?></p>
                                                                     </span>
-                                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                                        <p>お気に入り保存数: </p>
-                                                                        <p>エンゲージメント率: </p>
-                                                                        <p>リンククリック: </p>
-                                                                        <p>クリック率: </p>
-                                                                        <p>CV数: </p>
-                                                                        <p>CVR: </p>
-                                                                        <p>インサイトURL: </p>
+                                                                            <span class="text-muted font-weight-bold mr-lg-8 mr-0 mb-lg-0 mb-2">
+                                                                        <p>シェア数: <?= $item["share_cnt"]?></p>
+                                                                        <p>エンゲージメント率: <?= $item["eg_rate"]?></p>
+                                                                        <p>CV数: <?= $item["cv"]?></p>
+                                                                        <p>CVR: <?= $item["cvr"]?></p>
+                                                                                 <p>インサイトURL: <?= $item["url"]?></p>
                                                                     </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /row -->
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="review_card">
-                                                            <div class="row">
-                                                                <div class="col-md-2 user_info">
-                                                                    <a href="<?=$talent["yt_url"]?>"><figure><img src="<?=asset_url()?>logos/youtube.png" alt=""></figure></a>
-                                                                    <h5>Yutube</h5>
-                                                                </div>
-                                                                <div class="col-md-10 review_content d-flex flex-wrap my-2">
-                                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                                        <p>クライアント名: </p>
-                                                                        <p>案件名: </p>
-                                                                        <p>ジャンル: </p>
-                                                                        <p>投稿タイプ: </p>
-                                                                        <p>投稿URL/キャプチャ: </p>
-                                                                        <p>依頼金額: </p>
-                                                                        <p>投稿日: </p>
-                                                                    </span>
-                                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                                        <p>投稿時フォロワー数: </p>
-                                                                        <p>リーチ数: </p>
-                                                                        <p>インプレッション: </p>
-                                                                        <p>リーチ率: </p>
-                                                                        <p>いいね数: </p>
-                                                                        <p>コメント数: </p>
-                                                                        <p>シェア数: </p>
-                                                                    </span>
-                                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                                        <p>お気に入り保存数: </p>
-                                                                        <p>エンゲージメント率: </p>
-                                                                        <p>リンククリック: </p>
-                                                                        <p>クリック率: </p>
-                                                                        <p>CV数: </p>
-                                                                        <p>CVR: </p>
-                                                                        <p>インサイトURL: </p>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <!-- /row -->
-                                                        </div>
-                                                        <div class="review_card">
-                                                            <div class="row">
-                                                                <div class="col-md-2 user_info">
-                                                                    <a href="<?=$talent["tt_url"]?>"><figure><img src="<?=asset_url()?>logos/tictok.png"alt=""></figure></a>
-                                                                    <h5>TikTok</h5>
-                                                                </div>
-                                                                <div class="col-md-10 review_content d-flex flex-wrap my-2">
-                                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                                        <p>クライアント名: </p>
-                                                                        <p>案件名: </p>
-                                                                        <p>ジャンル: </p>
-                                                                        <p>投稿タイプ: </p>
-                                                                        <p>投稿URL/キャプチャ: </p>
-                                                                        <p>依頼金額: </p>
-                                                                        <p>投稿日: </p>
-                                                                    </span>
-                                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                                        <p>投稿時フォロワー数: </p>
-                                                                        <p>リーチ数: </p>
-                                                                        <p>インプレッション: </p>
-                                                                        <p>リーチ率: </p>
-                                                                        <p>いいね数: </p>
-                                                                        <p>コメント数: </p>
-                                                                        <p>シェア数: </p>
-                                                                    </span>
-                                                                    <span class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                                        <p>お気に入り保存数: </p>
-                                                                        <p>エンゲージメント率: </p>
-                                                                        <p>リンククリック: </p>
-                                                                        <p>クリック率: </p>
-                                                                        <p>CV数: </p>
-                                                                        <p>CVR: </p>
-                                                                        <p>インサイトURL: </p>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <!-- /row -->
-                                                        </div>
-                                                        <div class="review_card">
+                                                            <?php } ?>
+                                                        <?php }?>
+
+                                                        <div class="review_card d-none">
                                                             <div class="row">
                                                                 <div class="col-md-2 user_info">
                                                                     <a href="<?=$talent["blog_url"]?>"><figure><img src="<?=asset_url()?>logos/blog.png"alt=""></figure></a>
@@ -499,7 +501,7 @@
                                                             </div>
                                                             <!-- /row -->
                                                         </div>
-                                                        <div class="review_card">
+                                                        <div class="review_card d-none">
                                                             <div class="row">
                                                                 <div class="col-md-2 user_info">
                                                                     <a href=""><figure><img src="<?=asset_url()?>logos/weibo.png"alt=""></figure></a>
@@ -537,7 +539,7 @@
                                                             </div>
                                                             <!-- /row -->
                                                         </div>
-                                                        <div class="review_card">
+                                                        <div class="review_card d-none">
                                                             <div class="row">
                                                                 <div class="col-md-2 user_info">
                                                                     <a href=""><figure><img src="<?=asset_url()?>logos/wechat.png"alt=""></figure></a>
@@ -575,10 +577,10 @@
                                                             </div>
                                                             <!-- /row -->
                                                         </div>
-                                                        <div class="review_card">
+                                                        <div class="review_card d-none">
                                                             <div class="row">
                                                                 <div class="col-md-2 user_info">
-                                                                    <a href=""><figure><img src="<?=asset_url()?>logos/tictok.png"alt=""></figure></a>
+                                                                    <a href=""><figure><img src="<?=asset_url()?>logos/tiktok.png"alt=""></figure></a>
                                                                     <h5>抖音</h5>
                                                                 </div>
                                                                 <div class="col-md-10 review_content d-flex flex-wrap my-2">
@@ -680,15 +682,28 @@
                                                     <div id="">
                                                         <div class="review_card">
                                                             <div class="row">
+                                                                <?php foreach ($comments as $item) { ?>
+                                                                    <div class="col-lg-12 mb-3" style="border: 1px #767676 solid; border-radius: 5px; padding-top: 10px;">
+                                                                        <p> <?= $item["comment"]?></p>
+                                                                        <p style="text-align: right;"><?= $item["created_at"]?></p>
+
+                                                                    </div>
+                                                                <?php }?>
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="review_card">
+                                                            <div class="row">
                                                                 <div class="col-lg-12">
                                                                     <label>コメント:</label>
-                                                                    <textarea name="acq_record" id="kt-ckeditor-2" rows="10" style="width: 100%;">  </textarea>
+                                                                    <textarea name="acq_record" id="comment" rows="10" style="width: 100%;"></textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-lg-10"></div>
                                                                 <div class="col-lg-2" style="text-align: right;">
-                                                                    <button type="button" name="save" class="btn btn-primary font-weight-bolder">提供</button>
+                                                                    <button type="button" id="comment_post" class="btn btn-primary font-weight-bolder">提供</button>
                                                                 </div>
                                                             </div>
                                                             <!-- /row -->
@@ -751,7 +766,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="copy_form">
-                        <input type="hidden" name="talent_id" value="<?= $talent["id"]?>">
+                        <input type="hidden" id="talent_id" name="talent_id" value="<?= $talent["id"]?>">
                         <div class="form-group row">
                             <div class="col-lg-4">
                                 <input type="checkbox" name="name" class="checkboxes">
@@ -768,7 +783,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-4">
-                                <input type="checkbox" name="name" class="checkboxes">
+                                <input type="checkbox" name="post" class="checkboxes">
                                 <label>宛名:</label>
                             </div>
                             <div class="col-lg-4">
@@ -776,7 +791,7 @@
                                 <label>電話番号:</label>
                             </div>
                             <div class="col-lg-4">
-                                <input type="checkbox" name="nick_name" class="checkboxes">
+                                <input type="checkbox" name="account_kana" class="checkboxes">
                                 <label>口座名義:</label>
                             </div>
                         </div>
@@ -852,7 +867,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-4">
-                                <input type="checkbox" name="belonging" class="checkboxes">
+                                <input type="checkbox" name="occupation" class="checkboxes">
                                 <label>ご職業:</label>
                             </div>
                             <div class="col-lg-4">
@@ -930,8 +945,8 @@
                                 <label>男性比率:</label>
                             </div>
                             <div class="col-lg-4">
-                                <input type="checkbox" name="age_range" class="checkboxes">
-                                <label>年齢層:</label>
+                                <input type="checkbox" name="acq_record" class="checkboxes">
+                                <label>獲得実績:</label>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -1008,10 +1023,6 @@
                             <div class="col-lg-4">
                                 <input type="checkbox" name="note" class="checkboxes">
                                 <label>注意:</label>
-                            </div>
-                            <div class="col-lg-4">
-                                <input type="checkbox" name="acq_record" class="checkboxes">
-                                <label>獲得実績:</label>
                             </div>
 
                         </div>

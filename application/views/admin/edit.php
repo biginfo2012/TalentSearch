@@ -156,7 +156,7 @@
                                 <label>ご職業:</label>
                                 <select class="form-control select2" id="kt_select2_3" name="occupation" multiple="multiple">
                                     <?php foreach( $this->talent->skills as $index =>$item) {?>
-                                    <option value="<?= $item?>" <?= isset($talent["talent"]) && in_array($key, $talent["talent"])?'selected':''?>><?=$item?></option>
+                                    <option value="<?= $item?>" <?= isset($talent["talent"]) && in_array($item, json_decode($talent["talent"]))?'selected':''?>><?=$item?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -194,7 +194,7 @@
                                 <label>所属:</label>
                                 <select class="form-control select2" id="kt_select2_4" name="belonging" multiple="multiple">
                                     <?php foreach( $this->talent->belonging as $index =>$item) {?>
-                                    <option value="<?= $item?>" <?= isset($talent["belonging"]) && in_array($key, $talent["belonging"])?'selected':''?>><?=$item?></option>
+                                    <option value="<?= $item?>" <?= isset($talent["belonging"]) && in_array($item, json_decode($talent["belonging"]))?'selected':''?>><?=$item?></option>
                                     <?php }?>
                                 </select>
                                 <!-- <input type="text" name="belonging"  value = "<?= isset($talent)?$talent['belonging']:'' ?>" class="form-control"> -->
@@ -297,7 +297,7 @@
                                 <label>関係値:</label>
                                 <select class="form-control select2" id="kt_select2_5" name="relationship" multiple="multiple">
                                     <?php foreach( $this->talent->relationship as $index =>$item) {?>
-                                        <option value="<?= $item?>" <?= isset($talent["relationship"]) && in_array($key, $talent["relationship"])?'selected':''?>><?=$item?></option>
+                                        <option value="<?= $item?>" <?= isset($talent["relationship"]) && in_array($item, json_decode($talent["relationship"]))?'selected':''?>><?=$item?></option>
                                     <?php }?>
                                 </select>
                             </div>

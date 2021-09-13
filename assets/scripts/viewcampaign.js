@@ -5,7 +5,81 @@
     var indexPage = function() {
 
         var initUI = function(){
+            $('#add_btn').click(function () {
+                let campaign_id = $('#campaign_id').val();
+                let sns_id = $('#sns_id').val();
+                let sns_type = $('input[name="add_account_account_type"]:checked').val();
+                if(sns_id !== ""){
+                    $.ajax({
+                        url: HOST_URL + "talents/addtalentsns",
+                        type: 'post',
+                        data: {
+                            'campaign_id' : campaign_id,
+                            'sns_id' : sns_id,
+                            'sns_type' : sns_type
+                        },
+                        dataType: "json",
+                        encode: true,
+                    }).done(function (response) {
+                        var data = response;
+                        console.log(data)
+                        if(data.success){
+                            toastr.success(data.msg);
+                            userList()
+                            talentList();
+                        }else{
+                            toastr.error(data.msg);
+                        }
+                    });
+                }
+                else{
+                    toastr.error("ユーザーIDを入力してください。");
+                }
 
+            })
+            $(document).on('click', '.js-update-group-list-comment', function () {
+                let campaign_id = $(this).data('campaign-id');
+                let talent_id = $(this).data('talent-id');
+                let comment = $(this).prev().find('textarea').val();
+                console.log(comment);
+                if(comment !== ""){
+                    $.ajax({
+                        url: HOST_URL + "talents/addtalentcomment",
+                        type: 'post',
+                        data: {
+                            'campaign_id' : campaign_id,
+                            'talent_id' : talent_id,
+                            'comment' : comment
+                        },
+                        dataType: "json",
+                        encode: true,
+                    }).done(function (response) {
+                        var data = response;
+                        console.log(data)
+                        if(data.success){
+                            toastr.success(data.msg);
+                        }else{
+                            toastr.error(data.msg);
+                        }
+                    });
+                }
+            })
+            $(".search-list,.box-open-switch").mouseenter(function() {
+                $("body").hasClass("open-con") || $("body").addClass("active-search-list")
+            }).mouseleave(function() {
+                $("body").removeClass("active-search-list")
+            });
+            $(".js-open-influencer-group-list").click(function(e) {
+                return e.preventDefault(),
+                    $(this).toggleClass("open-list"),
+                    $(this).next("div").slideToggle(300, "swing"),
+                    !1
+            })
+                $(".switch-con").click(function() {
+                    var e = $("body");
+                    e.removeClass("active-search-list").toggleClass("open-con"),
+                        $("#open_con").val(e.hasClass("open-con"))
+                })
             $("a[name=search]").on('click', function(){
                 $("#search").submit();
             });
@@ -27,6 +101,7 @@
     jQuery(document).ready(function() {
         indexPage.init();
         userList()
+        talentList();
         $('#keyword').keypress(function(ev) {
             if (ev.keyCode === 13) {
                 onClickSearch();
@@ -110,6 +185,7 @@
                         }else{
                             toastr.error(data.msg);
                         }
+                        talentList();
                     });
                 }
                 else{
@@ -133,6 +209,7 @@
                         }else{
                             toastr.error(data.msg);
                         }
+                        talentList()
                     });
                 }
             }
@@ -205,6 +282,25 @@ function userList() {
         processData: false,
     }).done(function (response) {
         $('#search_list').html(response);
+        //console.log(response)
+    });
+
+}
+function talentList() {
+    var lData = new FormData($("#kt_search_form")[0]);
+    $.ajax({
+        url: HOST_URL + "talents/talentlist",
+        type: 'post',
+        data: lData,
+        contentType: false,
+        processData: false,
+    }).done(function (response) {
+        $('#talent_list').html(response);
+        console.log($('#cnt_talent').val());
+        console.log($('#sum_fw').val());
+        $('#group_list_influencer_count').text($('#cnt_talent').val())
+        $('#group_list_total_fan_count').text($('#sum_fw').val())
+
         //console.log(response)
     });
 

@@ -55,6 +55,8 @@ class Talent extends AdminController {
 		if($id){
 			$data["talent"] = $this->talent->getDataById($id);
 		}
+//		print_r($data['talent']['belonging']);
+//		die();
 		$data["page_title"] = "タレントエディット";
 		$this->render("admin/edit", $data);
 	}

@@ -896,7 +896,7 @@
 
                     <div class="dropdown-search">
                         <figure class="dropdown-searchbtn mb-0" content-name="content-tictok" style="background: none; padding: 0">
-                            <img src="<?=asset_url()?>logos/tictok.png" alt="" style="height: 40px;">
+                            <img src="<?=asset_url()?>logos/tiktok.png" alt="" style="height: 40px;">
                         </figure>
                         <div class="dropdown-searchcontent content-tictok" style="width:280px;">
                             <div class="form-group justify-content-center row" style="margin-top: 25px;">
@@ -1280,7 +1280,7 @@
                                             </a>
 										</span>
 										<div class="d-flex flex-column text-dark-75">
-											<span class="font-weight-bolder font-size-sm">TicTok</span>
+											<span class="font-weight-bolder font-size-sm">TikTok</span>
 											<span class="font-weight-bolder font-size-h5"><?=$item["tt_fw"]? number_format($item["tt_fw"],0,".",","):'0'?></span>
 										</div>
 									</div>
