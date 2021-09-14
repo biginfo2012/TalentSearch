@@ -407,7 +407,7 @@ var datatable;
                                     success: function(response){
                                         var data = JSON.parse(response);
                                         if(data.success == true){
-                                            toastr.success(data.msg);
+                                            //toastr.success(data.msg);
                                         }else{
                                             toastr.error(data.msg)
                                         }
@@ -434,7 +434,7 @@ var datatable;
                                     success: function(response){
                                         var data = JSON.parse(response);
                                         if(data.success == true){
-                                            toastr.success(data.msg);
+                                            //toastr.success(data.msg);
                                         }else{
                                             toastr.error(data.msg)
                                         }
@@ -461,7 +461,7 @@ var datatable;
                                     success: function(response){
                                         var data = JSON.parse(response);
                                         if(data.success == true){
-                                            toastr.success(data.msg);
+                                            //toastr.success(data.msg);
                                         }else{
                                             toastr.error(data.msg)
                                         }
@@ -488,7 +488,7 @@ var datatable;
                                     success: function(response){
                                         var data = JSON.parse(response);
                                         if(data.success == true){
-                                            toastr.success(data.msg);
+                                            //toastr.success(data.msg);
                                         }else{
                                             toastr.error(data.msg)
                                         }

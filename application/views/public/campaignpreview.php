@@ -366,7 +366,7 @@
                         <th class="col05">コメント</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="youtube_table">
                     <?php foreach ($talents as $index => $item) { ?>
                         <tr>
                             <td class="influencer-img">
@@ -428,7 +428,7 @@
                         <th class="col06">性別比率</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="twitter_table">
                     <?php foreach ($talents as $index => $item) { ?>
                         <tr>
                             <td class="influencer-img">
@@ -500,6 +500,16 @@
 <link href="<?=asset_url()?>/css/campaign.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     $(".tabs-contents a").on("click", function() {
+        let type = $(this).data('account-type');
+        if(type === 'instagram_account'){
+            $('#tab').val('instagram')
+        }
+        if(type === 'youtube_account'){
+            $('#tab').val('youtube')
+        }
+        if(type === 'twitter_account'){
+            $('#tab').val('twitter')
+        }
         $("table, .js-total-fan-count").removeClass("ac-active");
         var a = $(this).data("account-type");
         return $(".table-" + a).addClass("ac-active"),

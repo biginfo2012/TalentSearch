@@ -158,7 +158,7 @@ var KTDatatableRemoteAjaxDemo = function() {
                 success: function(response){
                     var data = JSON.parse(response);
                     if(data.success){
-                        toastr.success(data.msg);
+                        //toastr.success(data.msg);
                         datatable.reload();
                         $("#kt_modal").modal('hide');
                     }else{
@@ -214,7 +214,7 @@ function onDel(id){
         dataType: "json",
         encode: true,
     }).done(function (data) {
-        toastr.success("Sucess");
+        //toastr.success("Sucess");
         datatable.reload();
     });
 }

@@ -10,7 +10,12 @@
                 var clipboardText = "";
                 clipboardText = $(this).prev().val();
                 copyToClipboard( clipboardText );
-                alert( "Copied to Clipboard" );
+            });
+            $(".js-open-influencer-group-list").click(function(e) {
+                return e.preventDefault(),
+                    $(this).toggleClass("open-list"),
+                    $(this).next("div").slideToggle(300, "swing"),
+                    !1
             });
             $('.js-sort-order-enable').click(function (e) {
                 e.preventDefault();
@@ -22,8 +27,9 @@
                 })
                 $(this).addClass('disabled');
                 let sort_type = $(this).data('sort-type');
-                console.log(sort_type);
+
                 let type = $('#tab').val();
+                console.log(type);
                 let id = $('#campaign_id').val();
                 $.ajax({
                     url: HOST_URL + "talents/campaignsort",
@@ -33,6 +39,12 @@
                     complete: function(r){
                         if(type === 'instagram'){
                             $('#instagram_table').html(r.responseText);
+                        }
+                        if(type === 'youtube'){
+                            $('#youtube_table').html(r.responseText);
+                        }
+                        if(type === 'twitter'){
+                            $('#twitter_table').html(r.responseText);
                         }
                     }
                 }).done(function (response) {
@@ -61,7 +73,7 @@
                     var data = response;
                     console.log(data)
                     if(data.success){
-                        toastr.success(data.msg);
+                        ////toastr.success(data.msg);
                         window.location.reload();
                     }else{
                         toastr.error(data.msg);
@@ -82,7 +94,7 @@
                     var data = response;
                     console.log(data)
                     if(data.success){
-                        toastr.success(data.msg);
+                       // //toastr.success(data.msg);
                         window.location.reload();
                     }else{
                         toastr.error(data.msg);
@@ -103,7 +115,7 @@
                     var data = response;
                     console.log(data)
                     if(data.success){
-                        toastr.success(data.msg);
+                       // //toastr.success(data.msg);
                         window.location.reload();
                     }else{
                         toastr.error(data.msg);
@@ -122,7 +134,7 @@
                 }).done(function (response) {
                     var data = response;
                     if(data.success){
-                        toastr.success(data.msg);
+                       // //toastr.success(data.msg);
                         window.location.reload();
                     }else{
                         toastr.error(data.msg);
@@ -158,15 +170,15 @@
 
     jQuery(document).ready(function() {
         indexPage.init();
-        $('.candidate').click(function () {
-            event.preventDefault();
-            if( $(this).parent().parent().next().is(":hidden")){
-                $(this).parent().parent().next().show();
-            }
-            else{
-                $(this).parent().parent().next().hide();
-            }
-        })
+        // $('.candidate').click(function () {
+        //     event.preventDefault();
+        //     if( $(this).parent().parent().next().is(":hidden")){
+        //         $(this).parent().parent().next().show();
+        //     }
+        //     else{
+        //         $(this).parent().parent().next().hide();
+        //     }
+        // })
 
 
     });

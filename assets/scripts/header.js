@@ -29,7 +29,7 @@ var indexPage = function() {
             }).done(function (response) {
                 var data = JSON.parse(response);
                 if(data.success){
-                    toastr.success(data.msg);
+                    //toastr.success(data.msg);
                     $("#signup_modal").modal("hide"); 
                 }else{
                     toastr.error(data.msg);

@@ -159,7 +159,7 @@ var KTDatatableRemoteAjaxDemo = function() {
                         success: function(response){
                             var data = JSON.parse(response);
                             if(data.success == true){
-                                toastr.success(data.msg);
+                                //toastr.success(data.msg);
                                 $("#kt_select2_modal").modal('hide');
                             }else{
                                 toastr.error(data.msg)

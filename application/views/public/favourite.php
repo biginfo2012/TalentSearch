@@ -35,13 +35,22 @@
                 <ul class="wrap-group-list pl-0">
                     <?php foreach ($campaign as $item) { ?>
                     <li>
-                        <a class="list-ttl " href="<?=base_url()."talents/viewcampaign/".$item['id']?>">
+                        <a class="list-ttl js-open-influencer-group-list" href="<?=base_url()."talents/viewcampaign/".$item['id']?>">
                             <div class="txt-flex">
                                 <h2>
                                     <span>
                                        <img src="<?=asset_url()?>logos/<?=$item["type"]?>.png" alt="">
                                     </span>
                                     <span>
+                                        <?php if(isset($item['campaign_belong']) || isset($item['campaign_company'])) { ?>
+                                            <div class="txt-to">
+                                              <p>
+                                                <span><?= $item['campaign_company'] ?></span>&nbsp;&nbsp;
+                                                <span><?= $item['campaign_belong'] ?></span>
+                                              </p>
+                                            </div>
+                                        <?php } ?>
+
                                         <?=$item["campaign_name"]?>
                                     </span>
                                 </h2>

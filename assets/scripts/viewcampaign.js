@@ -24,7 +24,7 @@
                         var data = response;
                         console.log(data)
                         if(data.success){
-                            toastr.success(data.msg);
+                            //toastr.success(data.msg);
                             userList()
                             talentList();
                         }else{
@@ -57,7 +57,7 @@
                         var data = response;
                         console.log(data)
                         if(data.success){
-                            toastr.success(data.msg);
+                            //toastr.success(data.msg);
                         }else{
                             toastr.error(data.msg);
                         }
@@ -128,7 +128,7 @@
                         var data = response;
                         console.log(data)
                         if(data.success){
-                            toastr.success(data.msg);
+                            //toastr.success(data.msg);
                         }else{
                             toastr.error(data.msg);
                         }
@@ -153,7 +153,7 @@
                     var data = response;
                     console.log(data)
                     if(data.success){
-                        toastr.success(data.msg);
+                        //toastr.success(data.msg);
                     }else{
                         toastr.error(data.msg);
                     }
@@ -181,7 +181,7 @@
                         var data = response;
                         console.log(data)
                         if(data.success){
-                            toastr.success(data.msg);
+                            //toastr.success(data.msg);
                         }else{
                             toastr.error(data.msg);
                         }
@@ -205,7 +205,7 @@
                         var data = response;
                         console.log(data)
                         if(data.success){
-                            toastr.success(data.msg);
+                            //toastr.success(data.msg);
                         }else{
                             toastr.error(data.msg);
                         }

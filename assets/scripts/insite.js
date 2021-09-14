@@ -161,7 +161,7 @@ var datatable;
         //             success: function(response){
         //                 var data = JSON.parse(response);
         //                 if(data.success == true){
-        //                     toastr.success(data.msg);
+        //                     //toastr.success(data.msg);
         //                     $("#kt_select2_modal").modal('hide');
         //                 }else{
         //                     toastr.error(data.msg)
@@ -197,7 +197,7 @@ var datatable;
 //         dataType: "json",
 //         encode: true,
 //     }).done(function (data) {
-//         toastr.success("Sucess");
+//         //toastr.success("Sucess");
 //         datatable.reload();
 //     });
 // }
@@ -209,7 +209,7 @@ function onDel(id){
         dataType: "json",
         encode: true,
     }).done(function (data) {
-        toastr.success("削除されました!");
+        //toastr.success("削除されました!");
         datatable.reload();
     });
 }

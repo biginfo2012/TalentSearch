@@ -675,7 +675,9 @@ class Talents extends PublicController
                 array_push($tcampaign_arr, $tmp);
             }
         }
-        $data['avg_male_ratio'] = (int)($data['avg_male_ratio']/$data['cnt_talent']);
+        if($data['cnt_talent'] !== 0){
+            $data['avg_male_ratio'] = (int)($data['avg_male_ratio']/$data['cnt_talent']);
+        }
         $data['avg_female_ratio'] = 100 - $data['avg_male_ratio'];
         $data["talents"] = $tcampaign_arr;
 
@@ -788,10 +790,29 @@ class Talents extends PublicController
                 usort($tcampaign_arr, function($a, $b) {return $a['eg_rate'] < $b['eg_rate'];});
             }
         }
+        if($type === 'youtube'){
+            if ($sort_type === 'fw_cnt') {
+                usort($tcampaign_arr, function($a, $b) {return $a['yt_fw'] < $b['yt_fw'];});
+            }
+        }
+        if($type === 'twitter'){
+            if ($sort_type === 'fw_cnt') {
+                usort($tcampaign_arr, function($a, $b) {return $a['tw_fw'] < $b['tw_fw'];});
+            }
+            if ($sort_type === 'eg_rate') {
+                usort($tcampaign_arr, function($a, $b) {return $a['eg_rate'] < $b['eg_rate'];});
+            }
+        }
 
         $data["talents"] = $tcampaign_arr;
         if($type === 'instagram'){
             return $this->load->view('public/campaign_user/instagram', $data);
+        }
+        if($type === 'youtube'){
+            return $this->load->view('public/campaign_user/youtube', $data);
+        }
+        if($type === 'twitter'){
+            return $this->load->view('public/campaign_user/twitter', $data);
         }
 
     }
@@ -989,7 +1010,7 @@ class Talents extends PublicController
     public function publicview($id){
         $data["user"] = $this->user_data();
         $data["campaign"] = $this->campaign->getDataById($id);
-        $data["tcampaign"] = $this->tcampaign->getDataByParam(array("campaign_id" => $data["campaign"]["id"]));
+        $data["tcampaign"] = $this->tcampaign->getDataByParam(array("campaign_id" => $id));
         $tcampaign_arr = array();
         //$campaign_info = array();
         $data['cnt_talent'] = count($data["tcampaign"]);
@@ -1008,7 +1029,9 @@ class Talents extends PublicController
                 array_push($tcampaign_arr, $tmp);
             }
         }
-        $data['avg_male_ratio'] = (int)($data['avg_male_ratio']/$data['cnt_talent']);
+        if($data['cnt_talent'] !== 0){
+            $data['avg_male_ratio'] = (int)($data['avg_male_ratio']/$data['cnt_talent']);
+        }
         $data['avg_female_ratio'] = 100 - $data['avg_male_ratio'];
         $data["talents"] = $tcampaign_arr;
 

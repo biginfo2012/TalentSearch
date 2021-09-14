@@ -24,7 +24,7 @@
                     var data = response;
                     console.log(data)
                     if(data.success){
-                        toastr.success(data.msg);
+                        //toastr.success(data.msg);
                         talentList();
                     }else{
                         toastr.error(data.msg);

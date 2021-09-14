@@ -26,7 +26,7 @@ var indexPage = function() {
             }).done(function (response) {
                 var data = JSON.parse(response);
                 if(data.success){
-                    toastr.success(data.msg);
+                    //toastr.success(data.msg);
                     $("#signup_modal").modal("hide"); 
                 }else{
                     toastr.error(data.msg);
@@ -85,7 +85,7 @@ jQuery(document).ready(function() {
             // window.open(uri, 'test.csv');
             // var data = JSON.parse(response);
             // if(data.success){
-            //     toastr.success(data.msg);
+            //     //toastr.success(data.msg);
             //     $("#signup_modal").modal("hide");
             // }else{
             //     toastr.error(data.msg);
@@ -109,7 +109,7 @@ jQuery(document).ready(function() {
             }).done(function (response) {
                 var data = response;
                 if(data.success){
-                    toastr.success(data.msg);
+                    //toastr.success(data.msg);
                 }else{
                     toastr.error(data.msg);
                 }
@@ -139,7 +139,7 @@ jQuery(document).ready(function() {
             }).done(function (response) {
                 var data = JSON.parse(response);
                 if(data.success){
-                    toastr.success(data.msg);
+                    //toastr.success(data.msg);
                 }else{
                     toastr.error(data.msg);
                 }
@@ -155,7 +155,7 @@ jQuery(document).ready(function() {
             }).done(function (response) {
                 var data = JSON.parse(response);
                 if(data.success){
-                    toastr.success(data.msg);
+                    //toastr.success(data.msg);
                 }else{
                     toastr.error(data.msg);
                 }
