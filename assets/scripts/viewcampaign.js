@@ -5,6 +5,10 @@
     var indexPage = function() {
 
         var initUI = function(){
+            $('.search_btn').click(function (e) {
+                e.preventDefault();
+                userList();
+            })
             $('#add_btn').click(function () {
                 let campaign_id = $('#campaign_id').val();
                 let sns_id = $('#sns_id').val();
@@ -100,14 +104,48 @@
 
     jQuery(document).ready(function() {
         indexPage.init();
-        userList()
-        talentList();
         $('#keyword').keypress(function(ev) {
             if (ev.keyCode === 13) {
                 onClickSearch();
             }
         });
+        userList()
+        talentList();
+        //Hide dropdown menu on click outside
+        $(document).on("click", function(event){
+            if(!$(event.target).closest(".dropdown-searchcontent").length && !$(event.target).closest(".dropdown-searchbtn").length){
+                $('.dropdown-searchbtn').each(function () {
+                    if($(this).hasClass("active")) {
+                        $(this).removeClass("active");
+                    }
+                })
+                $('.dropdown-searchcontent').each(function () {
+                    if($(this).hasClass("show")) {
+                        $(this).removeClass("show");
+                    }
+                })
+            }
+        });
 
+        $('#modify_btn').click(function () {
+            event.preventDefault();
+            if($('#title').val() !== ""){
+                var paramObj = new FormData($("#modify_form")[0]);
+                $.ajax({
+                    url: HOST_URL + "talents/modifycampaign",
+                    type: 'post',
+                    data: paramObj,
+                    contentType: false,
+                    processData: false,
+                    success: function(response){
+                        if(response.status === true){
+                        }else{
+                        }
+                    },
+                });
+            }
+
+        });
         $('#all_check').click(function () {
             console.log($(this)[0].checked)
             if($(this)[0].checked){
@@ -160,6 +198,7 @@
                 });
             }
         })
+
         $(document).on('click','input:checkbox',function () {
             console.log($(this)[0].checked);
             if($(this).attr('id') !== 'all_check'){
@@ -167,6 +206,7 @@
                 if($(this)[0].checked){
                     let campaign_id = $('#campaign_id').val();
                     let talent_id = $(this).data('talent-id');
+                    console.log(talent_id);
 
                     $.ajax({
                         url: HOST_URL + "talents/addtalent",
@@ -191,7 +231,7 @@
                 else{
                     let campaign_id = $('#campaign_id').val();
                     let talent_id = $(this).data('talent-id');
-
+                    console.log(talent_id);
                     $.ajax({
                         url: HOST_URL + "talents/deltalent",
                         type: 'post',
@@ -209,7 +249,8 @@
                         }else{
                             toastr.error(data.msg);
                         }
-                        talentList()
+                        userList()
+                        talentList();
                     });
                 }
             }
@@ -270,6 +311,18 @@ function onClickSearch(){
     $('#per_page').val($('#perpage').val());
 
     userList()
+}
+
+//# sourceMappingURL=data-ajax.js.map
+function onClickClear(){
+    $("form label").each(function() {
+        if($(this).hasClass("active")) {
+            $(this).removeClass('active');
+        }
+    });
+    $("form input").each(function() {
+        $(this).val('');
+    });
 }
 
 function userList() {

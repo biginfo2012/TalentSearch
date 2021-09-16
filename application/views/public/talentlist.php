@@ -1,8 +1,8 @@
 <?php foreach ($talents as $index => $item) { ?>
 <li>
     <div class="wrap-influencer-detail columns">
-        <div class="w-bookmark js-add-group-list" data-group-id="6105" data-influencer-id="<?=$item["id"]?>">
-            <input class="js-add-group-list-checkbox" type="checkbox" checked="">
+        <div class="w-bookmark js-add-group-list remove_talent" data-group-id="" >
+            <input class="js-add-group-list-checkbox" type="checkbox" checked="" data-talent-id="<?=$item["id"]?>">
         </div>
         <div class=" level name thumb">
             <a href="<?=base_url()?>talents/view/<?=$item["id"]?>" class="level">

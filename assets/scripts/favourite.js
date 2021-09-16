@@ -5,6 +5,75 @@
     var indexPage = function() {
 
         var initUI = function(){
+            $(document).on("mouseenter", "[rel~=tooltip]", function () {
+                var t = $(this), e = t.attr("title"), i = $('<div id="tooltip"></div>');
+                if (!e || "" == e) return !1;
+                t.removeAttr("title"), i.css("opacity", 0).html(e).appendTo("body");
+                var n = function () {
+                    $(window).width() < 1.5 * i.outerWidth() ? i.css("max-width", $(window).width() / 2) : i.css("max-width", 340);
+                    var e = t.offset().left + t.outerWidth() / 2 - i.outerWidth() / 2,
+                        n = t.offset().top - i.outerHeight() - 20;
+                    if (e < 0 ? (e = t.offset().left, i.addClass("left")) : i.removeClass("left"), e + i.outerWidth() > $(window).width() ? (e = t.offset().left - i.outerWidth() + t.outerWidth() / 2 + 20, i.addClass("right")) : i.removeClass("right"), n < 0) {
+                        var n = t.offset().top + t.outerHeight();
+                        i.addClass("top")
+                    } else i.removeClass("top");
+                    i.css({left: e, top: n}).animate({top: "+=10", opacity: 1}, 50)
+                };
+                n(), $(window).resize(n);
+                var s = function () {
+                    i.animate({top: "-=10", opacity: 0}, 50, function () {
+                        $(this).remove()
+                    }), t.attr("title", e)
+                };
+                t.bind("mouseleave", s), i.bind("click", s)
+            });
+            $(document).on("mouseenter", ".clipboard-btn", function () {
+                var t = $(this), e = t.attr("title"), i = $('<div id="tooltip"></div>');
+                if (!e || "" == e) return !1;
+                t.removeAttr("title"), i.css("opacity", 0).html(e).appendTo("body");
+                var n = function () {
+                    $(window).width() < 1.5 * i.outerWidth() ? i.css("max-width", $(window).width() / 2) : i.css("max-width", 340);
+                    var e = t.offset().left + t.outerWidth() / 2 - i.outerWidth() / 2,
+                        n = t.offset().top - i.outerHeight() - 20;
+                    if (e < 0 ? (e = t.offset().left, i.addClass("left")) : i.removeClass("left"), e + i.outerWidth() > $(window).width() ? (e = t.offset().left - i.outerWidth() + t.outerWidth() / 2 + 20, i.addClass("right")) : i.removeClass("right"), n < 0) {
+                        var n = t.offset().top + t.outerHeight();
+                        i.addClass("top")
+                    } else i.removeClass("top");
+                    i.css({left: e, top: n}).animate({top: "+=10", opacity: 1}, 50)
+                };
+                n(), $(window).resize(n);
+                var s = function () {
+                    i.animate({top: "-=10", opacity: 0}, 50, function () {
+                        $(this).remove()
+                    }), t.attr("title", e)
+                };
+                t.bind("mouseleave", s), t.bind("click", s)
+            });
+
+            $(document).on("click", ".clipboard-btn", function () {
+                var t = $(this), e = 'コピーしました', i = $('<div id="tooltip"></div>');
+                if (!e || "" == e) return !1;
+                t.removeAttr("title"), i.css("opacity", 0).html(e).appendTo("body");
+                var n = function () {
+                    $(window).width() < 1.5 * i.outerWidth() ? i.css("max-width", $(window).width() / 2) : i.css("max-width", 340);
+                    var e = t.offset().left + t.outerWidth() / 2 - i.outerWidth() / 2,
+                        n = t.offset().top - i.outerHeight() - 20;
+                    if (e < 0 ? (e = t.offset().left, i.addClass("left")) : i.removeClass("left"), e + i.outerWidth() > $(window).width() ? (e = t.offset().left - i.outerWidth() + t.outerWidth() / 2 + 20, i.addClass("right")) : i.removeClass("right"), n < 0) {
+                        var n = t.offset().top + t.outerHeight();
+                        i.addClass("top")
+                    } else i.removeClass("top");
+                    i.css({left: e, top: n}).animate({top: "+=10", opacity: 1}, 50)
+                };
+                n(), $(window).resize(n);
+                var s = function () {
+                    i.animate({top: "-=10", opacity: 0}, 50, function () {
+                        $(this).remove()
+                    }), t.attr("title", "クリップボードにURLをコピーします")
+                };
+                t.bind("mouseleave", s), i.bind("click", s)
+            });
+
+
             $( '.clipboard-btn' ).click( function()
             {
                 var clipboardText = "";

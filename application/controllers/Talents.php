@@ -574,6 +574,9 @@ class Talents extends PublicController
     public function viewcampaign($id){
         $data["user"] = $this->user_data();
         $data["campaign"] = $this->campaign->getDataById($id);
+        $data["all"] = $this->campaign->getAll();
+        $talents = $this->talent->getAll();
+        $data['talents_cnt'] = count($talents);
 
         if (!isset($filter["pagination"])) {
             $pagination["page"] = 1;
@@ -609,46 +612,292 @@ class Talents extends PublicController
     }
     public function userlist(){
         $filter = $this->input->post();
+
         $campaign_id = $filter['campaign_id'];
         $data["tcampaign"] = $this->tcampaign->getDataByParam(array("campaign_id" => $campaign_id));
 //        print_r($data["tcampaign"]);
 //        die();
+
         $filter["query"] = array();
-        if (!isset($filter["pagination"])) {
-            $pagination["page"] = 1;
+        if (isset($filter["age_from"])) {
+            $filter["query"]["age_from"] = $filter["age_from"];
+            $data["age_from"] = $filter["query"]["age_from"];
+        }
+        if (isset($filter["age_to"])) {
+            $filter["query"]["age_to"] = $filter["age_to"];
+            $data["age_to"] = $filter["query"]["age_to"];
+        }
+        if (isset($filter["level"])) {
+            $filter["query"]["level"] = $filter["level"];
+            $data["level"] = $filter["level"];
+        }
+        if (isset($filter["active"])) {
+            $filter["query"]["active"] = $filter["active"];
+            $data["active"] = $filter["active"];
+        }
+        if (isset($filter["relationship"])) {
+            $filter["query"]["relationship"] = $filter["relationship"];
+            $data["relationship"] = $filter["relationship"];
+        }
+        if (isset($filter["charge_name"])) {
+            $filter["query"]["charge_name"] = $filter["charge_name"];
+            $data["charge_name"] = $filter["charge_name"];
+        }
+        if (isset($filter["belonging"])) {
+            $filter["query"]["belonging"] = $filter["belonging"];
+            $data["belonging"] = $filter["belonging"];
+        }
+        if (isset($filter["genre"])) {
+            $filter["query"]["genre"] = $filter["genre"];
+            $data["genre"] = $filter["genre"];
+        }
+        if (isset($filter["gender"])) {
+            $filter["query"]["gender"] = $filter["gender"];
+            $data["gender"] = $filter["gender"];
+        }
+        if (isset($filter["keyword"])) {
+            $filter["query"]["keyword"] = $filter["keyword"];
+            $data["keyword"] = $filter["keyword"];
         } else {
-            $pagination = $filter["pagination"];
+            $filter["query"]["keyword"] = "";
+        }
+        if (isset($filter["blog_fw_from"])) {
+            $filter["query"]["blog_fw_from"] = $filter["blog_fw_from"];
+            $data["blog_fw_from"] = $filter["query"]["blog_fw_from"];
+        }
+        if (isset($filter["blog_fw_to"])) {
+            $filter["query"]["blog_fw_to"] = $filter["blog_fw_to"];
+            $data["blog_fw_to"] = $filter["query"]["blog_fw_to"];
+        }
+        if (isset($filter["wear_fw_from"])) {
+            $filter["query"]["wear_fw_from"] = $filter["wear_fw_from"];
+            $data["wear_fw_from"] = $filter["query"]["wear_fw_from"];
+        }
+        if (isset($filter["wear_fw_to"])) {
+            $filter["query"]["wear_fw_to"] = $filter["wear_fw_to"];
+            $data["wear_fw_to"] = $filter["query"]["wear_fw_to"];
+        }
+        if (isset($filter["weibo_fw_from"])) {
+            $filter["query"]["weibo_fw_from"] = $filter["weibo_fw_from"];
+            $data["weibo_fw_from"] = $filter["query"]["weibo_fw_from"];
+        }
+        if (isset($filter["weibo_fw_to"])) {
+            $filter["query"]["weibo_fw_to"] = $filter["weibo_fw_to"];
+            $data["weibo_fw_to"] = $filter["query"]["weibo_fw_to"];
+        }
+        if (isset($filter["wechat_fw_from"])) {
+            $filter["query"]["wechat_fw_from"] = $filter["wechat_fw_from"];
+            $data["wechat_fw_from"] = $filter["query"]["wechat_fw_from"];
+        }
+        if (isset($filter["wechat_fw_to"])) {
+            $filter["query"]["wechat_fw_to"] = $filter["wechat_fw_to"];
+            $data["wechat_fw_to"] = $filter["query"]["wechat_fw_to"];
+        }
+        if (isset($filter["red_fw_from"])) {
+            $filter["query"]["red_fw_from"] = $filter["red_fw_from"];
+            $data["red_fw_from"] = $filter["query"]["red_fw_from"];
+        }
+        if (isset($filter["red_fw_to"])) {
+            $filter["query"]["red_fw_to"] = $filter["red_fw_to"];
+            $data["red_fw_to"] = $filter["query"]["red_fw_to"];
+        }
+        if (isset($filter["keyin_fw_from"])) {
+            $filter["query"]["keyin_fw_from"] = $filter["keyin_fw_from"];
+            $data["keyin_fw_from"] = $filter["query"]["keyin_fw_from"];
+        }
+        if (isset($filter["keyin_fw_to"])) {
+            $filter["query"]["keyin_fw_to"] = $filter["keyin_fw_to"];
+            $data["keyin_fw_to"] = $filter["query"]["keyin_fw_to"];
+        }
+        if (isset($filter["threesize_from"])) {
+            $filter["query"]["threesize_from"] = $filter["threesize_from"];
+            $data["threesize_from"] = $filter["query"]["threesize_from"];
+        }
+        if (isset($filter["threesize_to"])) {
+            $filter["query"]["threesize_to"] = $filter["threesize_to"];
+            $data["threesize_to"] = $filter["query"]["threesize_to"];
+        }
+        if (isset($filter["instagram_man_from"])) {
+            $filter["query"]["instagram_man_from"] = $filter["instagram_man_from"];
+            $data["instagram_man_from"] = $filter["query"]["instagram_man_from"];
+        }
+        if (isset($filter["instagram_man_to"])) {
+            $filter["query"]["instagram_man_to"] = $filter["instagram_man_to"];
+            $data["instagram_man_to"] = $filter["query"]["instagram_man_to"];
+        }
+        if (isset($filter["instagram_wman_from"])) {
+            $filter["query"]["instagram_wman_from"] = $filter["instagram_wman_from"];
+            $data["instagram_wman_from"] = $filter["query"]["instagram_wman_from"];
+        }
+        if (isset($filter["instagram_wman_to"])) {
+            $filter["query"]["instagram_wman_to"] = $filter["instagram_wman_to"];
+            $data["instagram_wman_to"] = $filter["query"]["instagram_wman_to"];
+        }
+        if (isset($filter["instagram_engage_rate_from"])) {
+            $filter["query"]["instagram_engage_rate_from"] = $filter["instagram_engage_rate_from"];
+            $data["instagram_engage_rate_from"] = $filter["query"]["instagram_engage_rate_from"];
+        }
+        if (isset($filter["instagram_engage_rate_to"])) {
+            $filter["query"]["instagram_engage_rate_to"] = $filter["instagram_engage_rate_to"];
+            $data["instagram_engage_rate_to"] = $filter["query"]["instagram_engage_rate_to"];
+        }
+        if (isset($filter["youtube_man_from"])) {
+            $filter["query"]["youtube_man_from"] = $filter["youtube_man_from"];
+            $data["youtube_man_from"] = $filter["query"]["youtube_man_from"];
+        }
+        if (isset($filter["youtube_man_to"])) {
+            $filter["query"]["youtube_man_to"] = $filter["youtube_man_to"];
+            $data["youtube_man_to"] = $filter["query"]["youtube_man_to"];
+        }
+        if (isset($filter["youtube_wman_from"])) {
+            $filter["query"]["youtube_wman_from"] = $filter["youtube_wman_from"];
+            $data["youtube_wman_from"] = $filter["query"]["youtube_wman_from"];
+        }
+        if (isset($filter["youtube_wman_to"])) {
+            $filter["query"]["youtube_wman_to"] = $filter["youtube_wman_to"];
+            $data["youtube_wman_to"] = $filter["query"]["youtube_wman_to"];
+        }
+        if (isset($filter["tiktok_man_from"])) {
+            $filter["query"]["tiktok_man_from"] = $filter["tiktok_man_from"];
+            $data["tiktok_man_from"] = $filter["query"]["tiktok_man_from"];
+        }
+        if (isset($filter["tiktok_man_to"])) {
+            $filter["query"]["tiktok_man_to"] = $filter["tiktok_man_to"];
+            $data["tiktok_man_to"] = $filter["query"]["tiktok_man_to"];
+        }
+        if (isset($filter["tiktok_wman_from"])) {
+            $filter["query"]["tiktok_wman_from"] = $filter["tiktok_wman_from"];
+            $data["tiktok_wman_from"] = $filter["query"]["tiktok_wman_from"];
+        }
+        if (isset($filter["tiktok_wman_to"])) {
+            $filter["query"]["tiktok_wman_to"] = $filter["tiktok_wman_to"];
+            $data["tiktok_wman_to"] = $filter["query"]["tiktok_wman_to"];
+        }
+        if (isset($filter["instagram_fw_from"])) {
+            $filter["query"]["instagram_fw_from"] = $filter["instagram_fw_from"];
+            $data["instagram_fw_from"] = $filter["query"]["instagram_fw_from"];
+        }
+        if (isset($filter["instagram_fw_to"])) {
+            $filter["query"]["instagram_fw_to"] = $filter["instagram_fw_to"];
+            $data["instagram_fw_to"] = $filter["query"]["instagram_fw_to"];
+        }
+        if (isset($filter["youtube_fw_from"])) {
+            $filter["query"]["youtube_fw_from"] = $filter["youtube_fw_from"];
+            $data["youtube_fw_from"] = $filter["query"]["youtube_fw_from"];
+        }
+        if (isset($filter["youtube_fw_to"])) {
+            $filter["query"]["youtube_fw_to"] = $filter["youtube_fw_to"];
+            $data["youtube_fw_to"] = $filter["query"]["youtube_fw_to"];
+        }
+        if (isset($filter["tiktok_fw_from"])) {
+            $filter["query"]["tiktok_fw_from"] = $filter["tiktok_fw_from"];
+            $data["tiktok_fw_from"] = $filter["query"]["tiktok_fw_from"];
+        }
+        if (isset($filter["tiktok_fw_to"])) {
+            $filter["query"]["tiktok_fw_to"] = $filter["tiktok_fw_to"];
+            $data["tiktok_fw_to"] = $filter["query"]["tiktok_fw_to"];
+        }
+        if (isset($filter["twitter_fw_from"])) {
+            $filter["query"]["twitter_fw_from"] = $filter["twitter_fw_from"];
+            $data["twitter_fw_from"] = $filter["query"]["twitter_fw_from"];
+        }
+        if (isset($filter["twitter_fw_to"])) {
+            $filter["query"]["twitter_fw_to"] = $filter["twitter_fw_to"];
+            $data["twitter_fw_to"] = $filter["query"]["twitter_fw_to"];
         }
 
-        if (isset($filter["per_page"]) && !empty($filter["per_page"])) {
-            $pagination["perpage"] = $filter["per_page"];
-        } else {
-            $pagination["perpage"] = 10;
+        if (isset($filter["talent"])) {
+            $filter["query"]["talent"] = $filter["talent"];
+            $data["talent"] = $filter["talent"];
         }
+        if (isset($filter["sort"])) {
+            $filter["query"]["sort"] = $filter["sort"];
+            $data["sort"] = $filter["sort"];
+        }
+        if (isset($filter["desc"])) {
+            $filter["query"]["desc"] = $filter["desc"];
+            $data["desc"] = $filter["desc"];
+        }
+        $data["talents"] = $this->talent->search($filter["query"]);
 
-        $limit["start"] = ($pagination["page"] - 1) * $pagination["perpage"];
-        $limit["end"] = $pagination["perpage"];
-        $data["talents"] = $this->talent->search($filter["query"], $limit);
-        if (!isset($filter["query"])) {
-            $pagination["total"] = $this->talent->count();
-        } else {
-            $pagination["total"] = $this->talent->count($filter["query"]);
-        }
-        if ($pagination["total"] % $pagination["perpage"] == 0) {
-            $pagination["total_page"] = (int)($pagination["total"] / $pagination["perpage"]);
-        } else {
-            $pagination["total_page"] = (int)($pagination["total"] / $pagination["perpage"] + 1);
-        }
-        $pagination["pages"] = ceil($pagination["total"] / $pagination["perpage"]);
-        if (($pagination["page"] % 5) == 0) {
-            $pagination["start_page"] = ((int)$pagination["page"] / 5 - 1) * 5 + 1;
-        } else {
-            $pagination["start_page"] = ((int)($pagination["page"] / 5)) * 5 + 1;
-            // $pagination["start_page"] = ($pagination["page"]/5 + 1) * 5;
-        }
-
-        $pagination["end_page"] = $pagination["start_page"] + 5;
-        $data["pagination"] = $pagination;
+//        $keyword_search = $filter['keyword_search'];
+//        if($keyword_search === 'keyword'){
+//            if (isset($filter['keyword'])) {
+//                $filter["query"]["keyword"] = $filter['keyword'];
+//            } else {
+//                $filter["query"]["keyword"] = "";
+//            }
+//        }
+//        if (!isset($filter["pagination"])) {
+//            $pagination["page"] = 1;
+//        } else {
+//            $pagination = $filter["pagination"];
+//        }
+//
+//        if (isset($filter["per_page"]) && !empty($filter["per_page"])) {
+//            $pagination["perpage"] = $filter["per_page"];
+//        } else {
+//            $pagination["perpage"] = 10;
+//        }
+//        $limit["start"] = ($pagination["page"] - 1) * $pagination["perpage"];
+//        $limit["end"] = $pagination["perpage"];
+//        $data["talents"] = $this->talent->search($filter["query"]);
+//        foreach ($data["talents"] as $index => $talent) {
+//            if(isset($filter['is_pr_only'])){
+//                if(!isset($talent['pr_point']) && $talent['pr_point'] !== ""){
+//                    unset($data['talents'][$index]);
+//                    continue;
+//                }
+//
+//            }
+//            if(isset($filter['is_favorite_only'])){
+//                $favourite = $this->favourite->getDataByParam(array('talent_id' => $talent['id']));
+//                if(count($favourite) === 0){
+//                    unset($data['talents'][$index]);
+//                    continue;
+//                }
+//            }
+//            if(isset($filter['prefecture_code']) && $filter['prefecture_code'] !== ''){
+//                print_r(strpos($talent['province'], $filter['prefecture_code']));
+//                if(strpos($talent['province'], $filter['prefecture_code']) !== 0){
+//                    unset($data['talents'][$index]);
+//                    continue;
+//                }
+//            }
+//            if(isset($filter['search_campaign_id']) && $filter['search_campaign_id'] !== ''){
+//                $tcampaign = $this->tcampaign->getDataByParam(array('campaign_id' => $filter['search_campaign_id']));
+//                $exist = false;
+//                foreach ($tcampaign as $item){
+//                    if($talent['id'] === $item['talent_id']){
+//                        $exist = true;
+//                    }
+//                }
+//                if(!$exist){
+//                    unset($data['talents'][$index]);
+//                    continue;
+//                }
+//            }
+//        }
+//        if (!isset($filter["query"])) {
+//            $pagination["total"] = count($data['talents']);
+//        } else {
+//            $pagination["total"] = count($data['talents']);
+//        }
+//        if ($pagination["total"] % $pagination["perpage"] == 0) {
+//            $pagination["total_page"] = (int)($pagination["total"] / $pagination["perpage"]);
+//        } else {
+//            $pagination["total_page"] = (int)($pagination["total"] / $pagination["perpage"] + 1);
+//        }
+//        $pagination["pages"] = ceil($pagination["total"] / $pagination["perpage"]);
+//        if (($pagination["page"] % 5) == 0) {
+//            $pagination["start_page"] = ((int)$pagination["page"] / 5 - 1) * 5 + 1;
+//        } else {
+//            $pagination["start_page"] = ((int)($pagination["page"] / 5)) * 5 + 1;
+//            // $pagination["start_page"] = ($pagination["page"]/5 + 1) * 5;
+//        }
+//
+//        $pagination["end_page"] = $pagination["start_page"] + 5;
+//        $data["pagination"] = $pagination;
         return $this->load->view('public/userlist', $data);
         //$this->renderAlone("public/userlist", $data);
     }
@@ -1020,6 +1269,7 @@ class Talents extends PublicController
         $data['avg_male_ratio'] = 0;
 
         if(isset($data["tcampaign"])){
+            usort($data["tcampaign"], function($a, $b) {return $a['order'] > $b['order'];});
             foreach ($data["tcampaign"] as $ttem){
                 $tmp = $this->talent->getDataById($ttem["talent_id"]);
                 $data['sum_fw'] += $tmp["it_fw"];
@@ -1047,7 +1297,7 @@ class Talents extends PublicController
         $campaign['campaign_comment'] = $p_data['campaign_comment'];
         $this->campaign->updateData($campaign);
 
-        return $this->viewcampaign($p_data['campaign_id']);
+        $this->json(array("success" => true, "msg" => "成 功!"));
     }
 
     public function addtalent(){

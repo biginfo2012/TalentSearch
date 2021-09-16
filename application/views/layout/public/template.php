@@ -41,6 +41,8 @@
     <link href="<?=asset_url()?>css/toastr.min.css" rel="stylesheet">
     <script src="<?=asset_url()?>js/jquery.js"></script>
 
+    <link href="<?= asset_url() ?>css/jquery.range.css" rel="stylesheet" type="text/css"/>
+
     <!-- SPECIFIC CSS -->
     <link href="<?=asset_url()?>css/listing.css" rel="stylesheet">
     <link href="<?=asset_url()?>css/home.css" rel="stylesheet">
@@ -89,5 +91,7 @@
 <script src="<?=asset_url()?>js/sticky_sidebar.min.js"></script>
 <script src="<?=asset_url()?>js/specific_listing.min.js"></script>
 <script src="<?=asset_url()?>js/isotope.min.js"></script>
+
+<script src="<?= asset_url() ?>scripts/jquery.range.js"></script>
 
 
