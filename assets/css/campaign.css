@@ -13,7 +13,7 @@ body {
     margin: 0
 }
 
-article, aside, details, figcaption, figure, footer, header, main, menu, nav, section, summary {
+article, aside, details, figcaption, figure, main, menu, nav, section, summary {
     display: block
 }
 
@@ -190,7 +190,7 @@ textarea {
     font: inherit
 }
 
-html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, menu, nav, section, time, mark, audio, video, details, summary {
+html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, menu, nav, section, time, mark, audio, video, details, summary {
     margin: 0;
     padding: 0;
     border: 0;
@@ -200,7 +200,7 @@ html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquot
     background: transparent
 }
 
-article, aside, figure, footer, header, nav, section, details, summary {
+article, aside, figure, nav, section, details, summary {
     display: block
 }
 
@@ -366,7 +366,7 @@ html {
     text-rendering: optimizeLegibility
 }
 
-article, aside, figure, footer, header, hgroup, section {
+article, aside, figure, hgroup, section {
     display: block
 }
 
@@ -409,7 +409,7 @@ code {
 
 hr {
     border-top-color: #d3d6db;
-    margin: 40px 0
+    margin: 1em 0
 }
 
 img {
@@ -4547,89 +4547,89 @@ a.box:active {
     }
 }
 
-.nav-item {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    padding: 10px
-}
+/*.nav-item {*/
+/*    align-items: center;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    padding: 10px*/
+/*}*/
 
-.nav-item a {
-    flex-grow: 1
-}
+/*.nav-item a {*/
+/*    flex-grow: 1*/
+/*}*/
 
-.nav-item img {
-    max-height: 24px
-}
+/*.nav-item img {*/
+/*    max-height: 24px*/
+/*}*/
 
-.nav-item .button + .button {
-    margin-left: 10px
-}
+/*.nav-item .button + .button {*/
+/*    margin-left: 10px*/
+/*}*/
 
-.nav-item .tag:first-child {
-    margin-right: 5px
-}
+/*.nav-item .tag:first-child {*/
+/*    margin-right: 5px*/
+/*}*/
 
-.nav-item .tag:last-child {
-    margin-left: 5px
-}
+/*.nav-item .tag:last-child {*/
+/*    margin-left: 5px*/
+/*}*/
 
-@media screen and (max-width: 768px) {
-    .nav-item {
-        justify-content: flex-start
-    }
-}
+/*@media screen and (max-width: 768px) {*/
+/*    .nav-item {*/
+/*        justify-content: flex-start*/
+/*    }*/
+/*}*/
 
-.nav-item a, a.nav-item {
-    color: #69707a
-}
+/*.nav-item a, a.nav-item {*/
+/*    color: #69707a*/
+/*}*/
 
-.nav-item a:hover, a.nav-item:hover {
-    color: #222324
-}
+/*.nav-item a:hover, a.nav-item:hover {*/
+/*    color: #222324*/
+/*}*/
 
-.nav-item a.is-active, a.nav-item.is-active {
-    color: #222324
-}
+/*.nav-item a.is-active, a.nav-item.is-active {*/
+/*    color: #222324*/
+/*}*/
 
-.nav-item a.is-tab, a.nav-item.is-tab {
-    border-bottom: 1px solid transparent;
-    border-top: 1px solid transparent;
-    padding-left: 12px;
-    padding-right: 12px
-}
+/*.nav-item a.is-tab, a.nav-item.is-tab {*/
+/*    border-bottom: 1px solid transparent;*/
+/*    border-top: 1px solid transparent;*/
+/*    padding-left: 12px;*/
+/*    padding-right: 12px*/
+/*}*/
 
-.nav-item a.is-tab:hover, a.nav-item.is-tab:hover {
-    border-bottom: 1px solid #1fc8db;
-    border-top: 1px solid transparent
-}
+/*.nav-item a.is-tab:hover, a.nav-item.is-tab:hover {*/
+/*    border-bottom: 1px solid #1fc8db;*/
+/*    border-top: 1px solid transparent*/
+/*}*/
 
-.nav-item a.is-tab.is-active, a.nav-item.is-tab.is-active {
-    border-bottom: 3px solid #1fc8db;
-    border-top: 3px solid transparent;
-    color: #1fc8db
-}
+/*.nav-item a.is-tab.is-active, a.nav-item.is-tab.is-active {*/
+/*    border-bottom: 3px solid #1fc8db;*/
+/*    border-top: 3px solid transparent;*/
+/*    color: #1fc8db*/
+/*}*/
 
-@media screen and (max-width: 768px) {
-    .nav-menu {
-        background-color: #fff;
-        box-shadow: 0 4px 7px rgba(17, 17, 17, 0.1);
-        left: 0;
-        display: none;
-        right: 0;
-        top: 100%;
-        position: absolute
-    }
+/*@media screen and (max-width: 768px) {*/
+/*    .nav-menu {*/
+/*        background-color: #fff;*/
+/*        box-shadow: 0 4px 7px rgba(17, 17, 17, 0.1);*/
+/*        left: 0;*/
+/*        display: none;*/
+/*        right: 0;*/
+/*        top: 100%;*/
+/*        position: absolute*/
+/*    }*/
 
-    .nav-menu .nav-item {
-        border-top: 1px solid rgba(211, 214, 219, 0.5);
-        padding: 10px
-    }
+/*    .nav-menu .nav-item {*/
+/*        border-top: 1px solid rgba(211, 214, 219, 0.5);*/
+/*        padding: 10px*/
+/*    }*/
 
-    .nav-menu.is-active {
-        display: block
-    }
-}
+/*    .nav-menu.is-active {*/
+/*        display: block*/
+/*    }*/
+/*}*/
 
 @media screen and (min-width: 769px) and (max-width: 979px) {
     .nav-menu {
@@ -4683,31 +4683,31 @@ a.box:active {
     width: 100%
 }
 
-.nav > .container > .nav-left > .nav-item:first-child:not(.is-tab) {
-    padding-left: 0
-}
+/*.nav > .container > .nav-left > .nav-item:first-child:not(.is-tab) {*/
+/*    padding-left: 0*/
+/*}*/
 
-.nav > .container > .nav-right > .nav-item:last-child:not(.is-tab) {
-    padding-right: 0
-}
+/*.nav > .container > .nav-right > .nav-item:last-child:not(.is-tab) {*/
+/*    padding-right: 0*/
+/*}*/
 
-.container > .nav > .nav-left > .nav-item:first-child:not(.is-tab) {
-    padding-left: 0
-}
+/*.container > .nav > .nav-left > .nav-item:first-child:not(.is-tab) {*/
+/*    padding-left: 0*/
+/*}*/
 
-.container > .nav > .nav-right > .nav-item:last-child:not(.is-tab) {
-    padding-right: 0
-}
+/*.container > .nav > .nav-right > .nav-item:last-child:not(.is-tab) {*/
+/*    padding-right: 0*/
+/*}*/
 
-.nav.has-shadow {
-    box-shadow: 0 2px 3px rgba(17, 17, 17, 0.1)
-}
+/*.nav.has-shadow {*/
+/*    box-shadow: 0 2px 3px rgba(17, 17, 17, 0.1)*/
+/*}*/
 
-@media screen and (max-width: 979px) {
-    .nav > .container > .nav-left > .nav-item.is-brand:first-child, .container > .nav > .nav-left > .nav-item.is-brand:first-child {
-        padding-left: 20px
-    }
-}
+/*@media screen and (max-width: 979px) {*/
+/*    .nav > .container > .nav-left > .nav-item.is-brand:first-child, .container > .nav > .nav-left > .nav-item.is-brand:first-child {*/
+/*        padding-left: 20px*/
+/*    }*/
+/*}*/
 
 .pagination {
     align-items: center;
@@ -5139,13 +5139,13 @@ a.panel-block:hover {
     }
 }
 
-.hero.is-white a.nav-item, .hero.is-white .nav-item a:not(.button) {
-    color: rgba(17, 17, 17, 0.5)
-}
+/*.hero.is-white a.nav-item, .hero.is-white .nav-item a:not(.button) {*/
+/*    color: rgba(17, 17, 17, 0.5)*/
+/*}*/
 
-.hero.is-white a.nav-item:hover, .hero.is-white a.nav-item.is-active, .hero.is-white .nav-item a:not(.button):hover, .hero.is-white .nav-item a:not(.button).is-active {
-    color: #111
-}
+/*.hero.is-white a.nav-item:hover, .hero.is-white a.nav-item.is-active, .hero.is-white .nav-item a:not(.button):hover, .hero.is-white .nav-item a:not(.button).is-active {*/
+/*    color: #111*/
+/*}*/
 
 .hero.is-white .tabs a {
     color: #111;
@@ -5227,13 +5227,13 @@ a.panel-block:hover {
     }
 }
 
-.hero.is-black a.nav-item, .hero.is-black .nav-item a:not(.button) {
-    color: rgba(255, 255, 255, 0.5)
-}
+/*.hero.is-black a.nav-item, .hero.is-black .nav-item a:not(.button) {*/
+/*    color: rgba(255, 255, 255, 0.5)*/
+/*}*/
 
-.hero.is-black a.nav-item:hover, .hero.is-black a.nav-item.is-active, .hero.is-black .nav-item a:not(.button):hover, .hero.is-black .nav-item a:not(.button).is-active {
-    color: #fff
-}
+/*.hero.is-black a.nav-item:hover, .hero.is-black a.nav-item.is-active, .hero.is-black .nav-item a:not(.button):hover, .hero.is-black .nav-item a:not(.button).is-active {*/
+/*    color: #fff*/
+/*}*/
 
 .hero.is-black .tabs a {
     color: #fff;
@@ -5315,13 +5315,13 @@ a.panel-block:hover {
     }
 }
 
-.hero.is-light a.nav-item, .hero.is-light .nav-item a:not(.button) {
-    color: rgba(105, 112, 122, 0.5)
-}
+/*.hero.is-light a.nav-item, .hero.is-light .nav-item a:not(.button) {*/
+/*    color: rgba(105, 112, 122, 0.5)*/
+/*}*/
 
-.hero.is-light a.nav-item:hover, .hero.is-light a.nav-item.is-active, .hero.is-light .nav-item a:not(.button):hover, .hero.is-light .nav-item a:not(.button).is-active {
-    color: #69707a
-}
+/*.hero.is-light a.nav-item:hover, .hero.is-light a.nav-item.is-active, .hero.is-light .nav-item a:not(.button):hover, .hero.is-light .nav-item a:not(.button).is-active {*/
+/*    color: #69707a*/
+/*}*/
 
 .hero.is-light .tabs a {
     color: #69707a;
@@ -7395,45 +7395,45 @@ input[disabled]:hover {
     margin-left: 260px
 }
 
-footer {
-    width: 100%;
-    position: relative;
-    z-index: 8;
-    border-top: 1px solid #eeeeee
-}
+/*footer {*/
+/*    width: 100%;*/
+/*    position: relative;*/
+/*    z-index: 8;*/
+/*    border-top: 1px solid #eeeeee*/
+/*}*/
 
-footer .wrap-f {
-    margin-left: 30px;
-    margin-right: 30px;
-    padding: 20px 10px
-}
+/*footer .wrap-f {*/
+/*    margin-left: 30px;*/
+/*    margin-right: 30px;*/
+/*    padding: 20px 10px*/
+/*}*/
 
-footer .wrap-f .logo_f.level-item {
-    margin-right: 30px
-}
+/*footer .wrap-f .logo_f.level-item {*/
+/*    margin-right: 30px*/
+/*}*/
 
-footer .wrap-f .logo_f img {
-    max-height: 18px;
-    vertical-align: middle
-}
+/*footer .wrap-f .logo_f img {*/
+/*    max-height: 18px;*/
+/*    vertical-align: middle*/
+/*}*/
 
-footer .wrap-f ul li {
-    font-size: 11px
-}
+/*footer .wrap-f ul li {*/
+/*    font-size: 11px*/
+/*}*/
 
-footer .wrap-f ul li:after {
-    content: '|';
-    margin-left: 10px
-}
+/*footer .wrap-f ul li:after {*/
+/*    content: '|';*/
+/*    margin-left: 10px*/
+/*}*/
 
-footer .wrap-f ul li:last-child:after {
-    content: normal
-}
+/*footer .wrap-f ul li:last-child:after {*/
+/*    content: normal*/
+/*}*/
 
-footer .wrap-f .copyright {
-    font-size: 1rem;
-    color: #888888
-}
+/*footer .wrap-f .copyright {*/
+/*    font-size: 1rem;*/
+/*    color: #888888*/
+/*}*/
 
 .wrap-static .bread-crumbs.tabs {
     padding: 12px 20px;
@@ -8054,10 +8054,10 @@ footer .wrap-f .copyright {
         text-align: center
     }
 
-    footer .wrap-f .logo_f.level-item {
-        margin-right: 0px;
-        margin-bottom: 10px
-    }
+    /*footer .wrap-f .logo_f.level-item {*/
+    /*    margin-right: 0px;*/
+    /*    margin-bottom: 10px*/
+    /*}*/
 
     .level-left .level-item:not(:last-child), .level-right .level-item:not(:last-child) {
         margin-right: 0px

@@ -104,6 +104,19 @@
 
     jQuery(document).ready(function() {
         indexPage.init();
+        $(window).scroll(function() {
+            // if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            //     alert("bottom!");
+            // }
+            if($(window).scrollTop() > 72) {
+                $('.filters_full').addClass('top-72')
+                $('.filters_full').removeClass('top');
+            }
+            if($(window).scrollTop() < 72) {
+                $('.filters_full').addClass('top');
+                $('.filters_full').removeClass('top-72');
+            }
+        });
         $('#keyword').keypress(function(ev) {
             if (ev.keyCode === 13) {
                 onClickSearch();

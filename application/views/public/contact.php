@@ -18,7 +18,7 @@
             <div class="c_main_in ab_main_in mt360 pb-0" style="background: white">
                 <div class="form_main row form_contact">
                     <div id="mw_wp_form_mw-wp-form-259" class="mw_wp_form mw_wp_form_input w-100">
-                        <form method="post" action="" enctype="multipart/form-data"><h3 class="medium">お問い合わせフォーム</h3>
+                        <form method="post" id="contact_form"><h3 class="medium">お問い合わせフォーム</h3>
                             <h3 class="medium confirm_medium">入力内容確認</h3>
                             <div class="box_gray">
                                 <p>下記のフォームよりお気軽にご相談ください。<br>
@@ -29,59 +29,71 @@
 
                             <dl class="">
                                 <dt>会社名</dt>
-                                <dd><input type="text" name="company_name" size="60" value="">
+                                <dd>
+                                    <span></span>
+                                    <input type="text" name="company_name" size="60" value="">
                                     例：株式会社ハーマンドット
                                 </dd>
                             </dl>
                             <dl class="">
                                 <dt>ご担当者名<span class="cr-require">必須</span></dt>
-                                <dd><input type="text" name="charger" size="60" value="">
+                                <dd>
+                                    <span></span>
+                                    <input type="text" name="charger" size="60" value="" required>
                                     例：山田 太郎
                                 </dd>
                             </dl>
                             <dl class="">
                                 <dt>電話番号</dt>
-                                <dd><input type="text" name="tel" size="60" value="">
+                                <dd>
+                                    <span></span>
+                                    <input type="text" name="tel" size="60" value="">
                                     例：090-1234-5678
                                 </dd>
                             </dl>
                             <dl class="">
                                 <dt>メールアドレス<span class="cr-require">必須</span></dt>
-                                <dd><input type="email" name="email" size="60" value=""
-                                           data-conv-half-alphanumeric="true">
+                                <dd>
+                                    <span></span>
+                                    <input type="email" name="email" size="60" value=""
+                                           data-conv-half-alphanumeric="true" required>
                                     例：info@hermandot.co.jp
                                 </dd>
                             </dl>
                             <dl class="">
                                 <dt>御社URL</dt>
-                                <dd><input type="text" name="url" size="60" value="">
+                                <dd>
+                                    <span></span>
+                                    <input type="text" name="url" size="60" value="">
                                     例：https://hermandot.co.jp/cms
                                 </dd>
                             </dl>
                             <dl class="">
                                 <dt class="act">お問い合わせ内容<span class="cr-require">必須</span></dt>
-                                <dd><textarea name="content" cols="50" rows="5"></textarea>
+                                <dd>
+                                    <span></span>
+                                    <textarea name="content" cols="50" rows="5" required></textarea>
                                 </dd>
                             </dl>
                             <div class="btn_wrap">
                                 <div class="confirm">
                                     <p>
-                                        <button type="submit" name="submitConfirm" value="confirm" class="btn g_btn">
+                                        <button type="submit" id="submit_btn" name="submitConfirm" value="confirm" class="btn g_btn">
                                             入力内容を確認する
                                         </button>
                                     </p>
                                     <p class="effect slideUp delay_06 active">※折り返し弊社からご連絡いたします。</p>
                                 </div>
-                                <div class="back"></div>
-                                <div class="submitsend"></div>
+                                <div class="back" style="display: none">
+                                    <button type="submit" name="submitBack" value="back" class="btn g_btn btn_back">戻る</button>
+                                </div>
+                                <div class="submitsend" style="display:none;">
+                                    <button type="submit" name="mwform_bsubmit-329" id="send_btn" value="send" class="submitsend btn g_btn wpcf7-submit">送信する</button>
+                                </div>
                             </div>
-                            <input type="hidden" id="mw_wp_form_token" name="mw_wp_form_token" value="afa0d08bbb"><input
-                                    type="hidden" name="_wp_http_referer" value="/contact/"><input type="hidden"
-                                                                                                   name="mw-wp-form-form-id"
-                                                                                                   value="259"><input
-                                    type="hidden" name="mw-wp-form-form-verify-token"
-                                    value="73b2064780428439aaeac7c4216fbfaac5915a09"></form>
-                        <!-- end .mw_wp_form --></div>
+                        </form>
+                        <!-- end .mw_wp_form -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,7 +103,11 @@
 </div>
 <style type="text/css">
     header>div.row{
-        max-width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -12.5px;
+        margin-left: -12.5px;
+        max-width: unset;
     }
     nav#dark {
         background: #0d1422 !important;
@@ -202,12 +218,14 @@
         display: flex;
         width: 100%;
         padding: 30px 30px;
+        margin-bottom: 0;
         border-top: 1px solid #D3D2D2;
         justify-content: space-between;
     }
     .form_main form dl dt {
         font-size: 1.4rem;
         color: #646263;
+        padding: 0 !important;
         font-weight: 400;
         display: -webkit-box;
         display: -webkit-flex;
@@ -228,20 +246,19 @@
         width: -webkit-calc(100% - 560px);
         width: -moz-calc(100% - 560px);
         width: calc(100% - 560px);
-        padding-right: 45px;
-        padding-top: 10px;
         position: relative;
     }
     .form_main form dl dd {
         width: 540px;
         position: relative;
-        font-size: 15px;
+        font-size: 1.4rem;
+        margin-bottom: 0;
     }
     .form_main form dl dd input[type="text"], .form_main form dl dd input[type="number"], .form_main form dl dd input[type="email"], .form_main form dl dd input[type="url"] {
         -moz-border-radius: 5px;
         border-radius: 5px;
         width: 550px;
-        height: 60px;
+        height: 45px;
         padding: 6px 10px;
         outline: none;
         font-size: 1.8rem;
@@ -257,13 +274,12 @@
         /* line-height: 22px; */
         font-size: 13px;
         width: 40px;
-        width: 40px;
         text-align: center;
         border-radius: 5px;
         padding: 0;
         color: #fff;
         position: absolute;
-        top: 13.3px;
+        top: 5px;
         right: 0;
         margin: auto;
     }
@@ -416,6 +432,56 @@
     }
 </style>
 <script type="text/javascript">
+    $('#submit_btn').click(function () {
+        console.log($('[name=charger]').val() !== "" && $('[name=email]').val() !== "" && $('[name=content]').val() !== "")
+        if($('[name=charger]').val() !== "" && $('[name=email]').val() !== "" && $('[name=content]').val() !== ""){
+            event.preventDefault();
+            $('input').each(function () {
+                let val = $(this).val();
+                if(val !== ""){
+                    $(this).prev().text(val);
+                }
+                $(this).attr('type', 'hidden');
+            })
+
+            let val = $('[name=content]').val();
+            $('[name=content]').prev().text(val);
+            $('[name=content]').hide()
+            $('.confirm').hide();
+            $('.back').show();
+            $('.submitsend').show();
+        }
+    })
+    $('.back').click(function () {
+        event.preventDefault();
+        $('input').each(function () {
+            $(this).attr('type', 'text');
+            $(this).prev().empty()
+        })
+        $('[name=content]').prev().empty();
+        $('[name=content]').show()
+        $('.confirm').show();
+        $('.back').hide();
+        $('.submitsend').hide();
+    })
+    $('#send_btn').click(function () {
+        event.preventDefault();
+        let paramObj = new FormData($("#contact_form")[0]);
+        $.ajax({
+            url: HOST_URL + "talents/sendcontact",
+            type: 'post',
+            data: paramObj,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                console.log(response);
+                if(response.status === true){
+                }else{
+                }
+            },
+        });
+
+    })
     $(window).on("load", function () {
         $(".web-in").addClass("fade-in")
     })

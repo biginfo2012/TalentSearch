@@ -1,6 +1,6 @@
 <footer>
     <div class="container">
-        <div class="row">
+        <div class="row" style="">
             <div class="col-lg-3 col-md-6">
                 <div class="collapse dont-collapse-sm links" id="collapse_1">
                     <ul>

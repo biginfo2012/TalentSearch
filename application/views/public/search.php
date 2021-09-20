@@ -1,6 +1,6 @@
 <body>
 	<main class="bg_color">
-		<div class="filters_full" style="padding-bottom: 15px;">
+		<div class="filters_full" style="padding-bottom: 15px; top:72px">
             <div class="ql-blank" style="height:70px;"></div>
 		    <div class="container clearfix">
                 <form method="post" action="<?=base_url()?>talents/search" id="kt_search_form">
@@ -1012,7 +1012,7 @@
             
         </div> -->
 		
-		<div class="content d-flex flex-column flex-column-fluid isotope-wrapper" id="kt_content" style="padding-top: 70px">
+		<div class="content d-flex flex-column flex-column-fluid isotope-wrapper" id="kt_content" style="padding-top: 140px">
 			<!--begin::Entry-->
 			<div class="d-flex flex-column-fluid isotope-itemt">
 				<!--begin::Container-->
@@ -1360,15 +1360,24 @@
     <script src="<?=asset_url()?>scripts/search.js"></script>
     <style type="text/css">
         header{
-            display: none !important;
+            position: absolute !important;
         }
         .ql-blank{
             height: 0 !important;
         }
         .filters_full{
-            position: fixed !important;
+            position: absolute;
             width: 100%;
             z-index: 1;
+        }
+
+        .top{
+            top : 72px;
+            position : absolute !important;
+        }
+        .top-72{
+            top : 0px !important;
+            position : fixed !important;
         }
         .btn-group-toggle>label:hover{
             background-color: #81fff8 !important;

@@ -503,14 +503,14 @@ input, button, select, optgroup, textarea {
 }
 
 .logouttop-usermenu__item--search a {
-    background: url(/talentsearch/assets/img/headermenu_search.png) no-repeat center top/26px auto;
+    background: url(/assets/img/headermenu_search.png) no-repeat center top/26px auto;
 }
 
 .logouttop-usermenu__item--contact a {
-    background: url(/talentsearch/assets/img/headermenu_contact.png) no-repeat center top/36px auto;
+    background: url(/assets/img/headermenu_contact.png) no-repeat center top/36px auto;
 }
 .logouttop-usermenu__item--favourite a {
-    background: url(/talentsearch/assets/img/headermenu_help.png) no-repeat center top/20px auto;
+    background: url(/assets/img/headermenu_help.png) no-repeat center top/20px auto;
 }
 
 .review_card .user_info figure{

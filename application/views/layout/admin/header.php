@@ -7,7 +7,7 @@
             </a>
         </div>
         <div class="col-md-9">
-            <ul id="top_menu" style="float:right; padding-top: 0px;">
+            <ul id="top_menu" style="float:right; padding-top: 15px; padding-right: 25px;">
                 <?php if($user) { ?>
                     <li class="nav-item dropdown dropdown-authentication">
                         <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

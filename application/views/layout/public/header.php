@@ -15,7 +15,7 @@
             </ul>
         </div>
         <div class="col-md-3">
-            <ul id="top_menu" style="float:right; padding-top: 20px; padding-right: 15px;">
+            <ul id="top_menu" style="float:right; padding-top: 15px; padding-right: 15px;">
                 <?php if($user) { ?>
                     <li class="nav-item dropdown dropdown-authentication">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

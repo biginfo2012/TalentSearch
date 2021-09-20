@@ -617,7 +617,20 @@ class Talents extends PublicController
         $data["tcampaign"] = $this->tcampaign->getDataByParam(array("campaign_id" => $campaign_id));
 //        print_r($data["tcampaign"]);
 //        die();
+        if (!isset($filter["pagination"])) {
+            $pagination["page"] = 1;
+        } else {
+            $pagination = $filter["pagination"];
+        }
 
+        if (isset($filter["per_page"]) && !empty($filter["per_page"])) {
+            $pagination["perpage"] = $filter["per_page"];
+        } else {
+            $pagination["perpage"] = 10;
+        }
+
+        $limit["start"] = ($pagination["page"] - 1) * $pagination["perpage"];
+        $limit["end"] = $pagination["perpage"];
         $filter["query"] = array();
         if (isset($filter["age_from"])) {
             $filter["query"]["age_from"] = $filter["age_from"];
@@ -818,7 +831,70 @@ class Talents extends PublicController
             $filter["query"]["desc"] = $filter["desc"];
             $data["desc"] = $filter["desc"];
         }
-        $data["talents"] = $this->talent->search($filter["query"]);
+
+        if (isset($filter["talent"])) {
+            $filter["query"]["talent"] = $filter["talent"];
+            $data["talent"] = $filter["talent"];
+        }
+        if (isset($filter["sort"])) {
+            $filter["query"]["sort"] = $filter["sort"];
+            $data["sort"] = $filter["sort"];
+        }
+        if (isset($filter["desc"])) {
+            $filter["query"]["desc"] = $filter["desc"];
+            $data["desc"] = $filter["desc"];
+        }
+        $data["talents"] = $this->talent->search($filter["query"], $limit);
+        if (!isset($filter["query"])) {
+            $pagination["total"] = $this->talent->count();
+        } else {
+            $pagination["total"] = $this->talent->count($filter["query"]);
+        }
+        if ($pagination["total"] % $pagination["perpage"] == 0) {
+            $pagination["total_page"] = (int)($pagination["total"] / $pagination["perpage"]);
+        } else {
+            $pagination["total_page"] = (int)($pagination["total"] / $pagination["perpage"] + 1);
+        }
+        $pagination["pages"] = ceil($pagination["total"] / $pagination["perpage"]);
+        if (($pagination["page"] % 5) == 0) {
+            $pagination["start_page"] = ((int)$pagination["page"] / 5 - 1) * 5 + 1;
+        } else {
+            $pagination["start_page"] = ((int)($pagination["page"] / 5)) * 5 + 1;
+            // $pagination["start_page"] = ($pagination["page"]/5 + 1) * 5;
+        }
+        $pagination["end_page"] = $pagination["start_page"] + 5;
+//print_r($filter["query"]);
+        $data["query"] = $filter["query"];
+
+        if (empty($data["query"]["level"]))
+            $data["query"]["level"] = array();
+        foreach ($data["query"]["level"] as $key => $val) {
+            if (!empty($val)) {
+                $data["query"]["level"]["label"] = empty($data["query"]["level"]["label"]) ? $this->talent->level[$key - 1] : $data["query"]["level"]["label"] . ", " . $this->talent->level[$key - 1];
+            }
+        }
+        if (empty($data["age_label"]))
+            $data["age_label"] = "";
+        if (!empty($data["age_from"])) {
+            $data['age_label'] .= $data["age_from"] . "歳 ~ ";
+        }
+        if (!empty($data["age_to"])) {
+            if (empty($data["age_label"])) {
+                $data['age_label'] .= "~ " . $data["age_to"] . "歳";
+            } else {
+                $data['age_label'] .= $data["age_to"] . "歳";
+            }
+
+        }
+
+        if (empty($data["query"]["gender"]))
+            $data["query"]["gender"] = array();
+        foreach ($data["query"]["gender"] as $key => $val) {
+            if (!empty($val)) {
+                $data["query"]["gender"]["label"] = empty($data["query"]["gender"]["label"]) ? $this->talent->gender[$key - 1] : $data["query"]["gender"]["label"] . ", " . $this->talent->gender[$key - 1];
+            }
+        }
+        $data["pagination"] = $pagination;
 
 //        $keyword_search = $filter['keyword_search'];
 //        if($keyword_search === 'keyword'){
@@ -1582,14 +1658,12 @@ class Talents extends PublicController
         $config["per_page"] = $pagination["perpage"];
 
         $data["user"] = $this->user_data();
-        $data["sticky"] = true;
 
         $this->render("public/favourite", $data);
     }
 
     public function contact(){
         $data["user"] = $this->user_data();
-        $data["sticky"] = true;
         $this->render("public/contact", $data);
     }
 
@@ -1820,5 +1894,95 @@ class Talents extends PublicController
 
 
 
+    }
+
+    public function sendcontact(){
+        $p_data = $this->input->post();
+        $config = Array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'appcondo2020@gmail.com',
+            'smtp_pass' => 'jrxzevycvzazuerb',
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8'
+        );
+        $htmlcontent = '<p>' . $p_data['charger'] . '様<br><br>'
+
+        . 'この度は弊社サイトにお問い合わせをいただきまして、誠にありがとうございます。<br>
+下記の内容で承りましたので、後日担当者よりご連絡いたします。<br><br><br>
+
+
+■お問い合わせ内容-----------------------------------<br><br>
+
+【 会社名 】' . $p_data['company_name'] . '<br>
+【 ご担当者名 】' . $p_data['charger'] . '<br>
+【 電話番号 】' . $p_data['tel'] . '<br>
+【 メールアドレス 】' . $p_data['email'] . '<br>
+【 会社URL 】' . $p_data['url'] . '<br>
+
+【 お問い合わせ内容 】' . $p_data['content'] . '<br><br>
+
+-------------------------------------------------<br><br><br>
+
+
+https://smartaicasting.jp<br><br>
+
+※本メールは自動送信しております。<br>
+※何かご不明な点がございましたら、遠慮なくお問い合せを頂きますようお願い致します。<br>
+※万が一7営業日以上経っても連絡がない場合は、再度お問合せをお願い致します。</p>
+';
+        $this->load->library('email');
+        //$this->load->library('email', $config);
+        $this->email->initialize($config);
+        $this->email->set_mailtype("html");
+        $this->email->to($p_data['email']);
+        $this->email->from('appcondo2020@gmail.com', 'SMART AI CASTING');
+        $this->email->subject('お問い合わせ');
+        $this->email->message($htmlcontent);
+        $this->email->set_newline("\r\n");
+
+// Set to, from, message, etc.
+
+        $result = $this->email->send();
+
+        $htmlcontent2 = '<p>SMART AI CASTING WEBサイトより、<br>
+お問い合わせを受け付けました。<br><br><br>
+
+
+■お問い合わせ内容-----------------------------------<br><br>
+
+【 会社名 】' . $p_data['company_name'] . '<br>
+【 ご担当者名 】' . $p_data['charger'] . '<br>
+【 電話番号 】' . $p_data['tel'] . '<br>
+【 メールアドレス 】' . $p_data['email'] . '<br>
+【 会社URL 】' . $p_data['url'] . '<br>
+
+【 お問い合わせ内容 】' . $p_data['content'] . '<br><br>
+
+-------------------------------------------------お問い合わせ内容▲<br><br><br>
+
+
+送信日時：' . date('Y/m/d H:i:s') . '<br><br>
+
+ホスト名：g70.222-224-229.ppp.wakwak.ne.jp</p>
+';
+        $this->email->to('info@hermandot.co.jp');
+        $this->email->from('appcondo2020@gmail.com', 'SMART AI CASTING');
+        $this->email->subject('お問い合わせ');
+        $this->email->message($htmlcontent2);
+        $this->email->set_newline("\r\n");
+
+        $result2 = $this->email->send();
+
+        if($result === true && $result2 === true){
+            $this->json(array("success" => true, "msg" => "成 功!"));
+        }
+        else if($result2 === true){
+
+        }
+        else{
+            $this->json(array("error" => true, "msg" => "成 功!"));
+        }
     }
 }

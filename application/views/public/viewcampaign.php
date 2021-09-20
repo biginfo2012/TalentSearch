@@ -1,15 +1,15 @@
 <body>
 <main class="bg_color">
-    <div class="filters_full" style="padding-bottom: 15px; z-index: 115">
+    <div class="filters_full" style="padding-bottom: 15px; z-index: 115; top:72px">
         <div class="ql-blank" style="height:70px;"></div>
         <div class="container clearfix pl-0">
             <form method="post" id="kt_search_form">
                 <input type="hidden" id="campaign_id" name="campaign_id"
                        value="<?= isset($campaign['id']) ? $campaign['id'] : '' ?>">
-<!--                <input type="hidden" id="page" name="pagination[page]" value="--><?//=$pagination["page"]?><!--">-->
-<!--                <input type="hidden" id="sort" name="sort" value="--><?//=isset($query["sort"])?$query["sort"]:''?><!--">-->
-<!--                <input type="hidden" id="desc" name="desc" value="--><?//=isset($query["desc"])?$query["desc"]:''?><!--">-->
-<!--                <input type="hidden" id="per_page" name="per_page" value="--><?//=$pagination["perpage"]?><!--">-->
+                <input type="hidden" id="page" name="pagination[page]" value="1">
+                <input type="hidden" id="sort" name="sort" value="<?=isset($query["sort"])?$query["sort"]:''?>">
+                <input type="hidden" id="desc" name="desc" value="<?=isset($query["desc"])?$query["desc"]:''?>">
+                <input type="hidden" id="per_page" name="per_page" value="10">
 
                 <div class="dropdown-search">
                     <a class="btn btn-outline-secondary dropdown-searchbtn" content-name="content-level"><span>ランク</span></a>
@@ -934,7 +934,7 @@
         </div>
         <!-- /collapseSearch -->
     </div>
-    <div class="contents">
+    <div class="contents" style="padding-top: 110px;">
         <div class="side open-side-search" style="top: 60px; display: none;">
             <div class="box-search">
                 <div class="side-nav-account">
@@ -1394,15 +1394,22 @@
 <link href="<?= asset_url() ?>/css/campaign.css" rel="stylesheet" type="text/css"/>
 <style type="text/css">
     header{
-        display: none !important;
+       position: absolute !important;
     }
     .ql-blank{
         height: 0 !important;
     }
     .filters_full{
-        position: fixed !important;
         width: 100%;
-        z-index: 1;
+        position: absolute;
+    }
+    .top{
+        top : 72px;
+        position : absolute !important;
+    }
+    .top-72{
+        top : 0px !important;
+        position : fixed !important;
     }
     .btn-group-toggle>label:hover{
         background-color: #81fff8 !important;
@@ -1415,12 +1422,5 @@
         color: #3699FF !important;
     }
 </style>
-<!--<script src="--><?//= asset_url() ?><!--js/application.js"></script>-->
-<!--<script src="--><?//= asset_url() ?><!--scripts/client_influencer_group.js"></script>-->
-<!--<script src="--><?//= asset_url() ?><!--scripts/slider_menu.js"></script>-->
-
-
-<!--<script src="--><?//= asset_url() ?><!--scripts/clipboard.js"></script>-->
-<!--<script src="--><?//= asset_url() ?><!--scripts/jquery.infinte.js"></script>-->
 </body>
 </html>
