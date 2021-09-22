@@ -55,7 +55,7 @@
                                 <dt>メールアドレス<span class="cr-require">必須</span></dt>
                                 <dd>
                                     <span></span>
-                                    <input type="email" name="email" size="60" value=""
+                                    <input type="email" id="contact_email" name="email" size="60" value=""
                                            data-conv-half-alphanumeric="true" required>
                                     例：info@hermandot.co.jp
                                 </dd>
@@ -433,8 +433,7 @@
 </style>
 <script type="text/javascript">
     $('#submit_btn').click(function () {
-        console.log($('[name=charger]').val() !== "" && $('[name=email]').val() !== "" && $('[name=content]').val() !== "")
-        if($('[name=charger]').val() !== "" && $('[name=email]').val() !== "" && $('[name=content]').val() !== ""){
+        if($('[name=charger]').val() !== "" && $('#contact_email').val() !== "" && $('[name=content]').val() !== ""){
             event.preventDefault();
             $('input').each(function () {
                 let val = $(this).val();

@@ -1166,7 +1166,7 @@
                                                 <!--begin::Contacts-->
                                                 <div class="d-flex flex-wrap my-2">
                                                     <span  class="text-muted font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                                        <h3><?=empty($item["name"]) ? '名前ない' : $item["name"]?></h3>
+                                                        <h3><?=empty($item["profile_name"]) ? '名前ない' : $item["profile_name"]?></h3>
                                                         <p style="color: <?=$item["gender"]== 1 ? '#3699ff' : ($item["gender"]== 2 ? '#f9316c' : 'black')?>;"><?=$item["gender"]== 1 ? '男性' : ($item["gender"]== 2 ? '女性' : 'その他')?> <?=calcAge($item['birthday'])?>歳</p>
                                                         <p>フォロワー数: <?=number_format($item["it_fw"], 0, '.', ',')?></p>
                                                         <p>活動拠点: <?=$item["activity_base"]?></p>

@@ -1481,6 +1481,7 @@ class Talents extends PublicController
         $data = $this->input->post();
         // If import request is submitted
         //if($data['csv']){
+        $id = $data['id'];
 
         // Form field validation rules
         $this->form_validation->set_rules('csv', 'CSV file', 'callback_file_check');
@@ -1488,7 +1489,6 @@ class Talents extends PublicController
         // Validate submitted form data
         //if($this->form_validation->run() == true){
         $insertCount = $updateCount = $rowCount = $notAddCount = 0;
-
 
         // If file uploaded
         if (is_uploaded_file($_FILES['csv']['tmp_name'])) {
@@ -1503,11 +1503,25 @@ class Talents extends PublicController
 
             // Insert/update CSV data into database
             if (!empty($csvData)) {
+                $temp = "";
                 foreach ($csvData as $row) {
 //                    print_r($row);
 //                    die();
 //                    $rowCount++;
-
+                    //$talents["level"] = $row[' '];
+                    $temp = $temp . " " . $row["ID"];
+                    $temp = $temp . " " . $row["プロフィール表示名"];
+                    $temp = $temp . " " . $row["フォロワー数"];
+                    $temp = $temp . " " . $row["InstagramプロフィールURL"];
+                    $temp = $temp . " " . $row["依頼金額"];
+                    $temp = $temp . " " . $row["注意"];
+                    $temp = $temp . " " . $row["IGfw男性比率"];
+                    $temp = $temp . " " . $row["IGfw女性比率"];
+                    $temp = $temp . " " . $row["年齢"];
+                    $temp = $temp . " " . $row["活動拠点"];
+                    $temp = $temp . " " . $row["ご職業"];
+                    $temp = $temp . " " . $row["投稿ジャンル（複数選択可）"];
+                    $temp = $temp . " " . $row["契約書"];
                     $talents["user_id"] = $row["ID"];
                     $talents["profile_name"] = $row["プロフィール表示名"];
                     $talents["it_fw"] = $row["フォロワー数"];
@@ -1522,57 +1536,106 @@ class Talents extends PublicController
                     $talents["genre"] = $row["投稿ジャンル（複数選択可）"];
                     $talents["contract"] = $row["契約書"];
                     $talents["acq_record"] = $row["獲得実績"];
+                    $temp = $temp . " " . $row["獲得実績"];
                     $talents["pr_point"] = $row["PRポイント"];
+                    $temp = $temp . " " . $row["PRポイント"];
                     if($row["性別"] === "女性"){
                         $talents["gender"] = 2;
                     }
                     else{
                         $talents["gender"] = 1;
                     }
+                    $temp = $temp . " " . $row["性別"];
                     $talents["eg_rate"] = $row["平均EG率(%)"];
+                    $temp = $temp . " " . $row["平均EG率(%)"];
                     $talents["app_post"] = $row["投稿での顔出し"];
+                    $temp = $temp . " " . $row["投稿での顔出し"];
                     $talents["charge_name"] = $row["担当者名"];
+                    $temp = $temp . " " . $row["担当者名"];
                     $talents["belonging"] = $row["所属"];
+                    $temp = $temp . " " . $row["所属"];
                     $talents["post_result"] = $row["投稿実績"];
+                    $temp = $temp . " " . $row["投稿実績"];
                     $talents["tw_fw"] = $row["twitterフォロワー"];
+                    $temp = $temp . " " . $row["twitterフォロワー"];
                     $talents["tw_url"] = $row["Twitterアカウント URL"];
+                    $temp = $temp . " " . $row["Twitterアカウント URL"];
                     $talents["fb_fw"] = $row["FBfw"];
+                    $temp = $temp . " " . $row["FBfw"];
                     $talents["fb_url"] = $row["Facebookアカウント URL"];
+                    $temp = $temp . " " . $row["Facebookアカウント URL"];
                     $talents["yt_fw"] = $row["youtube登録者数"];
+                    $temp = $temp . " " . $row["youtube登録者数"];
                     $talents["yt_url"] = $row["YouTubeチャンネル URL"];
+                    $temp = $temp . " " . $row["YouTubeチャンネル URL"];
                     $talents["yt_female_ratio"] = $row["女性比率"];
+                    $temp = $temp . " " . $row["女性比率"];
                     $talents["yt_male_ratio"] = $row["男性比率"];
+                    $temp = $temp . " " . $row["男性比率"];
                     $talents["age_13"] = $row["13歳〜17歳"];
+                    $temp = $temp . " " . $row["13歳〜17歳"];
                     $talents["age_18"] = $row["18歳〜24歳"];
+                    $temp = $temp . " " . $row["18歳〜24歳"];
                     $talents["age_25"] = $row["25歳〜34歳"];
+                    $temp = $temp . " " . $row["25歳〜34歳"];
                     $talents["age_35"] = $row["35歳〜44歳"];
+                    $temp = $temp . " " . $row["35歳〜44歳"];
                     $talents["age_45"] = $row["45歳〜54歳"];
+                    $temp = $temp . " " . $row["45歳〜54歳"];
                     $talents["age_55"] = $row["55歳〜64歳"];
+                    $temp = $temp . " " . $row["55歳〜64歳"];
                     $talents["age_65"] = $row["65歳以上"];
+                    $temp = $temp . " " . $row["65歳以上"];
                     $talents["tt_fw"] = $row["TikTokfw数"];
+                    $temp = $temp . " " . $row["TikTokfw数"];
                     $talents["tt_url"] = $row["TikTokアカウント URL"];
+                    $temp = $temp . " " . $row["TikTokアカウント URL"];
                     $talents["blog_fw"] = $row["Blogfw数"];
+                    $temp = $temp . " " . $row["Blogfw数"];
                     $talents["blog_url"] = $row["ブログ URL"];
+                    $temp = $temp . " " . $row["ブログ URL"];
                     $talents["wear_fw"] = $row["wearfw数"];
+                    $temp = $temp . " " . $row["wearfw数"];
                     $talents["wear_url"] = $row["wearURL"];
+                    $temp = $temp . " " . $row["wearURL"];
                     $talents["sns_url"] = $row["その他のSNS URL"];
+                    $temp = $temp . " " . $row["その他のSNS URL"];
                     $talents["tel_number"] = $row["電話番号"];
+                    $temp = $temp . " " . $row["電話番号"];
                     $talents["zip_code"] = $row["郵便番号"];
+                    $temp = $temp . " " . $row["郵便番号"];
                     $talents["province"] = $row["都道府県"];
+                    $temp = $temp . " " . $row["都道府県"];
                     $talents["district_num"] = $row["市区町村・番地"];
+                    $temp = $temp . " " . $row["市区町村・番地"];
                     $talents["building_name"] = $row["マンション・ビル名"];
+                    $temp = $temp . " " . $row["マンション・ビル名"];
                     $talents["post"] = $row["宛名"];
+                    $temp = $temp . " " . $row["宛名"];
                     $talents["bank_name"] = $row["銀行名"];
+                    $temp = $temp . " " . $row["銀行名"];
                     $talents["branch_name"] = $row["支店名"];
+                    $temp = $temp . " " . $row["支店名"];
                     $talents["account_type"] = $row["口座種別"];
+                    $temp = $temp . " " . $row["口座種別"];
                     $talents["account_number"] = $row["口座番号"];
+                    $temp = $temp . " " . $row["口座番号"];
                     $talents["account_kana"] = $row["口座名義(カタカナまたは英数字) "];
+                    $temp = $temp . " " . $row["口座名義(カタカナまたは英数字) "];
                     $talents["name"] = $row["お名前"];
+                    $temp = $temp . " " . $row["お名前"];
                     $talents["birthday"] = $row["生年月日"];
+                    $temp = $temp . " " . $row["生年月日"];
                     $talents["email"] = $row["メールアドレス"];
+                    $temp = $temp . " " . $row["メールアドレス"];
                     $talents["line_id"] = $row["LINE ID"];
+                    $temp = $temp . " " . $row["LINE ID"];
                     $talents["timestampp"] = $row["タイムスタンプ"];
-                    $this->talent->setData($talents);
+                    $temp = $temp . " " . $row["タイムスタンプ"];
+                    $talent_id = $this->talent->setData($talents);
+                    $context['id'] = $talent_id;
+                    $context['content'] = $temp;
+                    $this->context->setData($context);
 
                 }
             }
@@ -1583,7 +1646,8 @@ class Talents extends PublicController
 //                $this->session->set_userdata('error_msg', 'Invalid file, please select only CSV file.');
 //            }
         //}
-        $this->json(array("success" => true, "msg" => "成 功!"));
+        return redirect('talents/view/' . $id);
+        //$this->json(array("success" => true, "msg" => "成 功!"));
     }
 
     public function favourite()
@@ -1899,11 +1963,11 @@ class Talents extends PublicController
     public function sendcontact(){
         $p_data = $this->input->post();
         $config = Array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.gmail.com',
+            'protocol' => 'ssmtp',
+            'smtp_host' => 'ssl://ssmtp.gmail.com',
             'smtp_port' => 465,
-            'smtp_user' => 'appcondo2020@gmail.com',
-            'smtp_pass' => 'jrxzevycvzazuerb',
+            'smtp_user' => 'info@hermandot.co.jp',
+            'smtp_pass' => '131313hd-',
             'mailtype'  => 'html',
             'charset'   => 'utf-8'
         );

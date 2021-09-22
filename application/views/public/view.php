@@ -28,7 +28,7 @@
                                                 </div>
                                             </div>
 
-                                            <h3 class="profile-username text-center"><?= $talent["name"]?></h3>
+                                            <h3 class="profile-username text-center"><?= $talent["profile_name"]?></h3>
 
                                             <p class="text-muted text-center"><?=$talent["province"] . " " . $talent["district_num"] . " " . $talent["building_name"] ?></p>
                                             <p class="text-muted text-center">Instagram: <?=number_format($talent["it_fw"], 0, '.', ',');?> <?=$talent['eg_rate'];?></p>
@@ -721,6 +721,7 @@
                                                 <div class="col-md-4 col-lg-4">
                                                     <div class="form-group">
                                                         <form id="csv_form" enctype="multipart/form-data" action="<?=base_url()?>talents/csvImport" method="post" name="send">
+                                                            <input name="id" value="<?=$talent["id"]?>" type="hidden">
                                                             <label class="form-label" style="display: block;margin-bottom: .375rem;font-weight: 600;font-size: 0.875rem;color: #5e7cac;">CSVファイル</label>
                                                             <button id="img_add" class="" onclick="openFile()" style="">ファイル選択</button>
                                                             <input type="file" class="d-none" id="form_csv_file" name="csv">
@@ -1143,6 +1144,21 @@
             //input1[0].files = e.target.files;
         }
     })
+    // $('#btn_submit').click(function () {
+    //     event.preventDefault();
+    //     var copyData = new FormData($("#csv_form")[0]);
+    //     $.ajax({
+    //         url: HOST_URL + "talents/csvImport",
+    //         type: 'post',
+    //         data: copyData,
+    //         contentType: false,
+    //         processData: false,
+    //     }).done(function (response) {
+    //         console.log(response);
+    //     })
+    //
+    //
+    // })
 </script>
 </body>
 </html>

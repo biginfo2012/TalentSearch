@@ -92,8 +92,8 @@ var KTDatatableRemoteAjaxDemo = function() {
                     }
                 },
             },{
-                field: 'name',
-                title: 'お名前:',
+                field: 'profile_name',
+                title: 'プロフィール表示名',
             }, {
                 field: 'nick_name',
                 title: '口座名義'
